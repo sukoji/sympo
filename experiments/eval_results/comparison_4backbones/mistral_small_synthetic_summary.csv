@@ -1,0 +1,4 @@
+backbone,condition,synthetic,Overall_mean_LLM,AutoOverall_mean
+mistral_small,C2_1round,true,0.6535,0.8285
+mistral_small,C3_3rounds,true,0.6720,0.8240
+mistral_small,C5_5rounds,true,0.6735,0.8330

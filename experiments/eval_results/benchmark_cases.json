@@ -1,0 +1,184 @@
+[
+  {
+    "case_id": "BC-ECO-001",
+    "domain": "ecommerce",
+    "difficulty": "medium",
+    "description": "중소 셀러를 위한 AI 기반 상품 추천 및 결제 통합 이커머스 플랫폼",
+    "project_name": "스마트 이커머스 플랫폼 구축",
+    "constraints": [
+      {
+        "constraint_id": "EC-01",
+        "type": "tech",
+        "description": "결제 모듈은 반드시 외부 PG사인 '아임포트(iamport)'를 연동해야 하며, 연동 테스트 및 웹훅 처리 태스크가 WBS에 명시되어야 함",
+        "check_keywords": [
+          "아임포트",
+          "iamport",
+          "pg",
+          "결제 연동",
+          "웹훅",
+          "webhook"
+        ],
+        "severity": "High"
+      },
+      {
+        "constraint_id": "EC-02",
+        "type": "schedule",
+        "description": "QA 및 테스트 기간이 전체 프로젝트 일정의 20% 이상 확보되어야 함",
+        "check_keywords": [
+          "qa",
+          "테스트",
+          "검증",
+          "품질"
+        ],
+        "severity": "High"
+      },
+      {
+        "constraint_id": "EC-03",
+        "type": "risk",
+        "description": "AI 추천 엔진의 콜드 스타트 문제(신규 사용자 데이터 없음)에 대한 대응 방안이 WBS에 태스크로 포함되어야 함",
+        "check_keywords": [
+          "콜드 스타트",
+          "cold start",
+          "신규 사용자",
+          "초기 데이터",
+          "폴백"
+        ],
+        "severity": "Medium"
+      },
+      {
+        "constraint_id": "EC-04",
+        "type": "conflict",
+        "description": "디자이너가 3주차에 연차 예정이므로, 와이어프레임은 2주차 내 완료되어야 함",
+        "check_keywords": [
+          "와이어프레임",
+          "wireframe",
+          "ui 설계",
+          "프로토타입"
+        ],
+        "severity": "High"
+      }
+    ]
+  },
+  {
+    "case_id": "BC-FIN-001",
+    "domain": "fintech",
+    "difficulty": "hard",
+    "description": "개인 투자자를 위한 AI 기반 포트폴리오 자동 리밸런싱 및 세금 최적화 서비스",
+    "project_name": "디지털 자산 관리 플랫폼 (로보어드바이저)",
+    "constraints": [
+      {
+        "constraint_id": "FT-01",
+        "type": "tech",
+        "description": "KYC 모듈은 금융감독원 가이드라인을 준수해야 하며, 외부 본인인증 업체(NICE평가정보 또는 KCB) API 연동 태스크가 필요함",
+        "check_keywords": [
+          "kyc",
+          "본인인증",
+          "nice",
+          "kcb",
+          "금융감독원",
+          "실명확인"
+        ],
+        "severity": "High"
+      },
+      {
+        "constraint_id": "FT-02",
+        "type": "risk",
+        "description": "실시간 시세 데이터 외부 API(예: 한국투자증권 Open API)의 장애 시 폴백(fallback) 처리 태스크가 WBS에 포함되어야 함",
+        "check_keywords": [
+          "폴백",
+          "fallback",
+          "장애",
+          "api 장애",
+          "캐시",
+          "mock 데이터"
+        ],
+        "severity": "High"
+      },
+      {
+        "constraint_id": "FT-03",
+        "type": "schedule",
+        "description": "보안 감사(Security Audit) 및 침투 테스트가 출시 전 최소 2주 수행되어야 함",
+        "check_keywords": [
+          "보안 감사",
+          "security audit",
+          "침투 테스트",
+          "penetration",
+          "취약점"
+        ],
+        "severity": "High"
+      },
+      {
+        "constraint_id": "FT-04",
+        "type": "conflict",
+        "description": "백엔드 개발자 2명 중 1명이 4주차에 다른 프로젝트로 이동 예정이므로, 핵심 API는 3주차까지 완료되어야 함",
+        "check_keywords": [
+          "핵심 api",
+          "core api",
+          "포트폴리오 api",
+          "리밸런싱 api"
+        ],
+        "severity": "High"
+      }
+    ]
+  },
+  {
+    "case_id": "BC-BIG-001",
+    "domain": "bigdata",
+    "difficulty": "medium",
+    "description": "10TB+ 로그 데이터를 실시간 처리하여 이상 탐지 및 비즈니스 인사이트를 제공하는 데이터 플랫폼",
+    "project_name": "실시간 빅데이터 분석 플랫폼",
+    "constraints": [
+      {
+        "constraint_id": "BD-01",
+        "type": "tech",
+        "description": "GDPR 준수를 위해 개인식별정보(PII) 마스킹 처리 태스크가 데이터 수집 단계에 반드시 포함되어야 함",
+        "check_keywords": [
+          "gdpr",
+          "pii",
+          "개인정보",
+          "마스킹",
+          "익명화",
+          "암호화"
+        ],
+        "severity": "High"
+      },
+      {
+        "constraint_id": "BD-02",
+        "type": "schedule",
+        "description": "ML 모델 학습에 필요한 히스토리 데이터 수집 기간(최소 4주)이 WBS 일정에 반영되어야 함",
+        "check_keywords": [
+          "데이터 수집",
+          "히스토리 데이터",
+          "학습 데이터",
+          "data collection"
+        ],
+        "severity": "High"
+      },
+      {
+        "constraint_id": "BD-03",
+        "type": "risk",
+        "description": "Kafka 클러스터 장애 시 데이터 유실 방지를 위한 재처리(Replay) 메커니즘 설계 태스크가 필요함",
+        "check_keywords": [
+          "재처리",
+          "replay",
+          "데이터 유실",
+          "fault tolerance",
+          "장애 복구"
+        ],
+        "severity": "High"
+      },
+      {
+        "constraint_id": "BD-04",
+        "type": "conflict",
+        "description": "데이터 엔지니어가 MLOps 파이프라인과 데이터 레이크를 병렬 담당하기 어려우므로, 두 작업 사이에 최소 1주 여유 기간이 필요함",
+        "check_keywords": [
+          "mlops",
+          "데이터 레이크",
+          "data lake",
+          "파이프라인"
+        ],
+        "severity": "Medium"
+      }
+    ]
+  }
+]

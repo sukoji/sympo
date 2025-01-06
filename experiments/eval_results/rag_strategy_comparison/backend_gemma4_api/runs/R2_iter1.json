@@ -1,0 +1,268 @@
+{
+  "backend": "gemma4-api",
+  "condition": "R2",
+  "rag_strategy": "hybrid",
+  "iter": 1,
+  "metrics": {
+    "timestamp": "2026-04-22 05:43:25",
+    "project_name": "AI 기반 고객 서비스 플랫폼 구축 프로젝트",
+    "model_backend": "gemma4-api",
+    "total_tasks": 66,
+    "debate_rounds": 2,
+    "ragas_faithfulness": {
+      "faithfulness": 0.9596,
+      "supported_claims": 190,
+      "total_claims": 198,
+      "method": "nli",
+      "model": "cross-encoder/nli-MiniLM2-L6-H768",
+      "threshold": 0.5,
+      "context_chunks": 6,
+      "top_unsupported": [
+        {
+          "task_id": "L3-02-03-01",
+          "claim": "Salesforce API 인증 및 연결 설정",
+          "source": "title",
+          "entailment_score": 0.0,
+          "supported": false
+        },
+        {
+          "task_id": "L2-02-01",
+          "claim": "PostgreSQL DB를 구축하고, 기본적인 CRUD API를 위한 백엔드 환경을 설정합니다.",
+          "source": "description",
+          "entailment_score": 0.1624,
+          "supported": false
+        },
+        {
+          "task_id": "L3-02-03-01",
+          "claim": "Salesforce OAuth 2.0 또는 REST API 키를 사용하여 외부 CRM과의 초기 인증 및 연결",
+          "source": "description",
+          "entailment_score": 0.1806,
+          "supported": false
+        },
+        {
+          "task_id": "L3-03-01-02",
+          "claim": "OpenAI API 연동 및 스트리밍 응답 처리 로직 구현",
+          "source": "title",
+          "entailment_score": 0.2174,
+          "supported": false
+        },
+        {
+          "task_id": "L3-05-03-03",
+          "claim": "재테스트(Regression Test) 실행 및 회귀 오류 확인",
+          "source": "title",
+          "entailment_score": 0.3054,
+          "supported": false
+        }
+      ]
+    },
+    "interaction_turns": {
+      "total_messages": 85,
+      "unique_agents": 7,
+      "messages_by_agent": {
+        "슈퍼바이저(PM)": 48,
+        "플래너": 6,
+        "백엔드 개발자": 14,
+        "프론트엔드 개발자": 8,
+        "QA 엔지니어": 6,
+        "시스템": 2,
+        "디자이너": 1
+      }
+    },
+    "supervisor_intervention": {
+      "intervention_ratio": 0.5647,
+      "supervisor_messages": 48,
+      "mediation_decisions": 46,
+      "total_messages": 85
+    },
+    "success_rate": {
+      "success_rate": 1.0,
+      "covered": 6,
+      "total_features": 6,
+      "uncovered_features": [],
+      "method": "embedding",
+      "threshold": 0.45,
+      "details": [
+        {
+          "feature": "AI 챗봇 대화 인터페이스 (OpenAI API 기반)",
+          "best_match_task": "L2-03-01",
+          "similarity": 0.9443,
+          "covered": true
+        },
+        {
+          "feature": "실시간 상담 분석 대시보드",
+          "best_match_task": "L3-04-02-03",
+          "similarity": 0.8082,
+          "covered": true
+        },
+        {
+          "feature": "기존 CRM 시스템 REST API 연동",
+          "best_match_task": "L2-02-03",
+          "similarity": 0.8119,
+          "covered": true
+        },
+        {
+          "feature": "주간/월간 리포트 자동 생성 및 이메일 발송",
+          "best_match_task": "L3-05-01-03",
+          "similarity": 0.8236,
+          "covered": true
+        },
+        {
+          "feature": "상담 로그 검색 및 필터링",
+          "best_match_task": "L3-04-02-03",
+          "similarity": 0.7899,
+          "covered": true
+        },
+        {
+          "feature": "어드민 권한 관리",
+          "best_match_task": "L3-01-03-03",
+          "similarity": 0.7192,
+          "covered": true
+        }
+      ]
+    },
+    "planning_score": {
+      "planning_score": 0.2761,
+      "num_assignments_evaluated": 45,
+      "top_5_lowest": [
+        {
+          "task_id": "L3-02-01-02",
+          "member_id": "MBR-5DE4",
+          "similarity": 0.0651
+        },
+        {
+          "task_id": "L3-04-03-02",
+          "member_id": "MBR-8581",
+          "similarity": 0.0872
+        },
+        {
+          "task_id": "L3-02-03-01",
+          "member_id": "MBR-8581",
+          "similarity": 0.1202
+        },
+        {
+          "task_id": "L3-04-03-01",
+          "member_id": "MBR-8581",
+          "similarity": 0.1454
+        },
+        {
+          "task_id": "L3-03-01-02",
+          "member_id": "MBR-278C",
+          "similarity": 0.1533
+        }
+      ]
+    },
+    "buffer_ratio": {
+      "buffer_ratio_pct": 8.24,
+      "total_estimated_days": 182.0,
+      "total_buffer_days": 15.0,
+      "l1_task_count": 6
+    },
+    "convergence": {
+      "convergence_trend": 5.0,
+      "first_half_avg_delta": 0.0,
+      "second_half_avg_delta": 5.0,
+      "proposal_count": 3,
+      "is_converging": false
+    },
+    "mece_score": {
+      "mece_score": 0.85,
+      "overlap_pairs": 2,
+      "gap_l1s": 1,
+      "total_l1": 6,
+      "total_l2": 15
+    },
+    "granularity_fitness": {
+      "granularity_fitness": 1.0,
+      "in_range": 45,
+      "total_l3": 45,
+      "too_small": 0,
+      "too_large": 0,
+      "avg_l3_days": 3.93
+    },
+    "workload_gini": {
+      "gini": 0.184,
+      "workloads": {
+        "MBR-9BEA": 12.0,
+        "MBR-1AF6": 24.0,
+        "MBR-5DE4": 35.0,
+        "MBR-B392": 37.0,
+        "MBR-278C": 45.0,
+        "MBR-8581": 39.0
+      },
+      "num_members": 6,
+      "max_load": 45.0,
+      "min_load": 12.0,
+      "std_dev": 10.92
+    },
+    "schedule_feasibility": {
+      "feasibility": 1.0,
+      "conflicts": 0,
+      "total_pairs": 169,
+      "conflict_details": []
+    },
+    "communication_efficiency": {
+      "efficiency": 0.8588,
+      "effective_messages": 73,
+      "ineffective_messages": 12,
+      "total_messages": 85
+    },
+    "token_cost": {
+      "est_total_tokens": 19667,
+      "est_debate_tokens": 12988,
+      "est_wbs_tokens": 6679,
+      "est_cost_usd": 0.001475,
+      "debate_messages": 85,
+      "total_chars": 16390
+    },
+    "autoscore": {
+      "autoscore": 0.8288,
+      "quality": 0.925,
+      "allocation": 0.6974,
+      "orchestration": 0.8588,
+      "weights_used": {
+        "quality": 0.4,
+        "allocation": 0.35,
+        "orchestration": 0.25
+      },
+      "na_categories": []
+    },
+    "experiment_config": {
+      "rag_strategy": "hybrid",
+      "condition": "R2",
+      "min_rounds": 1,
+      "max_rounds": 2,
+      "team_size": 6,
+      "note": "rag=R2;iter=1;backend=gemma4-api;edisc=diverse"
+    }
+  },
+  "judge": {
+    "structure": {
+      "score": 0.47,
+      "reason": "{\"score\": 0.47, \"reason\": \"A"
+    },
+    "assignment": {
+      "score": 0.0,
+      "reason": "A=0.0 B=0.0 C=0.0; key issues: All tasks are assigned to unknown IDs (MBR-9BEA, MBR-5DE4, MBR-B39"
+    },
+    "debate": {
+      "score": 0.85,
+      "reason": "{\"score\": 0.85, \"reason\": \"A"
+    },
+    "overall": 0.4005,
+    "overall_detail": null,
+    "eval_dims": [
+      "structure",
+      "assignment",
+      "debate"
+    ],
+    "judge_model": "gemini-3.1-pro-preview",
+    "rejudged": true,
+    "rejudged_dims": [
+      "assignment"
+    ]
+  },
+  "judge_error": null,
+  "debate_log_len": 85,
+  "final_wbs_task_count": 66,
+  "elapsed_sec": 608.87
+}

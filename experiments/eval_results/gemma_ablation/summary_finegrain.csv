@@ -1,0 +1,24 @@
+condition,run_id,snapshot,n_tasks,structure,assignment,debate,overall,structure_reason,assignment_reason,debate_reason,overall_full
+C0_llm_only,1,wbs_snapshot_C0_llm_only_r1_gemma4-api_piai_20260420_235636.json,78,0.47,-1,-1,0.47,"{""score"": 0.47, ""reason"": ""A=0",N/A (배정 단계 미포함),N/A (토론 단계 미포함),0.188
+C0_llm_only,2,wbs_snapshot_C0_llm_only_r2_gemma4-api_piai_20260421_000253.json,62,0.47,-1,-1,0.47,"{""score"": 0.47, ""reason"": ""A=0",N/A (배정 단계 미포함),N/A (토론 단계 미포함),0.188
+C0_llm_only,3,wbs_snapshot_C0_llm_only_r3_gemma4-api_piai_20260421_000826.json,77,0.47,-1,-1,0.47,"{""score"": 0.47, ""reason"": ""A=",N/A (배정 단계 미포함),N/A (토론 단계 미포함),0.188
+C1_with_assign,1,wbs_snapshot_C1_with_assign_r1_gemma4-api_piai_20260421_001747.json,66,0.47,0.0,-1,0.2507,"{""score"": 0.47, ""reason"": ""A","{""score"": 0.0, ""reason"": ""A",N/A (토론 단계 미포함),0.188
+C1_with_assign,3,wbs_snapshot_C1_with_assign_r3_gemma4-api_piai_20260421_003118.json,79,0.33,0.0,-1,0.176,"{""score"": 0.33, ""reason"": ""A=0","{""score"": 0.0, ""reason"": ""A=",N/A (토론 단계 미포함),0.132
+C2_1round,1,wbs_snapshot_C2_1round_r1_gemma4-api_piai_20260421_004550.json,66,0.33,0.0,1.0,0.382,"{""score"": 0.33, ""reason"": ""A=0","{""score"": 0.0, ""reason"": ""A=","{""score"": 1.0, ""reason"": ""A=1.0",0.382
+C2_1round,2,wbs_snapshot_C2_1round_r2_gemma4-api_piai_20260421_010421.json,78,0.47,1.0,0.75,0.7255,"{""score"": 0.47, ""reason"": ""A=0",")
+MBR-1769: Backend Developer tasks (L3-01","{""score"": 0.75, ""reason"":",0.726
+C2_1round,3,wbs_snapshot_C2_1round_r3_gemma4-api_piai_20260421_011707.json,66,0.47,0.0,1.0,0.438,"{""score"": 0.47, ""reason"": ""","{""score"": 0.0, ""reason"": ""A=0.0","...""
+Designer: ""L3-04-03-02 문서 생성 시",0.438
+C3_3rounds,1,wbs_snapshot_C3_3rounds_r1_gemma4-api_piai_20260421_012718.json,42,0.53,0.0,1.0,0.462,"{""score"": 0.53, ""reason"": ""A=0.","{""score"": 0.0, ""reason"": ""A=0","17. [윤수빈/QA 엔지니어]: PASS.
+1",0.462
+C3_3rounds,2,wbs_snapshot_C3_3rounds_r2_gemma4-api_piai_20260421_020444.json,88,0.53,0.0,0.95,0.4495,"{""score"": 0.53, ""reason"": ""A","{""score"": 0.0, ""reason"": ""A=0","{""score"": 0.95, ""reason"": ""A=1",0.45
+C3_3rounds,3,wbs_snapshot_C3_3rounds_r3_gemma4-api_piai_20260421_022430.json,77,0.33,1.0,0.85,0.6945,"{""score"": 0.33, ""reason"": ""A=0.","Wait, let's recalculate:
+MBR-506B:","{""score"": 0.85, ""reason"": """,0.695
+C4_with_disc,1,wbs_snapshot_C4_with_disc_r1_gemma4-api_piai_20260421_023659.json,66,0.47,0.0,1.0,0.438,"{""score"": 0.47, ""reason"": ""A=","{""score"": 0.0, ""reason"": ""A=0.0","검색 인터페이스 구현 시...
+13. [박선민/플래너]: 추가",0.438
+C4_with_disc,2,wbs_snapshot_C4_with_disc_r2_gemma4-api_piai_20260421_031034.json,78,0.53,0.0,0.95,0.4495,"{""score"": 0.53, ""reason"": ""A","{""score"": 0.0, ""reason"": ""A=0","{""score"": 0.95, ""reason"": ""A=1",0.45
+C4_with_disc,3,wbs_snapshot_C4_with_disc_r3_gemma4-api_piai_20260421_032846.json,66,0.47,0.0,0.65,0.3505,"{""score"": 0.47, ""reason"": ""A","{""score"": 0.0, ""reason"": ""","{""score"": 0.65, ""reason"": ""A=0",0.351
+C5_5rounds,1,wbs_snapshot_C5_5rounds_r1_gemma4-api_piai_20260421_040130.json,79,0.33,0.0,0.85,0.3445,"{""score"": 0.33, ""reason"":","{""score"": 0.0, ""reason"": ""A","{""score"": 0.85, ""reason"": ""A=",0.345
+C5_5rounds,2,wbs_snapshot_C5_5rounds_r2_gemma4-api_piai_20260421_045220.json,78,0.33,0.0,1.0,0.382,"{""score"": 0.33, ""reason"": ""A=","{""score"": 0.0, ""reason"": ""","박선민 is both Designer and Planner.
+Message 1: [장선열/",0.382
+C5_5rounds,3,wbs_snapshot_C5_5rounds_r3_gemma4-api_piai_20260421_050058.json,32,0.53,0.0,0.85,0.4245,"{""score"": 0.53, ""reason"": ""","{""score"": 0.0, ""reason"": ""A=0.0","{""score"": 0.85, ""reason"": ""A=0.",0.424

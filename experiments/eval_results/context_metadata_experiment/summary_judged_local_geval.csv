@@ -1,0 +1,10 @@
+mode,run_id,snapshot,n_tasks,judge_backend,judge_model,S_t1,S_t2,S_t3,S_med,A_t1,A_t2,A_t3,A_med,D_t1,D_t2,D_t3,D_med,overall_median
+M_resume,1,wbs_snapshot_C3_3rounds_r1_qwen-api_gemma26_ablation_20260423_143800.json,36,qwen-api-local-geval,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+M_resume,2,wbs_snapshot_C3_3rounds_r2_qwen-api_gemma26_ablation_20260423_144446.json,36,qwen-api-local-geval,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+M_resume,3,wbs_snapshot_C3_3rounds_r3_qwen-api_gemma26_ablation_20260423_145328.json,33,qwen-api-local-geval,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+M_both,1,wbs_snapshot_C4_with_disc_r1_qwen-api_gemma26_ablation_20260423_150300.json,33,qwen-api-local-geval,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+M_both,2,wbs_snapshot_C4_with_disc_r2_qwen-api_gemma26_ablation_20260423_151449.json,34,qwen-api-local-geval,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+M_both,3,wbs_snapshot_C4_with_disc_r3_qwen-api_gemma26_ablation_20260423_152349.json,33,qwen-api-local-geval,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+M_disc,1,wbs_snapshot_C4_with_disc_r1_qwen-api_context_disc_only_20260425_015903.json,33,qwen-api-local-geval,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+M_disc,2,wbs_snapshot_C4_with_disc_r2_qwen-api_context_disc_only_20260425_020635.json,36,qwen-api-local-geval,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+M_disc,3,wbs_snapshot_C4_with_disc_r3_qwen-api_context_disc_only_20260425_021742.json,36,qwen-api-local-geval,gemma-4-26B-A4B-it-UD-Q4_K_M.gguf,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1

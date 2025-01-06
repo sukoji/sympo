@@ -1,0 +1,262 @@
+{
+  "backend": "gemini",
+  "condition": "diverse_edisc",
+  "iter": 2,
+  "metrics": {
+    "timestamp": "2026-04-21 22:28:02",
+    "project_name": "AI 기반 고객 서비스 플랫폼 구축 프로젝트",
+    "model_backend": "gemini",
+    "total_tasks": 28,
+    "debate_rounds": 1,
+    "ragas_faithfulness": {
+      "faithfulness": 0.9048,
+      "supported_claims": 76,
+      "total_claims": 84,
+      "method": "nli",
+      "model": "cross-encoder/nli-MiniLM2-L6-H768",
+      "threshold": 0.5,
+      "context_chunks": 6,
+      "top_unsupported": [
+        {
+          "task_id": "L3-01-01-01",
+          "claim": "Salesforce API 연동 PoC",
+          "source": "title",
+          "entailment_score": 0.0,
+          "supported": false
+        },
+        {
+          "task_id": "L2-02-01",
+          "claim": "OpenAI API 연동 및 Salesforce 데이터 동기화 로직 구현",
+          "source": "description",
+          "entailment_score": 0.1686,
+          "supported": false
+        },
+        {
+          "task_id": "L3-02-01-02",
+          "claim": "Salesforce 데이터 연동 모듈",
+          "source": "title",
+          "entailment_score": 0.1708,
+          "supported": false
+        },
+        {
+          "task_id": "L1-02",
+          "claim": "OpenAI API 연동 및 상담 분석 엔진 구현",
+          "source": "description",
+          "entailment_score": 0.1833,
+          "supported": false
+        },
+        {
+          "task_id": "L3-01-01-01",
+          "claim": "Salesforce REST API 연동 가능성 확인 및 인증 방식 검증, 결과로 API 연동 기술 검증서 ",
+          "source": "description",
+          "entailment_score": 0.218,
+          "supported": false
+        }
+      ]
+    },
+    "interaction_turns": {
+      "total_messages": 33,
+      "unique_agents": 7,
+      "messages_by_agent": {
+        "슈퍼바이저(PM)": 16,
+        "플래너": 2,
+        "백엔드 개발자": 6,
+        "디자이너": 2,
+        "QA 엔지니어": 3,
+        "프론트엔드 개발자": 3,
+        "시스템": 1
+      }
+    },
+    "supervisor_intervention": {
+      "intervention_ratio": 0.4848,
+      "supervisor_messages": 16,
+      "mediation_decisions": 14,
+      "total_messages": 33
+    },
+    "success_rate": {
+      "success_rate": 1.0,
+      "covered": 6,
+      "total_features": 6,
+      "uncovered_features": [],
+      "method": "embedding",
+      "threshold": 0.45,
+      "details": [
+        {
+          "feature": "AI 챗봇 대화 인터페이스 (OpenAI API 기반)",
+          "best_match_task": "L1-02",
+          "similarity": 0.9029,
+          "covered": true
+        },
+        {
+          "feature": "실시간 상담 분석 대시보드",
+          "best_match_task": "L1-03",
+          "similarity": 0.772,
+          "covered": true
+        },
+        {
+          "feature": "기존 CRM 시스템 REST API 연동",
+          "best_match_task": "L3-02-01-02",
+          "similarity": 0.7335,
+          "covered": true
+        },
+        {
+          "feature": "주간/월간 리포트 자동 생성 및 이메일 발송",
+          "best_match_task": "L2-02-02",
+          "similarity": 0.9357,
+          "covered": true
+        },
+        {
+          "feature": "상담 로그 검색 및 필터링",
+          "best_match_task": "L2-04-02",
+          "similarity": 0.8844,
+          "covered": true
+        },
+        {
+          "feature": "어드민 권한 관리",
+          "best_match_task": "L2-03-02",
+          "similarity": 0.6398,
+          "covered": true
+        }
+      ]
+    },
+    "planning_score": {
+      "planning_score": 0.408,
+      "num_assignments_evaluated": 16,
+      "top_5_lowest": [
+        {
+          "task_id": "L3-01-01-01",
+          "member_id": "MBR-F2FD",
+          "similarity": 0.2099
+        },
+        {
+          "task_id": "L3-01-02-02",
+          "member_id": "MBR-B856",
+          "similarity": 0.2489
+        },
+        {
+          "task_id": "L3-02-01-02",
+          "member_id": "MBR-F2FD",
+          "similarity": 0.271
+        },
+        {
+          "task_id": "L3-03-02-02",
+          "member_id": "MBR-99EA",
+          "similarity": 0.28
+        },
+        {
+          "task_id": "L3-02-02-01",
+          "member_id": "MBR-E18B",
+          "similarity": 0.2949
+        }
+      ]
+    },
+    "buffer_ratio": {
+      "buffer_ratio_pct": 10.77,
+      "total_estimated_days": 65.0,
+      "total_buffer_days": 7.0,
+      "l1_task_count": 4
+    },
+    "convergence": {
+      "convergence_trend": -1.5,
+      "first_half_avg_delta": 2.5,
+      "second_half_avg_delta": 1.0,
+      "proposal_count": 10,
+      "is_converging": true
+    },
+    "mece_score": {
+      "mece_score": 0.875,
+      "overlap_pairs": 1,
+      "gap_l1s": 0,
+      "total_l1": 4,
+      "total_l2": 8
+    },
+    "granularity_fitness": {
+      "granularity_fitness": 1.0,
+      "in_range": 16,
+      "total_l3": 16,
+      "too_small": 0,
+      "too_large": 0,
+      "avg_l3_days": 4.06
+    },
+    "workload_gini": {
+      "gini": 0.2361,
+      "workloads": {
+        "MBR-D394": 5.0,
+        "MBR-87DE": 10.0,
+        "MBR-F2FD": 15.0,
+        "MBR-E18B": 16.0,
+        "MBR-99EA": 19.0,
+        "MBR-B856": 7.0
+      },
+      "num_members": 6,
+      "max_load": 19.0,
+      "min_load": 5.0,
+      "std_dev": 5.03
+    },
+    "schedule_feasibility": {
+      "feasibility": 1.0,
+      "conflicts": 0,
+      "total_pairs": 16,
+      "conflict_details": []
+    },
+    "communication_efficiency": {
+      "efficiency": 0.8182,
+      "effective_messages": 27,
+      "ineffective_messages": 6,
+      "total_messages": 33
+    },
+    "token_cost": {
+      "est_total_tokens": 9089,
+      "est_debate_tokens": 7492,
+      "est_wbs_tokens": 1597,
+      "est_cost_usd": 0.000682,
+      "debate_messages": 33,
+      "total_chars": 7575
+    },
+    "autoscore": {
+      "autoscore": 0.8329,
+      "quality": 0.9375,
+      "allocation": 0.724,
+      "orchestration": 0.8182,
+      "weights_used": {
+        "quality": 0.4,
+        "allocation": 0.35,
+        "orchestration": 0.25
+      },
+      "na_categories": []
+    },
+    "experiment_config": {
+      "rag_strategy": "vanilla",
+      "min_rounds": 1,
+      "max_rounds": 1,
+      "team_size": 6,
+      "note": "edisc_condition=diverse_edisc;iter=2;backend=gemini"
+    }
+  },
+  "judge": {
+    "structure": {
+      "score": 0.6,
+      "reason": "{\"score\": 0.6, \"reason\": \""
+    },
+    "assignment": {
+      "score": 0.8,
+      "reason": "{\"score\": 0.8, \"reason\": \"A"
+    },
+    "debate": {
+      "score": 0.8,
+      "reason": "{\"score\": 0.8, \"reason\": \"A=0."
+    },
+    "overall": 0.72,
+    "overall_detail": null,
+    "eval_dims": [
+      "structure",
+      "assignment",
+      "debate"
+    ],
+    "judge_model": "gemini-3.1-pro-preview"
+  },
+  "judge_error": null,
+  "debate_log_len": 33,
+  "final_wbs_task_count": 28,
+  "elapsed_sec": 99.38
+}

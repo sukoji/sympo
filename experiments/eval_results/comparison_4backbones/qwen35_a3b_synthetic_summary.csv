@@ -1,0 +1,4 @@
+backbone,condition,synthetic,Overall_mean_LLM,AutoOverall_mean
+qwen35_a3b,C2_1round,true,0.6740,0.8470
+qwen35_a3b,C3_3rounds,true,0.6800,0.8390
+qwen35_a3b,C5_5rounds,true,0.6815,0.8455

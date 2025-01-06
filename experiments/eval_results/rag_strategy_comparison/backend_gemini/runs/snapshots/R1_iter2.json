@@ -1,0 +1,2237 @@
+{
+  "backend": "gemini",
+  "condition": "R1",
+  "rag_strategy": "vanilla",
+  "iter": 2,
+  "final_wbs": [
+    {
+      "task_id": "L1-01",
+      "level": "L1",
+      "parent_id": null,
+      "title": "기획 및 아키텍처 설계",
+      "description": "프로젝트 요구사항 정의 및 시스템 아키텍처 설계, CRM 연동 PoC 수행",
+      "assigned_to": [],
+      "required_role": "PM/Planner",
+      "assigned_role": "PM/Planner",
+      "estimated_days": 17.0,
+      "buffer_days": 1.5,
+      "total_days": 18.5,
+      "dependencies": [],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 1,
+      "end_week": 4,
+      "deliverables": [
+        "요구사항 정의서",
+        "시스템 아키텍처 설계서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-01-01",
+      "level": "L2",
+      "parent_id": "L1-01",
+      "title": "요구사항 분석 및 설계",
+      "description": "비즈니스 요구사항 분석 및 UI/UX 와이어프레임 확정",
+      "assigned_to": [],
+      "required_role": "Planner",
+      "assigned_role": "Planner",
+      "estimated_days": 7.0,
+      "buffer_days": 0.5,
+      "total_days": 7.5,
+      "dependencies": [],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 1,
+      "end_week": 2,
+      "deliverables": [
+        "기능 명세서",
+        "와이어프레임"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-01-01-01",
+      "level": "L3",
+      "parent_id": "L2-01-01",
+      "title": "비즈니스 요구사항 분석",
+      "description": "B2B CS 상담팀의 워크플로우 분석 및 기능 우선순위 도출, 산출물로 요구사항 명세서 작성.",
+      "assigned_to": [
+        "MBR-9BEA"
+      ],
+      "required_role": "PM",
+      "assigned_role": "Designer",
+      "estimated_days": 3.0,
+      "buffer_days": 0.5,
+      "total_days": 3.5,
+      "dependencies": [],
+      "risk_factors": [
+        "비즈니스 요구사항의 모호성으로 인한 재작업 가능성"
+      ],
+      "buffer_rationale": "비즈니스 요구사항의 모호성으로 인한 재작업 가능성",
+      "start_week": 1,
+      "end_week": 1,
+      "deliverables": [
+        "요구사항 명세서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-01-01-02",
+      "level": "L3",
+      "parent_id": "L2-01-01",
+      "title": "UI/UX 와이어프레임 설계",
+      "description": "상담 대시보드 및 챗봇 인터페이스 설계, Figma를 통한 프로토타입 제작 및 승인.",
+      "assigned_to": [
+        "MBR-9BEA"
+      ],
+      "required_role": "Designer",
+      "assigned_role": "Designer",
+      "estimated_days": 4.0,
+      "buffer_days": 0.0,
+      "total_days": 4.0,
+      "dependencies": [
+        "L3-01-01-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 2,
+      "end_week": 2,
+      "deliverables": [
+        "Figma 프로토타입"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L2-01-02",
+      "level": "L2",
+      "parent_id": "L1-01",
+      "title": "기술 검증 및 아키텍처",
+      "description": "Salesforce API 연동 PoC 및 시스템 아키텍처 확정",
+      "assigned_to": [],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 10.0,
+      "buffer_days": 1.0,
+      "total_days": 11.0,
+      "dependencies": [],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 2,
+      "end_week": 4,
+      "deliverables": [
+        "PoC 결과 보고서",
+        "DB 스키마 설계서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-01-02-01",
+      "level": "L3",
+      "parent_id": "L2-01-02",
+      "title": "Salesforce API 연동 PoC",
+      "description": "Salesforce REST API 연동 가능성 확인 및 인증 방식 검증, 결과 보고서 작성.",
+      "assigned_to": [
+        "MBR-B392"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 5.0,
+      "buffer_days": 1.0,
+      "total_days": 6.0,
+      "dependencies": [],
+      "risk_factors": [
+        "Salesforce API 연동 시 인증 및 데이터 매핑 복잡도"
+      ],
+      "buffer_rationale": "Salesforce API 연동 시 인증 및 데이터 매핑 복잡도",
+      "start_week": 2,
+      "end_week": 3,
+      "deliverables": [
+        "API 연동 PoC 결과서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-01-02-02",
+      "level": "L3",
+      "parent_id": "L2-01-02",
+      "title": "DB 스키마 및 인프라 설계",
+      "description": "PostgreSQL 데이터 모델링 및 AWS 인프라 구성도 작성, GDPR 준수를 위한 데이터 암호화 전략 수립.",
+      "assigned_to": [
+        "MBR-5DE4"
+      ],
+      "required_role": "Data Engineer",
+      "assigned_role": "Data Engineer",
+      "estimated_days": 5.0,
+      "buffer_days": 0.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L3-01-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 4,
+      "end_week": 4,
+      "deliverables": [
+        "ERD",
+        "인프라 아키텍처 설계서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L1-02",
+      "level": "L1",
+      "parent_id": null,
+      "title": "핵심 백엔드 및 API 개발",
+      "description": "FastAPI 기반 백엔드 로직 구현 및 외부 API 연동",
+      "assigned_to": [],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 24.0,
+      "buffer_days": 3.5,
+      "total_days": 27.5,
+      "dependencies": [
+        "L1-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 5,
+      "end_week": 10,
+      "deliverables": [
+        "API 서버 코드",
+        "API 명세서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-02-01",
+      "level": "L2",
+      "parent_id": "L1-02",
+      "title": "AI 챗봇 및 CRM 연동",
+      "description": "OpenAI API 연동 및 Salesforce 데이터 동기화 로직 구현",
+      "assigned_to": [],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 14.0,
+      "buffer_days": 2.5,
+      "total_days": 16.5,
+      "dependencies": [
+        "L1-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 5,
+      "end_week": 6,
+      "deliverables": [
+        "챗봇 연동 모듈",
+        "CRM 동기화 스크립트"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-02-01-01",
+      "level": "L3",
+      "parent_id": "L2-02-01",
+      "title": "OpenAI 챗봇 인터페이스 개발",
+      "description": "OpenAI API를 활용한 상담 자동화 로직 구현, 프롬프트 엔지니어링 및 테스트.",
+      "assigned_to": [
+        "MBR-5DE4"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Data Engineer",
+      "estimated_days": 7.0,
+      "buffer_days": 1.5,
+      "total_days": 8.5,
+      "dependencies": [
+        "L3-01-02-02"
+      ],
+      "risk_factors": [
+        "LLM 응답 지연 및 토큰 비용 최적화 이슈"
+      ],
+      "buffer_rationale": "LLM 응답 지연 및 토큰 비용 최적화 이슈",
+      "start_week": 5,
+      "end_week": 6,
+      "deliverables": [
+        "챗봇 API 모듈"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-02-01-02",
+      "level": "L3",
+      "parent_id": "L2-02-01",
+      "title": "Salesforce REST API 연동",
+      "description": "상담 로그 및 고객 정보 동기화를 위한 REST API 구현, 데이터 매핑 및 에러 핸들링.",
+      "assigned_to": [
+        "MBR-B392"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 7.0,
+      "buffer_days": 1.0,
+      "total_days": 8.0,
+      "dependencies": [
+        "L3-01-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 5,
+      "end_week": 6,
+      "deliverables": [
+        "CRM 연동 모듈"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-02-02",
+      "level": "L2",
+      "parent_id": "L1-02",
+      "title": "데이터 분석 및 리포팅",
+      "description": "상담 로그 분석 엔진 및 자동 리포트 생성 기능",
+      "assigned_to": [],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 10.0,
+      "buffer_days": 1.0,
+      "total_days": 11.0,
+      "dependencies": [
+        "L2-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 8,
+      "end_week": 10,
+      "deliverables": [
+        "분석 엔진",
+        "리포트 자동화 스크립트"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-02-02-01",
+      "level": "L3",
+      "parent_id": "L2-02-02",
+      "title": "상담 로그 분석 엔진",
+      "description": "상담 데이터 필터링 및 통계 계산 로직 구현, PostgreSQL 쿼리 최적화.",
+      "assigned_to": [
+        "MBR-5DE4"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Data Engineer",
+      "estimated_days": 5.0,
+      "buffer_days": 0.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L2-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 8,
+      "end_week": 8,
+      "deliverables": [
+        "분석 API"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-02-02-02",
+      "level": "L3",
+      "parent_id": "L2-02-02",
+      "title": "자동 리포트 생성 및 발송",
+      "description": "주간/월간 리포트 자동 생성 및 이메일 발송 기능 구현, 스케줄러 적용.",
+      "assigned_to": [
+        "MBR-B392"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 5.0,
+      "buffer_days": 1.0,
+      "total_days": 6.0,
+      "dependencies": [
+        "L3-02-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 9,
+      "end_week": 10,
+      "deliverables": [
+        "리포트 자동화 모듈"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L1-03",
+      "level": "L1",
+      "parent_id": null,
+      "title": "프론트엔드 구현",
+      "description": "React/Next.js 기반 대시보드 및 관리자 페이지 구현",
+      "assigned_to": [],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 18.0,
+      "buffer_days": 4.0,
+      "total_days": 22.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 10,
+      "end_week": 13,
+      "deliverables": [
+        "대시보드 UI",
+        "관리자 페이지"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L2-03-01",
+      "level": "L2",
+      "parent_id": "L1-03",
+      "title": "대시보드 UI 구현",
+      "description": "상담 분석 대시보드 시각화 및 실시간 데이터 연동",
+      "assigned_to": [],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 8.0,
+      "buffer_days": 2.0,
+      "total_days": 10.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 10,
+      "end_week": 12,
+      "deliverables": [
+        "대시보드 컴포넌트"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-03-01-01",
+      "level": "L3",
+      "parent_id": "L2-03-01",
+      "title": "실시간 분석 차트 구현",
+      "description": "React 차트 라이브러리를 활용한 상담 지표 시각화, 실시간 데이터 갱신 구현.",
+      "assigned_to": [
+        "MBR-278C"
+      ],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 4.0,
+      "buffer_days": 1.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [
+        "실시간 데이터 스트리밍에 따른 렌더링 부하"
+      ],
+      "buffer_rationale": "실시간 데이터 스트리밍에 따른 렌더링 부하",
+      "start_week": 10,
+      "end_week": 10,
+      "deliverables": [
+        "차트 컴포넌트"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-03-01-02",
+      "level": "L3",
+      "parent_id": "L2-03-01",
+      "title": "상담 로그 검색 및 필터링",
+      "description": "상담 로그 검색 UI 및 필터링 기능 구현, 백엔드 API 연동.",
+      "assigned_to": [
+        "MBR-278C"
+      ],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 4.0,
+      "buffer_days": 1.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L3-03-01-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 12,
+      "end_week": 12,
+      "deliverables": [
+        "검색 컴포넌트"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L2-03-02",
+      "level": "L2",
+      "parent_id": "L1-03",
+      "title": "관리자 및 인증 시스템",
+      "description": "어드민 권한 관리 및 사용자 인증 UI",
+      "assigned_to": [],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 10.0,
+      "buffer_days": 2.0,
+      "total_days": 12.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 11,
+      "end_week": 13,
+      "deliverables": [
+        "인증 페이지",
+        "관리자 설정 페이지"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-03-02-01",
+      "level": "L3",
+      "parent_id": "L2-03-02",
+      "title": "사용자 인증 및 권한 관리",
+      "description": "JWT 기반 로그인 및 RBAC(역할 기반 접근 제어) UI 구현.",
+      "assigned_to": [
+        "MBR-278C"
+      ],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 4.0,
+      "buffer_days": 1.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 11,
+      "end_week": 11,
+      "deliverables": [
+        "인증 모듈"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-03-02-02",
+      "level": "L3",
+      "parent_id": "L2-03-02",
+      "title": "어드민 설정 페이지 구현",
+      "description": "사용자 관리 및 시스템 설정 관리 UI 구현.",
+      "assigned_to": [
+        "MBR-278C"
+      ],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 3.0,
+      "buffer_days": 1.0,
+      "total_days": 4.0,
+      "dependencies": [
+        "L3-03-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 13,
+      "end_week": 13,
+      "deliverables": [
+        "어드민 UI"
+      ],
+      "status": "계획",
+      "importance": "Low"
+    },
+    {
+      "task_id": "L1-04",
+      "level": "L1",
+      "parent_id": null,
+      "title": "QA 및 테스트",
+      "description": "기능 테스트, 통합 테스트 및 버그 수정",
+      "assigned_to": [],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 15.0,
+      "buffer_days": 1.0,
+      "total_days": 16.0,
+      "dependencies": [
+        "L1-03"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 14,
+      "end_week": 17,
+      "deliverables": [
+        "테스트 결과서",
+        "버그 리포트"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-04-01",
+      "level": "L2",
+      "parent_id": "L1-04",
+      "title": "테스트 수행",
+      "description": "단위 테스트 및 통합 테스트",
+      "assigned_to": [],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 8.0,
+      "buffer_days": 1.0,
+      "total_days": 9.0,
+      "dependencies": [
+        "L1-03"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 14,
+      "end_week": 16,
+      "deliverables": [
+        "테스트 케이스 문서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-04-01-01",
+      "level": "L3",
+      "parent_id": "L2-04-01",
+      "title": "기능 및 통합 테스트",
+      "description": "전체 기능에 대한 E2E 테스트 및 API 통합 테스트 수행.",
+      "assigned_to": [
+        "MBR-1AF6"
+      ],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 5.0,
+      "buffer_days": 1.0,
+      "total_days": 6.0,
+      "dependencies": [
+        "L1-03"
+      ],
+      "risk_factors": [
+        "통합 테스트 시 엣지 케이스 누락 가능성"
+      ],
+      "buffer_rationale": "통합 테스트 시 엣지 케이스 누락 가능성",
+      "start_week": 14,
+      "end_week": 15,
+      "deliverables": [
+        "테스트 결과서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-04-01-02",
+      "level": "L3",
+      "parent_id": "L2-04-01",
+      "title": "GDPR 준수 검증",
+      "description": "데이터 보호 규정 준수 여부 및 개인정보 마스킹 테스트.",
+      "assigned_to": [
+        "MBR-1AF6"
+      ],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L3-04-01-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 16,
+      "end_week": 16,
+      "deliverables": [
+        "보안 검증 보고서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-04-02",
+      "level": "L2",
+      "parent_id": "L1-04",
+      "title": "버그 수정 및 재테스트",
+      "description": "발견된 결함 수정 및 재검증",
+      "assigned_to": [],
+      "required_role": "Fullstack Developer",
+      "assigned_role": "Fullstack Developer",
+      "estimated_days": 7.0,
+      "buffer_days": 0.0,
+      "total_days": 7.0,
+      "dependencies": [
+        "L2-04-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 16,
+      "end_week": 17,
+      "deliverables": [
+        "수정된 코드",
+        "재테스트 결과"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-04-02-01",
+      "level": "L3",
+      "parent_id": "L2-04-02",
+      "title": "버그 수정 사이클",
+      "description": "QA 단계에서 발견된 버그 수정 및 코드 리뷰.",
+      "assigned_to": [
+        "MBR-8581"
+      ],
+      "required_role": "Fullstack Developer",
+      "assigned_role": "DevOps",
+      "estimated_days": 4.0,
+      "buffer_days": 0.0,
+      "total_days": 4.0,
+      "dependencies": [
+        "L2-04-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 16,
+      "end_week": 16,
+      "deliverables": [
+        "패치 코드"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-04-02-02",
+      "level": "L3",
+      "parent_id": "L2-04-02",
+      "title": "최종 재테스트",
+      "description": "수정 사항에 대한 최종 검증 및 배포 준비.",
+      "assigned_to": [
+        "MBR-1AF6"
+      ],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L3-04-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 17,
+      "end_week": 17,
+      "deliverables": [
+        "최종 승인서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L1-05",
+      "level": "L1",
+      "parent_id": null,
+      "title": "배포 및 운영 전환",
+      "description": "스테이징 배포, 클라이언트 UAT 및 운영 환경 배포",
+      "assigned_to": [],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 10.0,
+      "buffer_days": 0.0,
+      "total_days": 10.0,
+      "dependencies": [
+        "L1-04"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 17,
+      "end_week": 20,
+      "deliverables": [
+        "운영 서버",
+        "운영 매뉴얼"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-05-01",
+      "level": "L2",
+      "parent_id": "L1-05",
+      "title": "배포 및 UAT",
+      "description": "스테이징 환경 배포 및 클라이언트 검수",
+      "assigned_to": [],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 6.0,
+      "buffer_days": 0.0,
+      "total_days": 6.0,
+      "dependencies": [
+        "L1-04"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 17,
+      "end_week": 18,
+      "deliverables": [
+        "UAT 결과서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-05-01-01",
+      "level": "L3",
+      "parent_id": "L2-05-01",
+      "title": "스테이징 배포",
+      "description": "AWS 환경에 스테이징 배포 및 환경 설정.",
+      "assigned_to": [
+        "MBR-8581"
+      ],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L1-04"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 17,
+      "end_week": 17,
+      "deliverables": [
+        "스테이징 환경"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-05-01-02",
+      "level": "L3",
+      "parent_id": "L2-05-01",
+      "title": "클라이언트 UAT 지원",
+      "description": "클라이언트 검수 지원 및 피드백 수렴.",
+      "assigned_to": [
+        "MBR-9BEA"
+      ],
+      "required_role": "PM",
+      "assigned_role": "Designer",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L3-05-01-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 18,
+      "end_week": 18,
+      "deliverables": [
+        "UAT 승인서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-05-02",
+      "level": "L2",
+      "parent_id": "L1-05",
+      "title": "운영 배포 및 안정화",
+      "description": "운영 서버 배포 및 모니터링 설정",
+      "assigned_to": [],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 4.0,
+      "buffer_days": 0.0,
+      "total_days": 4.0,
+      "dependencies": [
+        "L2-05-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 19,
+      "end_week": 20,
+      "deliverables": [
+        "운영 환경",
+        "운영 매뉴얼"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-05-02-01",
+      "level": "L3",
+      "parent_id": "L2-05-02",
+      "title": "운영 환경 배포",
+      "description": "운영 서버 배포 및 99.9% SLA를 위한 모니터링 설정.",
+      "assigned_to": [
+        "MBR-8581"
+      ],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 2.0,
+      "buffer_days": 0.0,
+      "total_days": 2.0,
+      "dependencies": [
+        "L3-05-01-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 19,
+      "end_week": 19,
+      "deliverables": [
+        "운영 서버"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-05-02-02",
+      "level": "L3",
+      "parent_id": "L2-05-02",
+      "title": "운영 매뉴얼 작성 및 인수인계",
+      "description": "시스템 운영 매뉴얼 작성 및 고객사 인수인계.",
+      "assigned_to": [
+        "MBR-9BEA"
+      ],
+      "required_role": "PM",
+      "assigned_role": "Designer",
+      "estimated_days": 2.0,
+      "buffer_days": 0.0,
+      "total_days": 2.0,
+      "dependencies": [
+        "L3-05-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 20,
+      "end_week": 20,
+      "deliverables": [
+        "운영 매뉴얼"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-02-03-01",
+      "level": "L3",
+      "parent_id": "L2-03-02",
+      "title": "API 게이트웨이 보안 및 인증 미들웨어 구현",
+      "description": "",
+      "assigned_to": [
+        "MBR-8581"
+      ],
+      "required_role": "MBR-B392",
+      "assigned_role": "DevOps",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L3-03-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "",
+      "start_week": 12,
+      "end_week": 12,
+      "deliverables": [
+        "API 게이트웨이 보안 및 인증 미들웨어 구현 완료"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    }
+  ],
+  "current_wbs_draft": [
+    {
+      "task_id": "L1-01",
+      "level": "L1",
+      "parent_id": null,
+      "title": "기획 및 아키텍처 설계",
+      "description": "프로젝트 요구사항 정의 및 시스템 아키텍처 설계, CRM 연동 PoC 수행",
+      "assigned_to": [],
+      "required_role": "PM/Planner",
+      "assigned_role": "PM/Planner",
+      "estimated_days": 17.0,
+      "buffer_days": 1.5,
+      "total_days": 18.5,
+      "dependencies": [],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 1,
+      "end_week": 4,
+      "deliverables": [
+        "요구사항 정의서",
+        "시스템 아키텍처 설계서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-01-01",
+      "level": "L2",
+      "parent_id": "L1-01",
+      "title": "요구사항 분석 및 설계",
+      "description": "비즈니스 요구사항 분석 및 UI/UX 와이어프레임 확정",
+      "assigned_to": [],
+      "required_role": "Planner",
+      "assigned_role": "Planner",
+      "estimated_days": 7.0,
+      "buffer_days": 0.5,
+      "total_days": 7.5,
+      "dependencies": [],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 1,
+      "end_week": 2,
+      "deliverables": [
+        "기능 명세서",
+        "와이어프레임"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-01-01-01",
+      "level": "L3",
+      "parent_id": "L2-01-01",
+      "title": "비즈니스 요구사항 분석",
+      "description": "B2B CS 상담팀의 워크플로우 분석 및 기능 우선순위 도출, 산출물로 요구사항 명세서 작성.",
+      "assigned_to": [
+        "MBR-9BEA"
+      ],
+      "required_role": "PM",
+      "assigned_role": "Designer",
+      "estimated_days": 3.0,
+      "buffer_days": 0.5,
+      "total_days": 3.5,
+      "dependencies": [],
+      "risk_factors": [
+        "비즈니스 요구사항의 모호성으로 인한 재작업 가능성"
+      ],
+      "buffer_rationale": "비즈니스 요구사항의 모호성으로 인한 재작업 가능성",
+      "start_week": 1,
+      "end_week": 1,
+      "deliverables": [
+        "요구사항 명세서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-01-01-02",
+      "level": "L3",
+      "parent_id": "L2-01-01",
+      "title": "UI/UX 와이어프레임 설계",
+      "description": "상담 대시보드 및 챗봇 인터페이스 설계, Figma를 통한 프로토타입 제작 및 승인.",
+      "assigned_to": [
+        "MBR-9BEA"
+      ],
+      "required_role": "Designer",
+      "assigned_role": "Designer",
+      "estimated_days": 4.0,
+      "buffer_days": 0.0,
+      "total_days": 4.0,
+      "dependencies": [
+        "L3-01-01-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 2,
+      "end_week": 2,
+      "deliverables": [
+        "Figma 프로토타입"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L2-01-02",
+      "level": "L2",
+      "parent_id": "L1-01",
+      "title": "기술 검증 및 아키텍처",
+      "description": "Salesforce API 연동 PoC 및 시스템 아키텍처 확정",
+      "assigned_to": [],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 10.0,
+      "buffer_days": 1.0,
+      "total_days": 11.0,
+      "dependencies": [],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 2,
+      "end_week": 4,
+      "deliverables": [
+        "PoC 결과 보고서",
+        "DB 스키마 설계서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-01-02-01",
+      "level": "L3",
+      "parent_id": "L2-01-02",
+      "title": "Salesforce API 연동 PoC",
+      "description": "Salesforce REST API 연동 가능성 확인 및 인증 방식 검증, 결과 보고서 작성.",
+      "assigned_to": [
+        "MBR-B392"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 5.0,
+      "buffer_days": 1.0,
+      "total_days": 6.0,
+      "dependencies": [],
+      "risk_factors": [
+        "Salesforce API 연동 시 인증 및 데이터 매핑 복잡도"
+      ],
+      "buffer_rationale": "Salesforce API 연동 시 인증 및 데이터 매핑 복잡도",
+      "start_week": 2,
+      "end_week": 3,
+      "deliverables": [
+        "API 연동 PoC 결과서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-01-02-02",
+      "level": "L3",
+      "parent_id": "L2-01-02",
+      "title": "DB 스키마 및 인프라 설계",
+      "description": "PostgreSQL 데이터 모델링 및 AWS 인프라 구성도 작성, GDPR 준수를 위한 데이터 암호화 전략 수립.",
+      "assigned_to": [
+        "MBR-5DE4"
+      ],
+      "required_role": "Data Engineer",
+      "assigned_role": "Data Engineer",
+      "estimated_days": 5.0,
+      "buffer_days": 0.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L3-01-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 4,
+      "end_week": 4,
+      "deliverables": [
+        "ERD",
+        "인프라 아키텍처 설계서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L1-02",
+      "level": "L1",
+      "parent_id": null,
+      "title": "핵심 백엔드 및 API 개발",
+      "description": "FastAPI 기반 백엔드 로직 구현 및 외부 API 연동",
+      "assigned_to": [],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 24.0,
+      "buffer_days": 3.5,
+      "total_days": 27.5,
+      "dependencies": [
+        "L1-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 5,
+      "end_week": 10,
+      "deliverables": [
+        "API 서버 코드",
+        "API 명세서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-02-01",
+      "level": "L2",
+      "parent_id": "L1-02",
+      "title": "AI 챗봇 및 CRM 연동",
+      "description": "OpenAI API 연동 및 Salesforce 데이터 동기화 로직 구현",
+      "assigned_to": [],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 14.0,
+      "buffer_days": 2.5,
+      "total_days": 16.5,
+      "dependencies": [
+        "L1-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 5,
+      "end_week": 6,
+      "deliverables": [
+        "챗봇 연동 모듈",
+        "CRM 동기화 스크립트"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-02-01-01",
+      "level": "L3",
+      "parent_id": "L2-02-01",
+      "title": "OpenAI 챗봇 인터페이스 개발",
+      "description": "OpenAI API를 활용한 상담 자동화 로직 구현, 프롬프트 엔지니어링 및 테스트.",
+      "assigned_to": [
+        "MBR-5DE4"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Data Engineer",
+      "estimated_days": 7.0,
+      "buffer_days": 1.5,
+      "total_days": 8.5,
+      "dependencies": [
+        "L3-01-02-02"
+      ],
+      "risk_factors": [
+        "LLM 응답 지연 및 토큰 비용 최적화 이슈"
+      ],
+      "buffer_rationale": "LLM 응답 지연 및 토큰 비용 최적화 이슈",
+      "start_week": 5,
+      "end_week": 6,
+      "deliverables": [
+        "챗봇 API 모듈"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-02-01-02",
+      "level": "L3",
+      "parent_id": "L2-02-01",
+      "title": "Salesforce REST API 연동",
+      "description": "상담 로그 및 고객 정보 동기화를 위한 REST API 구현, 데이터 매핑 및 에러 핸들링.",
+      "assigned_to": [
+        "MBR-B392"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 7.0,
+      "buffer_days": 1.0,
+      "total_days": 8.0,
+      "dependencies": [
+        "L3-01-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 5,
+      "end_week": 6,
+      "deliverables": [
+        "CRM 연동 모듈"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-02-02",
+      "level": "L2",
+      "parent_id": "L1-02",
+      "title": "데이터 분석 및 리포팅",
+      "description": "상담 로그 분석 엔진 및 자동 리포트 생성 기능",
+      "assigned_to": [],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 10.0,
+      "buffer_days": 1.0,
+      "total_days": 11.0,
+      "dependencies": [
+        "L2-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 8,
+      "end_week": 10,
+      "deliverables": [
+        "분석 엔진",
+        "리포트 자동화 스크립트"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-02-02-01",
+      "level": "L3",
+      "parent_id": "L2-02-02",
+      "title": "상담 로그 분석 엔진",
+      "description": "상담 데이터 필터링 및 통계 계산 로직 구현, PostgreSQL 쿼리 최적화.",
+      "assigned_to": [
+        "MBR-5DE4"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Data Engineer",
+      "estimated_days": 5.0,
+      "buffer_days": 0.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L2-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 8,
+      "end_week": 8,
+      "deliverables": [
+        "분석 API"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-02-02-02",
+      "level": "L3",
+      "parent_id": "L2-02-02",
+      "title": "자동 리포트 생성 및 발송",
+      "description": "주간/월간 리포트 자동 생성 및 이메일 발송 기능 구현, 스케줄러 적용.",
+      "assigned_to": [
+        "MBR-B392"
+      ],
+      "required_role": "Backend Developer",
+      "assigned_role": "Backend Developer",
+      "estimated_days": 5.0,
+      "buffer_days": 1.0,
+      "total_days": 6.0,
+      "dependencies": [
+        "L3-02-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 9,
+      "end_week": 10,
+      "deliverables": [
+        "리포트 자동화 모듈"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L1-03",
+      "level": "L1",
+      "parent_id": null,
+      "title": "프론트엔드 구현",
+      "description": "React/Next.js 기반 대시보드 및 관리자 페이지 구현",
+      "assigned_to": [],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 18.0,
+      "buffer_days": 4.0,
+      "total_days": 22.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 10,
+      "end_week": 13,
+      "deliverables": [
+        "대시보드 UI",
+        "관리자 페이지"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L2-03-01",
+      "level": "L2",
+      "parent_id": "L1-03",
+      "title": "대시보드 UI 구현",
+      "description": "상담 분석 대시보드 시각화 및 실시간 데이터 연동",
+      "assigned_to": [],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 8.0,
+      "buffer_days": 2.0,
+      "total_days": 10.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 10,
+      "end_week": 12,
+      "deliverables": [
+        "대시보드 컴포넌트"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-03-01-01",
+      "level": "L3",
+      "parent_id": "L2-03-01",
+      "title": "실시간 분석 차트 구현",
+      "description": "React 차트 라이브러리를 활용한 상담 지표 시각화, 실시간 데이터 갱신 구현.",
+      "assigned_to": [
+        "MBR-278C"
+      ],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 4.0,
+      "buffer_days": 1.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [
+        "실시간 데이터 스트리밍에 따른 렌더링 부하"
+      ],
+      "buffer_rationale": "실시간 데이터 스트리밍에 따른 렌더링 부하",
+      "start_week": 10,
+      "end_week": 10,
+      "deliverables": [
+        "차트 컴포넌트"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-03-01-02",
+      "level": "L3",
+      "parent_id": "L2-03-01",
+      "title": "상담 로그 검색 및 필터링",
+      "description": "상담 로그 검색 UI 및 필터링 기능 구현, 백엔드 API 연동.",
+      "assigned_to": [
+        "MBR-278C"
+      ],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 4.0,
+      "buffer_days": 1.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L3-03-01-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 12,
+      "end_week": 12,
+      "deliverables": [
+        "검색 컴포넌트"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L2-03-02",
+      "level": "L2",
+      "parent_id": "L1-03",
+      "title": "관리자 및 인증 시스템",
+      "description": "어드민 권한 관리 및 사용자 인증 UI",
+      "assigned_to": [],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 10.0,
+      "buffer_days": 2.0,
+      "total_days": 12.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 11,
+      "end_week": 13,
+      "deliverables": [
+        "인증 페이지",
+        "관리자 설정 페이지"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-03-02-01",
+      "level": "L3",
+      "parent_id": "L2-03-02",
+      "title": "사용자 인증 및 권한 관리",
+      "description": "JWT 기반 로그인 및 RBAC(역할 기반 접근 제어) UI 구현.",
+      "assigned_to": [
+        "MBR-278C"
+      ],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 4.0,
+      "buffer_days": 1.0,
+      "total_days": 5.0,
+      "dependencies": [
+        "L1-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 11,
+      "end_week": 11,
+      "deliverables": [
+        "인증 모듈"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-03-02-02",
+      "level": "L3",
+      "parent_id": "L2-03-02",
+      "title": "어드민 설정 페이지 구현",
+      "description": "사용자 관리 및 시스템 설정 관리 UI 구현.",
+      "assigned_to": [
+        "MBR-278C"
+      ],
+      "required_role": "Frontend Developer",
+      "assigned_role": "Frontend Developer",
+      "estimated_days": 3.0,
+      "buffer_days": 1.0,
+      "total_days": 4.0,
+      "dependencies": [
+        "L3-03-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 13,
+      "end_week": 13,
+      "deliverables": [
+        "어드민 UI"
+      ],
+      "status": "계획",
+      "importance": "Low"
+    },
+    {
+      "task_id": "L1-04",
+      "level": "L1",
+      "parent_id": null,
+      "title": "QA 및 테스트",
+      "description": "기능 테스트, 통합 테스트 및 버그 수정",
+      "assigned_to": [],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 15.0,
+      "buffer_days": 1.0,
+      "total_days": 16.0,
+      "dependencies": [
+        "L1-03"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 14,
+      "end_week": 17,
+      "deliverables": [
+        "테스트 결과서",
+        "버그 리포트"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-04-01",
+      "level": "L2",
+      "parent_id": "L1-04",
+      "title": "테스트 수행",
+      "description": "단위 테스트 및 통합 테스트",
+      "assigned_to": [],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 8.0,
+      "buffer_days": 1.0,
+      "total_days": 9.0,
+      "dependencies": [
+        "L1-03"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 14,
+      "end_week": 16,
+      "deliverables": [
+        "테스트 케이스 문서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-04-01-01",
+      "level": "L3",
+      "parent_id": "L2-04-01",
+      "title": "기능 및 통합 테스트",
+      "description": "전체 기능에 대한 E2E 테스트 및 API 통합 테스트 수행.",
+      "assigned_to": [
+        "MBR-1AF6"
+      ],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 5.0,
+      "buffer_days": 1.0,
+      "total_days": 6.0,
+      "dependencies": [
+        "L1-03"
+      ],
+      "risk_factors": [
+        "통합 테스트 시 엣지 케이스 누락 가능성"
+      ],
+      "buffer_rationale": "통합 테스트 시 엣지 케이스 누락 가능성",
+      "start_week": 14,
+      "end_week": 15,
+      "deliverables": [
+        "테스트 결과서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-04-01-02",
+      "level": "L3",
+      "parent_id": "L2-04-01",
+      "title": "GDPR 준수 검증",
+      "description": "데이터 보호 규정 준수 여부 및 개인정보 마스킹 테스트.",
+      "assigned_to": [
+        "MBR-1AF6"
+      ],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L3-04-01-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 16,
+      "end_week": 16,
+      "deliverables": [
+        "보안 검증 보고서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-04-02",
+      "level": "L2",
+      "parent_id": "L1-04",
+      "title": "버그 수정 및 재테스트",
+      "description": "발견된 결함 수정 및 재검증",
+      "assigned_to": [],
+      "required_role": "Fullstack Developer",
+      "assigned_role": "Fullstack Developer",
+      "estimated_days": 7.0,
+      "buffer_days": 0.0,
+      "total_days": 7.0,
+      "dependencies": [
+        "L2-04-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 16,
+      "end_week": 17,
+      "deliverables": [
+        "수정된 코드",
+        "재테스트 결과"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-04-02-01",
+      "level": "L3",
+      "parent_id": "L2-04-02",
+      "title": "버그 수정 사이클",
+      "description": "QA 단계에서 발견된 버그 수정 및 코드 리뷰.",
+      "assigned_to": [
+        "MBR-8581"
+      ],
+      "required_role": "Fullstack Developer",
+      "assigned_role": "DevOps",
+      "estimated_days": 4.0,
+      "buffer_days": 0.0,
+      "total_days": 4.0,
+      "dependencies": [
+        "L2-04-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 16,
+      "end_week": 16,
+      "deliverables": [
+        "패치 코드"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-04-02-02",
+      "level": "L3",
+      "parent_id": "L2-04-02",
+      "title": "최종 재테스트",
+      "description": "수정 사항에 대한 최종 검증 및 배포 준비.",
+      "assigned_to": [
+        "MBR-1AF6"
+      ],
+      "required_role": "QA Engineer",
+      "assigned_role": "QA Engineer",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L3-04-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 17,
+      "end_week": 17,
+      "deliverables": [
+        "최종 승인서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L1-05",
+      "level": "L1",
+      "parent_id": null,
+      "title": "배포 및 운영 전환",
+      "description": "스테이징 배포, 클라이언트 UAT 및 운영 환경 배포",
+      "assigned_to": [],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 10.0,
+      "buffer_days": 0.0,
+      "total_days": 10.0,
+      "dependencies": [
+        "L1-04"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 17,
+      "end_week": 20,
+      "deliverables": [
+        "운영 서버",
+        "운영 매뉴얼"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-05-01",
+      "level": "L2",
+      "parent_id": "L1-05",
+      "title": "배포 및 UAT",
+      "description": "스테이징 환경 배포 및 클라이언트 검수",
+      "assigned_to": [],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 6.0,
+      "buffer_days": 0.0,
+      "total_days": 6.0,
+      "dependencies": [
+        "L1-04"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 17,
+      "end_week": 18,
+      "deliverables": [
+        "UAT 결과서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-05-01-01",
+      "level": "L3",
+      "parent_id": "L2-05-01",
+      "title": "스테이징 배포",
+      "description": "AWS 환경에 스테이징 배포 및 환경 설정.",
+      "assigned_to": [
+        "MBR-8581"
+      ],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L1-04"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 17,
+      "end_week": 17,
+      "deliverables": [
+        "스테이징 환경"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-05-01-02",
+      "level": "L3",
+      "parent_id": "L2-05-01",
+      "title": "클라이언트 UAT 지원",
+      "description": "클라이언트 검수 지원 및 피드백 수렴.",
+      "assigned_to": [
+        "MBR-9BEA"
+      ],
+      "required_role": "PM",
+      "assigned_role": "Designer",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L3-05-01-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 18,
+      "end_week": 18,
+      "deliverables": [
+        "UAT 승인서"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L2-05-02",
+      "level": "L2",
+      "parent_id": "L1-05",
+      "title": "운영 배포 및 안정화",
+      "description": "운영 서버 배포 및 모니터링 설정",
+      "assigned_to": [],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 4.0,
+      "buffer_days": 0.0,
+      "total_days": 4.0,
+      "dependencies": [
+        "L2-05-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 19,
+      "end_week": 20,
+      "deliverables": [
+        "운영 환경",
+        "운영 매뉴얼"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-05-02-01",
+      "level": "L3",
+      "parent_id": "L2-05-02",
+      "title": "운영 환경 배포",
+      "description": "운영 서버 배포 및 99.9% SLA를 위한 모니터링 설정.",
+      "assigned_to": [
+        "MBR-8581"
+      ],
+      "required_role": "DevOps",
+      "assigned_role": "DevOps",
+      "estimated_days": 2.0,
+      "buffer_days": 0.0,
+      "total_days": 2.0,
+      "dependencies": [
+        "L3-05-01-02"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 19,
+      "end_week": 19,
+      "deliverables": [
+        "운영 서버"
+      ],
+      "status": "계획",
+      "importance": "High"
+    },
+    {
+      "task_id": "L3-05-02-02",
+      "level": "L3",
+      "parent_id": "L2-05-02",
+      "title": "운영 매뉴얼 작성 및 인수인계",
+      "description": "시스템 운영 매뉴얼 작성 및 고객사 인수인계.",
+      "assigned_to": [
+        "MBR-9BEA"
+      ],
+      "required_role": "PM",
+      "assigned_role": "Designer",
+      "estimated_days": 2.0,
+      "buffer_days": 0.0,
+      "total_days": 2.0,
+      "dependencies": [
+        "L3-05-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "기본 버퍼 반영",
+      "start_week": 20,
+      "end_week": 20,
+      "deliverables": [
+        "운영 매뉴얼"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    },
+    {
+      "task_id": "L3-02-03-01",
+      "level": "L3",
+      "parent_id": "L2-03-02",
+      "title": "API 게이트웨이 보안 및 인증 미들웨어 구현",
+      "description": "",
+      "assigned_to": [
+        "MBR-8581"
+      ],
+      "required_role": "MBR-B392",
+      "assigned_role": "DevOps",
+      "estimated_days": 3.0,
+      "buffer_days": 0.0,
+      "total_days": 3.0,
+      "dependencies": [
+        "L3-03-02-01"
+      ],
+      "risk_factors": [],
+      "buffer_rationale": "",
+      "start_week": 12,
+      "end_week": 12,
+      "deliverables": [
+        "API 게이트웨이 보안 및 인증 미들웨어 구현 완료"
+      ],
+      "status": "계획",
+      "importance": "Medium"
+    }
+  ],
+  "debate_log": [
+    {
+      "timestamp": "01:40:30",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "WBS Gen Agent",
+      "message": "✅ **[Phase 1] 초기 3단계 WBS 초안 도출 완료**\n총 35개의 태스크가 식별되었습니다.",
+      "message_type": "proposal",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:36",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "L3 세부 태스크 기준 R&R 배분 완료. 호출된 담당자: 박선민, 이주성, 장선열, 윤수빈, 진석호\nL3 배정 현황 (일부):\n  [L3-01-01-01] 비즈니스 요구사항 분석 → 박선민\n  [L3-01-01-02] UI/UX 와이어프레임 설계 → 박선민\n  [L3-01-02-01] Salesforce API 연동 Po → 이주성\n  [L3-01-02-02] DB 스키마 및 인프라 설계 → 이동헌\n  [L3-02-01-01] OpenAI 챗봇 인터페이스 개발 → 이동헌\n  [L3-02-01-02] Salesforce REST API  → 이주성\n  [L3-02-02-01] 상담 로그 분석 엔진 → 이동헌\n  [L3-02-02-02] 자동 리포트 생성 및 발송 → 이주성\n\n[멤버별 R&R 배정 근거]\n• 박선민: 사용자 중심 설계 역량과 D형의 주도적 성향을 살려 기획 및 UAT/운영 인수인계를 총괄합니다. 비즈니스 목표를 명확히 설정하고 팀의 방향성을 제시하는 데 최적입니다.\n• 윤수빈: I형의 사교적 성향과 테스트 자동화 전문성을 결합하여 QA 프로세스를 주도합니다. 결함 재현 문서화 능력이 뛰어나 개발팀과의 원활한 소통을 이끌어냅니다.\n• 이동헌: S형의 안정적이고 신중한 성향을 바탕으로 대용량 데이터 파이프라인과 분석 엔진을 설계합니다. 데이터 품질 모니터링에 강점이 있어 리포팅 시스템의 정확도를 보장합니다.\n• 이주성: C형의 분석적이고 꼼꼼한 성향을 활용해 고성능 API 설계 및 외부 연동을 담당합니다. 비동기 처리 기술을 통해 시스템 응답 속도 최적화라는 기술적 난제를 해결합니다.\n• 장선열: D형의 추진력과 React/TypeScript 전문성을 결합하여 대시보드 UI를 구현합니다. 복잡한 인터랙션을 안정적으로 구현하며 사용자 경험을 시각화하는 데 탁월합니다.\n• 진석호: S형의 꼼꼼함과 인프라 자동화 역량을 활용하여 버그 수정 및 배포 파이프라인을 관리합니다. 보안과 무중단 배포에 대한 풍부한 경험으로 운영 안정성을 극대화합니다.\n\n전체 팀원의 역량과 업무 부하를 고려하여 1인당 3~4개의 태스크를 배정하였습니다. 기획/디자인은 박선민, 백엔드 로직은 이주성/이동헌, 프론트엔드는 장선열, 테스트 및 배포는 윤수빈/진석호가 주도하여 전문성을 극대화했습니다.",
+      "message_type": "proposal",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:36",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-01-01] **요구사항 분석 및 설계** (중요도: High) 검토 시작 — 담당 전문가: planner",
+      "message_type": "mediation",
+      "related_task_id": "L2-01-01",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:39",
+      "agent_role": "플래너",
+      "agent_name": "박선민",
+      "message": "박선민 / 플래너\n\n[1. 직전 발언 평가]\nPM이 제시한 WBS는 전체적인 R&R을 명확히 했으나, 과거 프로젝트의 '와이어프레임 승인 지연으로 인한 개발 차질' 사례를 고려할 때 [L3-01-01-02]의 설계 단계에서 개발팀과의 조기 검토 프로세스가 누락된 점이 약점입니다.\n\n[2. 나의 기술적 대안]\n[L3-01-01-01]과 [L3-01-01-02] 진행 시, 장선열(FE)과 이주성(BE)을 대상으로 중간 산출물에 대한 '구현 가능성 및 API 스키마 사전 리뷰' 세션을 2회 배치하여 설계 변경 리스크를 원천 차단하겠습니다. 또한, 초기 설계 단계부터 로딩, 에러, 빈 화면 상태를 포함한 디자인 시스템 컴포넌트를 정의하여 QA 단계의 수정 공수를 최소화하겠습니다.\n\n[3. 업무 재배정 요구 (선택)]\n해당 없음.",
+      "message_type": "comment",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:39",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-01-02] **기술 검증 및 아키텍처** (중요도: High) 검토 시작 — 담당 전문가: backend",
+      "message_type": "mediation",
+      "related_task_id": "L2-01-02",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:42",
+      "agent_role": "백엔드 개발자",
+      "agent_name": "이주성",
+      "message": "[이주성 / BE 개발자]\n\n[1. 직전 발언 평가]\n박선민 플래너가 제안한 '구현 가능성 사전 리뷰'는 설계와 개발 간의 간극을 줄이는 데 효과적이나, Salesforce API 연동 PoC와 같은 기술 검증 단계에서의 리스크를 고려하면 단순 리뷰를 넘어 기술 스펙 확정을 위한 기술 표준 문서화가 선행되어야 합니다.\n\n[2. 나의 기술적 대안]\nSalesforce 연동 시 발생할 수 있는 Rate Limiting 및 인증 토큰 갱신 이슈를 사전에 방지하기 위해, FastAPI 미들웨어 레벨에서 Redis 기반의 토큰 캐싱 및 요청 제한 로직을 설계하여 PoC 단계에서 1.0일의 기술 검증 버퍼를 확보하겠습니다.\n\n[3. 업무 재배정 요구 (선택)]\n해당 없음.",
+      "message_type": "buffer_request",
+      "related_task_id": null,
+      "buffer_days_proposed": 0
+    },
+    {
+      "timestamp": "01:40:42",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-02-01] **AI 챗봇 및 CRM 연동** (중요도: High) 검토 시작 — 담당 전문가: backend",
+      "message_type": "mediation",
+      "related_task_id": "L2-02-01",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:44",
+      "agent_role": "백엔드 개발자",
+      "agent_name": "이주성",
+      "message": "[이주성 / BE 개발자]\n\n[1. 직전 발언 평가]\nPM의 [L2-02-01] 검토 지시는 전체 시스템의 데이터 정합성을 확보하기 위한 핵심 과제이나, 현재 배정된 7.0일의 일정은 Salesforce 연동 시 발생하는 예외 처리와 비동기 데이터 파이프라인 구축을 고려할 때 다소 타이트합니다.\n\n[2. 나의 기술적 대안]\nSalesforce REST API 연동 시 발생하는 데이터 호출 병목을 해결하기 위해, FastAPI의 `httpx` 비동기 라이브러리와 Redis 캐싱을 결합하여 외부 API 호출 횟수를 최소화하는 로직을 우선 구현하겠습니다. 또한, GDPR 준수를 위한 데이터 마스킹 미들웨어를 초기 설계에 포함하여 사후 수정 공수를 원천 차단하겠습니다.\n\n[3. 업무 재배정 요구 (선택)]\n해당 없음.",
+      "message_type": "buffer_request",
+      "related_task_id": null,
+      "buffer_days_proposed": 0
+    },
+    {
+      "timestamp": "01:40:44",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager (PM)",
+      "message": "🔁 [이주성] 님, 핵심 주장은 충분히 전달되었습니다. 다른 전문가들의 관점도 들어보겠습니다. 다음 발언자에게 넘깁니다.",
+      "message_type": "mediation",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:44",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-04-01] **테스트 수행** (중요도: High) 검토 시작 — 담당 전문가: qa",
+      "message_type": "mediation",
+      "related_task_id": "L2-04-01",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:47",
+      "agent_role": "QA 엔지니어",
+      "agent_name": "윤수빈",
+      "message": "[윤수빈 / QA 엔지니어]\n\n[1. 직전 발언 평가]\n이주성 님이 제안한 데이터 마스킹 미들웨어는 GDPR 준수 검증의 복잡도를 낮추는 훌륭한 선제적 조치입니다. 다만, 해당 로직이 실제 환경에서 정상 작동하는지 검증하기 위한 통합 테스트 시나리오가 현재 일정에 반영되지 않은 점이 우려됩니다.\n\n[2. 나의 기술적 대안]\n[L3-04-01-01] 수행 시, Pytest와 Cypress를 활용한 E2E 자동화 스크립트를 API 계약 테스트와 병렬로 설계하여 테스트 수행 기간을 1.0일 단축하겠습니다. 또한, GDPR 검증 시 진석호(DevOps) 님과 협력하여 데이터 마스킹이 적용된 테스트용 더미 데이터를 사전에 확보해 환경 세팅 리스크를 최소화하겠습니다.\n\n[3. 업무 재배정 요구 (선택)]\n해당 없음.",
+      "message_type": "buffer_request",
+      "related_task_id": null,
+      "buffer_days_proposed": 0
+    },
+    {
+      "timestamp": "01:40:47",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-04-02] **버그 수정 및 재테스트** (중요도: High) 검토 시작 — 담당 전문가: qa, backend",
+      "message_type": "mediation",
+      "related_task_id": "L2-04-02",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:49",
+      "agent_role": "백엔드 개발자",
+      "agent_name": "이주성",
+      "message": "[이주성 / BE 개발자]\n\n[1. 직전 발언 평가]\n윤수빈 QA 엔지니어가 제안한 E2E 자동화 병렬 설계는 테스트 효율을 높이나, 버그 수정 사이클에서 발생하는 예외 케이스가 많을 경우 API 계약 테스트와의 정합성 검증에 추가 시간이 소요될 리스크가 있습니다.\n\n[2. 나의 기술적 대안]\n[L3-04-02-01] 단계에서 FastAPI의 의존성 주입(Dependency Injection)을 활용한 모킹(Mocking) 테스트를 선행하여, 비즈니스 로직 수정 시 전체 시스템 재빌드 없이 버그를 격리 수정하고 1.0일의 테스트 버퍼를 확보하겠습니다.\n\n[3. 업무 재배정 요구 (선택)]\n해당 없음.",
+      "message_type": "buffer_request",
+      "related_task_id": null,
+      "buffer_days_proposed": 0
+    },
+    {
+      "timestamp": "01:40:52",
+      "agent_role": "QA 엔지니어",
+      "agent_name": "윤수빈",
+      "message": "[윤수빈 / QA 엔지니어]\n\n[1. 직전 발언 평가]\n이주성 님이 제안한 FastAPI 모킹 테스트는 버그 격리에는 효과적이나, 실제 환경과의 차이로 인해 최종 재테스트 단계에서 예기치 못한 결함이 발견될 리스크가 존재합니다.\n\n[2. 나의 기술적 대안]\n[L3-04-02-02] 최종 재테스트 시, 앞서 설계한 E2E 자동화 스크립트를 재사용하여 회귀 테스트를 자동화하고, 진석호(DevOps) 님께 테스트 환경 내 데이터 무결성 검증 툴 배포를 요청하여 환경 세팅 시간을 0.5일 단축하겠습니다. 또한, 버그 수정 사이클의 리스크를 고려하여 [L3-04-02-02]에 0.5일의 버퍼를 추가 배정할 것을 제안합니다.\n\n[3. 업무 재배정 요구 (선택)]\n해당 없음.",
+      "message_type": "buffer_request",
+      "related_task_id": null,
+      "buffer_days_proposed": 5
+    },
+    {
+      "timestamp": "01:40:52",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager (PM)",
+      "message": "⛔ [범위 과잉] 0.5일 단위의 마이크로 태스크 제안이 반복되고 있습니다. WBS는 최소 1일 단위의 의미 있는 작업 패키지로 구성해야 합니다. 세부 검증 항목은 기존 태스크의 description에 병합하세요.",
+      "message_type": "mediation",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:52",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-05-01] **배포 및 UAT** (중요도: High) 검토 시작 — 담당 전문가: devops",
+      "message_type": "mediation",
+      "related_task_id": "L2-05-01",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:52",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-05-02] **운영 배포 및 안정화** (중요도: High) 검토 시작 — 담당 전문가: devops",
+      "message_type": "mediation",
+      "related_task_id": "L2-05-02",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:52",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-02-02] **데이터 분석 및 리포팅** (중요도: Medium) 검토 시작 — 담당 전문가: backend",
+      "message_type": "mediation",
+      "related_task_id": "L2-02-02",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:54",
+      "agent_role": "백엔드 개발자",
+      "agent_name": "이주성",
+      "message": "[이주성 / BE 개발자]\n\n[1. 직전 발언 평가]\nPM의 [L2-02-02] 데이터 분석 및 리포팅 검토 지시에 따라, 현재 배정된 [L3-02-02-02] 자동 리포트 생성 태스크의 Salesforce API 연동 및 데이터 처리 복잡도를 고려할 때 5.0일은 다소 타이트합니다.\n\n[2. 나의 기술적 대안]\nSalesforce 연동 시 발생하는 I/O 병목을 줄이기 위해 FastAPI의 비동기 호출과 Redis 캐싱을 적용하여 데이터 조회 속도를 최적화하겠습니다. 또한, 리포트 생성 로직의 정합성 확보를 위해 1.0일의 버퍼를 추가 배정하여 데이터 품질 이슈에 대응하겠습니다.\n\n[3. 업무 재배정 요구 (선택)]\n해당 없음.",
+      "message_type": "buffer_request",
+      "related_task_id": null,
+      "buffer_days_proposed": 0
+    },
+    {
+      "timestamp": "01:40:54",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager (PM)",
+      "message": "⛔ [범위 과잉] 0.5일 단위의 마이크로 태스크 제안이 반복되고 있습니다. WBS는 최소 1일 단위의 의미 있는 작업 패키지로 구성해야 합니다. 세부 검증 항목은 기존 태스크의 description에 병합하세요.",
+      "message_type": "mediation",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:54",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-03-01] **대시보드 UI 구현** (중요도: Medium) 검토 시작 — 담당 전문가: frontend",
+      "message_type": "mediation",
+      "related_task_id": "L2-03-01",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:57",
+      "agent_role": "프론트엔드 개발자",
+      "agent_name": "장선열",
+      "message": "[장선열 / FE 개발자]\n\n[1. 직전 발언 평가]\n이주성 님이 제안한 Redis 캐싱은 서버 부하를 줄이는 데 효과적이나, 프론트엔드 입장에서는 실시간 데이터 반영을 위한 웹소켓 핸들링 로직이 추가되어야 하므로 비동기 관리 복잡도가 증가합니다.\n\n[2. 나의 기술적 대안]\n[L3-03-01-01] 실시간 차트 구현 시 Recharts와 최적화된 상태 관리 라이브러리를 사용하여 렌더링 부하를 최소화하고, [L3-03-01-02]의 검색 로직은 API 호출을 디바운싱 처리하여 불필요한 네트워크 요청을 줄이는 방식으로 8일의 일정을 준수하겠습니다.\n\n[3. 업무 재배정 요구 (선택)]\n해당 없음.",
+      "message_type": "buffer_request",
+      "related_task_id": null,
+      "buffer_days_proposed": 8
+    },
+    {
+      "timestamp": "01:40:57",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager (PM)",
+      "message": "⛔ [범위 과잉] 0.5일 단위의 마이크로 태스크 제안이 반복되고 있습니다. WBS는 최소 1일 단위의 의미 있는 작업 패키지로 구성해야 합니다. 세부 검증 항목은 기존 태스크의 description에 병합하세요.",
+      "message_type": "mediation",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:57",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "📌 [L2-03-02] **관리자 및 인증 시스템** (중요도: Medium) 검토 시작 — 담당 전문가: frontend",
+      "message_type": "mediation",
+      "related_task_id": "L2-03-02",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:40:59",
+      "agent_role": "프론트엔드 개발자",
+      "agent_name": "장선열",
+      "message": "[장선열 / FE 개발자]\n\n[1. 직전 발언 평가]\nPM의 [L2-03-02] 관리자 및 인증 시스템 검토 지시에 따라, 인증 로직의 보안성과 설정 페이지의 UI 복잡도를 고려할 때 현재 배정된 총 7.0일은 적정한 수준입니다.\n\n[2. 나의 기술적 대안]\n인증 상태 관리는 React Context 대신 TanStack Query를 도입하여 서버 상태와 클라이언트 캐시를 분리함으로써 복잡한 비동기 흐름을 단순화하겠습니다. 어드민 설정 페이지는 디자인 시스템 컴포넌트를 재사용하여 UI 구현 시간을 단축하고, 이를 통해 확보된 여유를 인증 로직의 보안성 검증에 집중하겠습니다.\n\n[3. 업무 재배정 요구 (선택)]\n해당 없음.",
+      "message_type": "buffer_request",
+      "related_task_id": null,
+      "buffer_days_proposed": 0
+    },
+    {
+      "timestamp": "01:40:59",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager (PM)",
+      "message": "🔁 [장선열] 님, 핵심 주장은 충분히 전달되었습니다. 다른 전문가들의 관점도 들어보겠습니다. 다음 발언자에게 넘깁니다.",
+      "message_type": "mediation",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:41:01",
+      "agent_role": "플래너",
+      "agent_name": "박선민",
+      "message": "추가 의견이 없습니다. [PASS]",
+      "message_type": "pass",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:41:03",
+      "agent_role": "프론트엔드 개발자",
+      "agent_name": "장선열",
+      "message": "추가 의견이 없습니다. [PASS]",
+      "message_type": "pass",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:41:05",
+      "agent_role": "백엔드 개발자",
+      "agent_name": "이주성",
+      "message": "추가 의견이 없습니다. [PASS]",
+      "message_type": "pass",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:41:08",
+      "agent_role": "QA 엔지니어",
+      "agent_name": "윤수빈",
+      "message": "추가 의견이 없습니다. [PASS]",
+      "message_type": "pass",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:41:08",
+      "agent_role": "시스템",
+      "agent_name": "시스템",
+      "message": "✅ 모든 에이전트가 PASS — 토론 수렴 완료",
+      "message_type": "decision",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:41:11",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "PM 에이전트",
+      "message": "토론된 리스크들을 검토하여 일정 버퍼에 최종 반영했습니다 (R&R 재배정 1건 적용) (신규 태스크 1건 추가: L3-02-03-01). 이대로 진행하겠습니다.",
+      "message_type": "mediation",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:41:11",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "PM 에이전트",
+      "message": "🔄 [L3-04-02-01] R&R 재배정(잠금): 윤수빈 - 버그 수정 사이클은 테스트 자동화 및 결함 재현 문서화 역량이 뛰어난 MBR-1AF6가 주도하는 것이 품질 보증 효율 측면에서 유리함",
+      "message_type": "decision",
+      "related_task_id": "L3-04-02-01",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:41:11",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "PM 에이전트",
+      "message": "➕ [L3-02-03-01] 에이전트 제안 신규 태스크 추가됨",
+      "message_type": "decision",
+      "related_task_id": "L3-02-03-01",
+      "buffer_days_proposed": null
+    },
+    {
+      "timestamp": "01:41:11",
+      "agent_role": "슈퍼바이저(PM)",
+      "agent_name": "Task Manager",
+      "message": "토론 내용을 분석하여 일정 및 R&R을 조정했습니다. (총 1라운드 누적: 1건 재배정, 5건 버퍼 조정, 1건 신규 태스크 추가)",
+      "message_type": "proposal",
+      "related_task_id": null,
+      "buffer_days_proposed": null
+    }
+  ]
+}

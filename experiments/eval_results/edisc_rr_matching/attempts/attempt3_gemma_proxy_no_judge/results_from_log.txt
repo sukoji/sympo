@@ -1,0 +1,5 @@
+[1/6] <<< gemma4-api|same_edisc|iter1 완료 (823.1s) planning=0.3059 gini=0.3231 feasibility=1.0000 SR=1.0000 autoscore=0.8283
+[2/6] <<< gemma4-api|same_edisc|iter2 완료 (920.2s) planning=0.3059 gini=0.2337 feasibility=1.0000 SR=1.0000 autoscore=0.8485
+[3/6] <<< gemma4-api|same_edisc|iter3 완료 (413.4s) planning=0.2942 gini=0.2823 feasibility=1.0000 SR=1.0000 autoscore=0.8128
+[4/6] <<< gemma4-api|diverse_edisc|iter1 완료 (616.5s) planning=0.3225 gini=0.2492 feasibility=1.0000 SR=1.0000 autoscore=0.8550
+[5/6] <<< gemma4-api|diverse_edisc|iter2 완료 (934.6s) planning=0.2934 gini=0.2658 feasibility=1.0000 SR=1.0000 autoscore=0.8479

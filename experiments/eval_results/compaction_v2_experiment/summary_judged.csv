@@ -1,0 +1,10 @@
+mode,run_id,snapshot,n_tasks,sub_agent_failures,S_t1,S_t2,S_t3,S_med,A_t1,A_t2,A_t3,A_med,D_t1,D_t2,D_t3,D_med,overall_median
+C_claude,1,wbs_snapshot_C3_3rounds_r1_qwen-api_compactv2_claude_20260424_195139.json,33,6,0.7,0.7,0.7,0.7,0.07,0.07,0.07,0.07,0.95,0.95,0.95,0.95,0.5419999999999999
+C_filter,1,wbs_snapshot_C3_3rounds_r1_qwen-api_compactv2_filter_20260424_192207.json,36,0,0.77,0.77,0.77,0.77,0.07,0.07,0.07,0.07,0.95,0.95,0.95,0.95,0.5700000000000001
+C_minimal,1,wbs_snapshot_C3_3rounds_r1_qwen-api_compactv2_minimal_20260424_173037.json,36,0,0.77,0.77,0.77,0.77,0.0,0.0,0.0,0.0,0.95,0.95,1.0,0.95,0.5455000000000001
+C_claude,2,wbs_snapshot_C3_3rounds_r2_qwen-api_compactv2_claude_20260424_200229.json,33,7,0.7,0.7,0.7,0.7,0.0,0.0,0.0,0.0,0.95,0.95,0.95,0.95,0.5175
+C_filter,2,wbs_snapshot_C3_3rounds_r2_qwen-api_compactv2_filter_20260424_193031.json,34,0,0.7,0.7,0.7,0.7,0.0,0.0,0.0,0.0,0.75,0.85,0.75,0.75,0.46749999999999997
+C_minimal,2,wbs_snapshot_C3_3rounds_r2_qwen-api_compactv2_minimal_20260424_180227.json,35,0,0.7,0.7,0.7,0.7,0.0,0.0,0.0,0.0,0.95,0.95,0.95,0.95,0.5175
+C_claude,3,wbs_snapshot_C3_3rounds_r3_qwen-api_compactv2_claude_20260424_201027.json,39,6,0.77,0.77,0.77,0.77,0.0,0.0,0.0,0.0,0.95,0.95,1.0,0.95,0.5455000000000001
+C_filter,3,wbs_snapshot_C3_3rounds_r3_qwen-api_compactv2_filter_20260424_194057.json,37,0,0.83,0.8,0.83,0.83,0.0,0.0,0.0,0.0,0.95,0.95,0.95,0.95,0.5695
+C_minimal,3,wbs_snapshot_C3_3rounds_r3_qwen-api_compactv2_minimal_20260424_191059.json,35,0,0.77,0.77,0.77,0.77,0.0,0.0,0.0,0.0,0.9,0.9,0.85,0.9,0.533

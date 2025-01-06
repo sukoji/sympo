@@ -1,0 +1,239 @@
+{
+  "backend": "gemma4-api",
+  "condition": "same_edisc",
+  "iter": 2,
+  "metrics": {
+    "timestamp": "2026-04-21 22:50:18",
+    "project_name": "AI 기반 고객 서비스 플랫폼 구축 프로젝트",
+    "model_backend": "gemma4-api",
+    "total_tasks": 64,
+    "debate_rounds": 1,
+    "ragas_faithfulness": {
+      "faithfulness": 0.9896,
+      "supported_claims": 190,
+      "total_claims": 192,
+      "method": "nli",
+      "model": "cross-encoder/nli-MiniLM2-L6-H768",
+      "threshold": 0.5,
+      "context_chunks": 6,
+      "top_unsupported": [
+        {
+          "task_id": "L2-02-03",
+          "claim": "OpenAI API를 활용하여 챗봇의 대화 흐름을 설계하고, 프롬프트 엔지니어링을 통해 비즈니스 요구사항에 ",
+          "source": "description",
+          "entailment_score": 0.4618,
+          "supported": false
+        },
+        {
+          "task_id": "L2-04-02",
+          "claim": "시스템 통합 테스트 (E2E)",
+          "source": "title",
+          "entailment_score": 0.4811,
+          "supported": false
+        }
+      ]
+    },
+    "interaction_turns": {
+      "total_messages": 103,
+      "unique_agents": 7,
+      "messages_by_agent": {
+        "슈퍼바이저(PM)": 22,
+        "플래너": 16,
+        "프론트엔드 개발자": 16,
+        "백엔드 개발자": 16,
+        "디자이너": 16,
+        "QA 엔지니어": 16,
+        "시스템": 1
+      }
+    },
+    "supervisor_intervention": {
+      "intervention_ratio": 0.2136,
+      "supervisor_messages": 22,
+      "mediation_decisions": 20,
+      "total_messages": 103
+    },
+    "success_rate": {
+      "success_rate": 1.0,
+      "covered": 6,
+      "total_features": 6,
+      "uncovered_features": [],
+      "method": "embedding",
+      "threshold": 0.45,
+      "details": [
+        {
+          "feature": "AI 챗봇 대화 인터페이스 (OpenAI API 기반)",
+          "best_match_task": "L2-02-03",
+          "similarity": 0.9182,
+          "covered": true
+        },
+        {
+          "feature": "실시간 상담 분석 대시보드",
+          "best_match_task": "L3-04-01-03",
+          "similarity": 0.7074,
+          "covered": true
+        },
+        {
+          "feature": "기존 CRM 시스템 REST API 연동",
+          "best_match_task": "L2-02-02",
+          "similarity": 0.9269,
+          "covered": true
+        },
+        {
+          "feature": "주간/월간 리포트 자동 생성 및 이메일 발송",
+          "best_match_task": "L3-04-01-03",
+          "similarity": 0.7584,
+          "covered": true
+        },
+        {
+          "feature": "상담 로그 검색 및 필터링",
+          "best_match_task": "L3-04-01-03",
+          "similarity": 0.7574,
+          "covered": true
+        },
+        {
+          "feature": "어드민 권한 관리",
+          "best_match_task": "L2-03-03",
+          "similarity": 0.7486,
+          "covered": true
+        }
+      ]
+    },
+    "planning_score": {
+      "planning_score": 0.2921,
+      "num_assignments_evaluated": 44,
+      "top_5_lowest": [
+        {
+          "task_id": "L3-05-02-03",
+          "member_id": "MBR-B856",
+          "similarity": 0.0135
+        },
+        {
+          "task_id": "L3-05-01-03",
+          "member_id": "MBR-B856",
+          "similarity": 0.0773
+        },
+        {
+          "task_id": "L3-04-03-01",
+          "member_id": "MBR-E18B",
+          "similarity": 0.1087
+        },
+        {
+          "task_id": "L3-03-03-02",
+          "member_id": "MBR-E18B",
+          "similarity": 0.1496
+        },
+        {
+          "task_id": "L3-02-01-03",
+          "member_id": "MBR-F2FD",
+          "similarity": 0.1523
+        }
+      ]
+    },
+    "buffer_ratio": {
+      "buffer_ratio_pct": 10.29,
+      "total_estimated_days": 175.0,
+      "total_buffer_days": 18.0,
+      "l1_task_count": 5
+    },
+    "convergence": {
+      "convergence_trend": 0.0,
+      "proposal_count": 1,
+      "is_converging": true
+    },
+    "mece_score": {
+      "mece_score": 0.9333,
+      "overlap_pairs": 2,
+      "gap_l1s": 0,
+      "total_l1": 5,
+      "total_l2": 15
+    },
+    "granularity_fitness": {
+      "granularity_fitness": 1.0,
+      "in_range": 44,
+      "total_l3": 44,
+      "too_small": 0,
+      "too_large": 0,
+      "avg_l3_days": 3.98
+    },
+    "workload_gini": {
+      "gini": 0.2858,
+      "workloads": {
+        "MBR-D394": 17.0,
+        "MBR-87DE": 20.0,
+        "MBR-F2FD": 32.0,
+        "MBR-E18B": 55.0,
+        "MBR-99EA": 55.0,
+        "MBR-B856": 14.0
+      },
+      "num_members": 6,
+      "max_load": 55.0,
+      "min_load": 14.0,
+      "std_dev": 17.08
+    },
+    "schedule_feasibility": {
+      "feasibility": 1.0,
+      "conflicts": 0,
+      "total_pairs": 150,
+      "conflict_details": []
+    },
+    "communication_efficiency": {
+      "efficiency": 0.8252,
+      "effective_messages": 85,
+      "ineffective_messages": 18,
+      "total_messages": 103
+    },
+    "token_cost": {
+      "est_total_tokens": 30437,
+      "est_debate_tokens": 23866,
+      "est_wbs_tokens": 6571,
+      "est_cost_usd": 0.002283,
+      "debate_messages": 103,
+      "total_chars": 25365
+    },
+    "autoscore": {
+      "autoscore": 0.827,
+      "quality": 0.9667,
+      "allocation": 0.6688,
+      "orchestration": 0.8252,
+      "weights_used": {
+        "quality": 0.4,
+        "allocation": 0.35,
+        "orchestration": 0.25
+      },
+      "na_categories": []
+    },
+    "experiment_config": {
+      "rag_strategy": "vanilla",
+      "min_rounds": 1,
+      "max_rounds": 1,
+      "team_size": 6,
+      "note": "edisc_condition=same_edisc;iter=2;backend=gemma4-api"
+    }
+  },
+  "judge": {
+    "structure": {
+      "score": 0.47,
+      "reason": "{\"score\": 0.47, \"reason\": \"A="
+    },
+    "assignment": {
+      "score": 0.64,
+      "reason": "{\"score\": 0.64, \"reason\": \"A="
+    },
+    "debate": {
+      "score": 0.95,
+      "reason": "{\"score\": 0.95, \"reason\": \"A=1.0 B"
+    },
+    "overall": 0.6495,
+    "overall_detail": null,
+    "eval_dims": [
+      "structure",
+      "assignment",
+      "debate"
+    ],
+    "judge_model": "gemini-3.1-pro-preview"
+  },
+  "judge_error": null,
+  "debate_log_len": 103,
+  "final_wbs_task_count": 64,
+  "elapsed_sec": 785.8
+}

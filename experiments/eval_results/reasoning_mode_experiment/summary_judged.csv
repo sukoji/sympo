@@ -1,0 +1,10 @@
+mode,run_id,snapshot,n_tasks,sub_agent_failures,S_t1,S_t2,S_t3,S_med,A_t1,A_t2,A_t3,A_med,D_t1,D_t2,D_t3,D_med,overall_median
+R_high,1,wbs_snapshot_C3_3rounds_r1_qwen-api_qwen-api_reasoning_high_20260424_213835.json,33,0,0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.95,0.95,0.95,0.95,0.7625
+R_high,2,wbs_snapshot_C3_3rounds_r2_qwen-api_qwen-api_reasoning_high_20260424_213835.json,33,0,0.7,0.7,0.7,0.7,0.73,0.73,0.73,0.73,0.95,0.95,0.95,0.95,0.773
+R_high,3,wbs_snapshot_C3_3rounds_r3_qwen-api_qwen-api_reasoning_high_20260424_213835.json,35,0,0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.95,0.95,0.95,0.95,0.7625
+R_max,1,wbs_snapshot_C3_3rounds_r1_qwen-api_qwen-api_reasoning_max_20260424_220453.json,33,0,0.7,0.7,0.7,0.7,0.73,0.73,0.73,0.73,0.95,0.95,0.95,0.95,0.773
+R_max,2,wbs_snapshot_C3_3rounds_r2_qwen-api_qwen-api_reasoning_max_20260424_220453.json,35,0,0.8,0.8,0.8,0.8,0.6,0.6,0.6,0.6,0.95,0.95,0.95,0.95,0.7675
+R_max,3,wbs_snapshot_C3_3rounds_r3_qwen-api_qwen-api_reasoning_max_20260424_220453.json,35,0,0.77,0.77,0.77,0.77,0.67,0.67,0.67,0.67,1.0,1.0,1.0,1.0,0.7925
+R_none,1,wbs_snapshot_C3_3rounds_r1_qwen-api_qwen-api_reasoning_none_20260424_210740.json,34,0,0.7,0.7,0.7,0.7,0.67,0.67,0.67,0.67,0.9,0.9,0.9,0.9,0.7395
+R_none,2,wbs_snapshot_C3_3rounds_r2_qwen-api_qwen-api_reasoning_none_20260424_210740.json,33,0,0.7,0.7,0.7,0.7,0.67,0.67,0.67,0.67,0.7,0.7,0.7,0.7,0.6895
+R_none,3,wbs_snapshot_C3_3rounds_r3_qwen-api_qwen-api_reasoning_none_20260424_210740.json,33,0,0.7,0.7,0.7,0.7,0.73,0.73,0.73,0.73,0.95,0.95,0.95,0.95,0.773

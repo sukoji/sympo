@@ -1,0 +1,5 @@
+dataset,meeting_id,condition,model_or_pipeline,audio_minutes,wer,cer,mer,wil,segment_wer,numeric_accuracy,entity_recall,der,jer,cpwer,speaker_count_ref,speaker_count_pred,speaker_count_error,speaker_attribution_accuracy,rtf,wall_clock_sec,time_to_first_text_sec,peak_gpu_vram_gb,peak_ram_gb,failure,timeout,cost_per_audio_hour_usd,notes
+AMI,ES2002a,A1_gemma_audio,gemma4-e2b-it,,,,,,,,,,,,,,,,,,,,,,,,,
+AMI,ES2002a,B2_whisperx_pyannote,whisperx-large-v3+pyannote,,,,,,,,,,,,,,,,,,,,,,,,,
+ICSI,Bdb001,A1_gemma_audio,gemma4-e2b-it,,,,,,,,,,,,,,,,,,,,,,,,,
+ICSI,Bdb001,B2_whisperx_pyannote,whisperx-large-v3+pyannote,,,,,,,,,,,,,,,,,,,,,,,,,

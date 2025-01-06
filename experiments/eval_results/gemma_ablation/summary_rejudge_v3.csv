@@ -1,0 +1,57 @@
+condition,run_id,snapshot,n_tasks,structure,assignment,debate,overall,structure_reason,assignment_reason,debate_reason
+C0_llm_only,1,wbs_snapshot_C0_llm_only_r1_gemma4-api_piai_20260420_234845.json,66,0.53,-1,-1,0.53,"{""score"": 0.53, ""reason"": ""A=0.2 B=0.4 C=1.0; WBS is heavily truncated resulting in most L2s missing L3 children (A=0.2); L3",N/A (배정 단계 미포함),N/A (토론 단계 미포함)
+C0_llm_only,1,wbs_snapshot_C0_llm_only_r1_gemma4-api_piai_20260420_235636.json,78,0.53,-1,-1,0.53,"{""score"": 0.53, ""reason"": ""A=0.2 B=0.4 C=1.0; key issues: Most L2 tasks are missing L3 children (only 2 out of 18 L2s have L3",N/A (배정 단계 미포함),N/A (토론 단계 미포함)
+C0_llm_only,2,wbs_snapshot_C0_llm_only_r2_gemma4-api_piai_20260421_000253.json,62,0.53,-1,-1,0.53,"{""score"": 0.53, ""reason"": ""A=0.2 B=0.4 C=1.0; key issues: most L2s lack L3 children (likely due to truncation), and there is no buffer (+0.",N/A (배정 단계 미포함),N/A (토론 단계 미포함)
+C0_llm_only,3,wbs_snapshot_C0_llm_only_r3_gemma4-api_piai_20260421_000826.json,77,0.47,-1,-1,0.47,"{""score"": 0.47, ""reason"": ""A=0.2 B=0.4 C=0.8; A: 6 L1s and 18 L2s exist, but 17 out of 18 L2",N/A (배정 단계 미포함),N/A (토론 단계 미포함)
+C1_with_assign,1,wbs_snapshot_C1_with_assign_r1_gemma4-api_piai_20260421_001747.json,66,0.53,-1.0,-1,0.53,"{""score"": 0.53, ""reason"": ""A=0.2 B=0.4 C=1.0; A: Most L2s lack L3 children (only 2 out of 15 L2s have L","judge_echo_failure: {""score"": 0.0, ""reason"": ""A=0.0 B=0.0 C=0.0; key issues: Complete ID mismatch between team profiles (MBR-BEBB, MBR-C02E, MBR-F497",N/A (토론 단계 미포함)
+C1_with_assign,3,wbs_snapshot_C1_with_assign_r3_gemma4-api_piai_20260421_003118.json,79,0.47,-1.0,-1,0.47,"A=0.2 B=0.4 C=0.8; WBS is severely truncated causing almost all L2s to lack L3 children, estimates completely lack buffers (+0.0d), though the provided task titles are concrete and domain-specific.","judge_echo_failure: {""score"": 0.0, ""reason"": ""A=0.0 B=0.0 C=0.0; key issues: All tasks are assigned to non-existent member IDs (MBR-506B, MBR-AB3B, M",N/A (토론 단계 미포함)
+C2_1round,1,wbs_snapshot_C2_1round_r1_gemma4-api_piai_20260421_004550.json,66,-1.0,-1.0,1.0,1.0,"judge_echo_failure: {""score"": 0.47, ""reason"": ""A=0.2 B=0.4 C=0.8; A: Most L2s lack L3 children and L1-06 lacks L2s entirely; B: The","judge_echo_failure: ABA1.
+Assigned in WBS: MBR-506B, MBR-AB3B, MBR-F3E6, MBR-1769, MBR-7A9B.
+
+Since none of the team members are assigned","A=1.0 B=1.0 C=1.0 D=1.0; 4 distinct roles (QA, BE, Designer, FE) actively participate. All messages cite specific task IDs and provide concrete technical analysis. Agents maintain their personas perfectly. The debate converges clearly with explicit discussion on the 0.0 day buffer risk and a final P"
+C2_1round,2,wbs_snapshot_C2_1round_r2_gemma4-api_piai_20260421_010421.json,78,0.47,-1.0,0.75,0.5777,"{""score"": 0.47, ""reason"": ""A=0.2 B=0.4 C=0.8; A: 7 L1 phases exist, but the WBS is truncated, leaving almost all L2 tasks without L3 children.","judge_echo_failure: {""score"": 0.07, ""reason"": ""A=0.0 B=0.2 C=0.0; key issues: Critical ID mismatch. All tasks are assigned to unknown IDs (MBR-506B, MBR-F3","{""score"": 0.75, ""reason"": ""A=0.8 B=0.8 C=0.6 D=0.8; key issues: 3 roles (Designer, FE, BE) participate but PM dominates with repetitive warnings"
+C2_1round,3,wbs_snapshot_C2_1round_r3_gemma4-api_piai_20260421_011707.json,66,1.0,-1.0,1.0,1.0,". So most L2 lack L3 children. A=0.2.
+
+Let's double check B:
+L3s have 0 buffer for 4 out of 6 tasks. ""Many L3 outside range OR no buffer"" -> B=0.4.","judge_echo_failure: {""score"": 0.0, ""reason"": ""A=0.0 B=0.0 C=0.0; key issues: Complete mismatch between team profile IDs and WBS assignment IDs. None of the provided team members (MBR-BEBB,","A=1.0 B=1.0 C=1.0 D=1.0; 5 distinct roles participate substantively. Messages consistently cite specific task IDs (e.g., L3-04-01-02) and provide concrete technical analysis. Agents maintain their professional personas perfectly throughout the debate. The debate reaches a clear convergence with all "
+C3_3rounds,1,wbs_snapshot_C3_3rounds_r1_gemma4-api_piai_20260420_231821.json,77,0.53,-1.0,0.95,0.6915,"{""score"": 0.53, ""reason"": ""A=0.2 B=0.4 C=1.0; key issues: WBS is cut off resulting in most L2s lacking L3 children; many tasks have zero buffer","judge_echo_failure: {""score"": 0.0, ""reason"": ""A=0.0 B=0.0 C=0.0; key issues: Critical ID mismatch. The WBS assigns tasks to unknown IDs (MBR-2C7B,",A=1.0 B=1.0 C=0.8 D=1.0; 4 distinct roles participated with concrete task ID references and technical details. Minor role slip with 박선민 appearing as both Planner and Designer. Clear convergence with explicit buffer/risk mention by PM.
+C3_3rounds,1,wbs_snapshot_C3_3rounds_r1_gemma4-api_piai_20260421_012718.json,42,-1.0,0.0,0.75,0.3125,"judge_echo_failure: {""score"": 0.6, ""reason"": ""A=0.4 B=0.4 C=1.0; A: Only 3 L1 phases and L2-03-02 is missing L3 tasks entirely; B:","{""score"": 0.0, ""reason"": ""A=0.0 B=0.0 C=0.0; key issues: Complete mismatch between team profiles and WBS assignments. All tasks are assigned to hallucinated IDs (e.g., M","{""score"": 0.75, ""reason"": ""A=0.6 B=0.8 C=0.8 D=0.8; 2 active roles (FE, QA) with others only passing; substantive messages cite task"
+C3_3rounds,2,wbs_snapshot_C3_3rounds_r2_gemma4-api_piai_20260420_233409.json,47,-1.0,-1.0,0.95,0.95,"judge_echo_failure: {""score"": 0.53, ""reason"": ""A=0.2 B=0.4 C=1.0; key issues: Most L2s completely lack L3 children and L1-06 lacks L2s;","judge_echo_failure: {""score"": 0.0, ""reason"": ""A=0.0 B=0.0 C=0.0; key issues: Critical mismatch between provided team profiles (MBR-BEBB, MBR-C02E, etc.) and assigned","A=1.0 B=1.0 C=1.0 D=0.8; key issues: 4 distinct roles (QA, Designer, FE, BE) actively participated with highly concrete, task-ID-referenced technical analysis. Role consistency was perfectly maintained. Convergence was reached with explicit buffer discussion (e.g., QA requesting 1.0 day buffer), tho"
+C3_3rounds,2,wbs_snapshot_C3_3rounds_r2_gemma4-api_piai_20260421_020444.json,88,0.6,-1.0,0.9,0.7154,"{""score"": 0.6, ""reason"": ""A=0.2 B=0.6 C=1.0; Hierarchy lacks L3 tasks entirely (stops at L2). Some task durations exceed the 1-10 day range (e.","judge_echo_failure: +3+4 = 10.0d
+
+If we evaluate the WBS IDs as the team:
+Workloads:
+MBR-AB3B: 33d
+MBR-1769: 30d
+MBR-7A9","{""score"": 0.90, ""reason"": ""A=1.0 B=1.0 C=0.8 D=0.8; key issues: 5 distinct roles participate actively with concrete task IDs and technical analysis. Minor role inconsistency with the"
+C3_3rounds,3,wbs_snapshot_C3_3rounds_r3_gemma4-api_piai_20260421_022430.json,77,-1.0,-1.0,1.0,1.0,"judge_echo_failure: L3-01-01-01 핵심 사용자 시나리오 정의서 작성
+L3-01-01-02 기능별 우선순위 및 범위 확정 회의 진행
+L3-01-01-03 핵심 기능 요구","judge_echo_failure: {""score"": 0.0, ""reason"": ""A=0.0 B=0.0 C=0.0; key issues: None of the assigned IDs in the WBS (MBR-506B, MBR-AB3",""" - PM says ""토론된 리스크들을 검토하여 일정 버퍼에 최종 반영했습니다."" This matches 1.0 or 0.8. Let's use 0.8.
+
+Let's calculate:
+A=1.0"
+C4_with_disc,1,wbs_snapshot_C4_with_disc_r1_gemma4-api_piai_20260421_023659.json,66,0.53,0.0,0.9,0.437,"{""score"": 0.53, ""reason"": ""A=0.2 B=0.4 C=1.0; WBS is severely truncated leaving most L2 tasks without L3 children; L3 durations are within 1-1","{""score"": 0.0, ""reason"": ""A=0.0 B=0.0 C=0.0; key issues: Complete mismatch between team profile IDs and assigned IDs in the WBS. All actual team members are completely idle (0 tasks assigned","{""score"": 0.9, ""reason"": ""A=1.0 B=1.0 C=0.8 D=0.8; key issues: 5 distinct roles participate with highly concrete, task-ID-referenced technical analysis. Minor"
+C4_with_disc,2,wbs_snapshot_C4_with_disc_r2_gemma4-api_piai_20260421_031034.json,78,0.53,-1.0,1.0,0.7108,"{""score"": 0.53, ""reason"": ""A=0.2 B=0.4 C=1.0; A: 7 L1 phases but almost all L2s lack L3 children (only two L3s","judge_echo_failure: ""
+If I strictly use the IDs:
+Team members: MBR-BEBB, MBR-C02E, MBR-F497, MBR-DB26, MBR-ABA1.
+Assigned IDs: MBR-5",A=1.0 B=1.0 C=1.0 D=1.0; 5 distinct roles actively participate with concrete technical details and task ID citations. Personas are strictly maintained despite a shared name artifact. Debate converges smoothly with explicit PM confirmation of risk and buffer reflection.
+C4_with_disc,3,wbs_snapshot_C4_with_disc_r3_gemma4-api_piai_20260421_032846.json,66,0.6,-1.0,0.8,0.6769,"{""score"": 0.6, ""reason"": ""A=0.2 B=0.6 C=1.0; key issues: WBS is severely truncated causing most L2s to lack L3 children; visible L3 task durations","judge_echo_failure: {""score"": 0.2, ""reason"": ""A=0.0 B=0.6 C=0.0; key issues: Critical ID mismatch between team profiles and WBS assignments (none of the team members MBR-BEBB, MBR-","/디자이너"" and ""박선민/플래너"" - same name used for two different roles. This is a role confusion. 0.8.
+
+Let's refine D:
+PM explicitly mentions ""일정 버퍼에 최종 반영했습니다"""
+C5_5rounds,1,wbs_snapshot_C5_5rounds_r1_gemma4-api_piai_20260421_040130.json,79,0.47,-1.0,0.95,0.6546,"{""score"": 0.47, ""reason"": ""A=0.2 B=0.4 C=0.8; WBS is severely truncated, leaving almost all L2s without L3 children (A=0.2).","judge_echo_failure: )
+DevOps -> No one in team profile.
+
+If I assume the IDs in WBS are just placeholders and I should map them by role:
+MBR-506B = Designer
+MBR-EDB4 = QA Engineer
+MBR-AB","{""score"": 0.95, ""reason"": ""A=1.0 B=1.0 C=0.8 D=1.0; key issues: 4-5 distinct roles actively participate with substantive technical arguments (A="
+C5_5rounds,2,wbs_snapshot_C5_5rounds_r2_gemma4-api_piai_20260421_045220.json,78,0.53,1.0,-1.0,0.7493,"{""score"": 0.53, ""reason"": ""A=0.2 B=0.4 C=1.0; key issues: WBS is severely truncated, leaving almost all L2 tasks without L3 children; the few existing L3 tasks","provided.
+If I evaluate based on the IDs:
+Team members: 5 members.
+Assigned members: 6 members (none of them are in the team).
+Coverage: 0 team members utilized. Score = 0.0.
+Workload Balance:","judge_echo_failure: {""score"": 0.95, ""reason"": ""A=1.0 B=1.0 C=0.8 D=1.0; key issues: 4 distinct roles participate actively with concrete task ID references (L3-04-"
+C5_5rounds,3,wbs_snapshot_C5_5rounds_r3_gemma4-api_piai_20260421_050058.json,32,1.0,-1.0,0.85,0.9423,"%)
+- Many L3s have 0 buffer.
+- Score for B: ""Many L3 outside range OR no buffer"" -> 0.4. ""Some L3 outside 1-10 OR buffer <10%"" -> 0.6.","judge_echo_failure: {""score"": 0.0, ""reason"": ""A=0.0 B=0.0 C=0.0; key issues: Complete ID mismatch. All tasks are assigned to unknown IDs (MBR-506B, MBR-176","{""score"": 0.85, ""reason"": ""A=0.8 B=1.0 C=0.8 D=0.8; key issues: 3 roles (BE, FE, QA) contribute substantively but unevenly"

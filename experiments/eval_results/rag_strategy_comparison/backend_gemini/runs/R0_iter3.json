@@ -1,0 +1,225 @@
+{
+  "backend": "gemini",
+  "condition": "R0",
+  "rag_strategy": null,
+  "iter": 3,
+  "metrics": {
+    "timestamp": "2026-04-22 01:31:39",
+    "project_name": "AI 기반 고객 서비스 플랫폼 구축 프로젝트",
+    "model_backend": "gemini",
+    "total_tasks": 37,
+    "debate_rounds": 1,
+    "ragas_faithfulness": {
+      "faithfulness": -1,
+      "supported_claims": 0,
+      "total_claims": 0,
+      "method": "na_no_rag_context",
+      "detail": "RAG 컨텍스트 없음 → N/A 처리(종합점수 제외)"
+    },
+    "interaction_turns": {
+      "total_messages": 39,
+      "unique_agents": 7,
+      "messages_by_agent": {
+        "슈퍼바이저(PM)": 23,
+        "플래너": 2,
+        "QA 엔지니어": 3,
+        "백엔드 개발자": 4,
+        "프론트엔드 개발자": 4,
+        "디자이너": 2,
+        "시스템": 1
+      }
+    },
+    "supervisor_intervention": {
+      "intervention_ratio": 0.5897,
+      "supervisor_messages": 23,
+      "mediation_decisions": 21,
+      "total_messages": 39
+    },
+    "success_rate": {
+      "success_rate": 1.0,
+      "covered": 6,
+      "total_features": 6,
+      "uncovered_features": [],
+      "method": "embedding",
+      "threshold": 0.45,
+      "details": [
+        {
+          "feature": "AI 챗봇 대화 인터페이스 (OpenAI API 기반)",
+          "best_match_task": "L2-03-01",
+          "similarity": 0.9777,
+          "covered": true
+        },
+        {
+          "feature": "실시간 상담 분석 대시보드",
+          "best_match_task": "L1-04",
+          "similarity": 0.772,
+          "covered": true
+        },
+        {
+          "feature": "기존 CRM 시스템 REST API 연동",
+          "best_match_task": "L3-03-02-01",
+          "similarity": 0.9214,
+          "covered": true
+        },
+        {
+          "feature": "주간/월간 리포트 자동 생성 및 이메일 발송",
+          "best_match_task": "L2-04-02",
+          "similarity": 0.9093,
+          "covered": true
+        },
+        {
+          "feature": "상담 로그 검색 및 필터링",
+          "best_match_task": "L1-04",
+          "similarity": 0.8682,
+          "covered": true
+        },
+        {
+          "feature": "어드민 권한 관리",
+          "best_match_task": "L3-05-03-01",
+          "similarity": 0.8546,
+          "covered": true
+        }
+      ]
+    },
+    "planning_score": {
+      "planning_score": 0.376,
+      "num_assignments_evaluated": 22,
+      "top_5_lowest": [
+        {
+          "task_id": "L3-05-03-01",
+          "member_id": "MBR-5DE4",
+          "similarity": 0.1575
+        },
+        {
+          "task_id": "L3-01-01-02",
+          "member_id": "MBR-8581",
+          "similarity": 0.1629
+        },
+        {
+          "task_id": "L3-02-02-01",
+          "member_id": "MBR-5DE4",
+          "similarity": 0.2031
+        },
+        {
+          "task_id": "L3-02-03-01",
+          "member_id": "MBR-5DE4",
+          "similarity": 0.2135
+        },
+        {
+          "task_id": "L3-03-01-02",
+          "member_id": "MBR-5DE4",
+          "similarity": 0.259
+        }
+      ]
+    },
+    "buffer_ratio": {
+      "buffer_ratio_pct": 16.67,
+      "total_estimated_days": 60.0,
+      "total_buffer_days": 10.0,
+      "l1_task_count": 5
+    },
+    "convergence": {
+      "convergence_trend": 2.5,
+      "first_half_avg_delta": 0.0,
+      "second_half_avg_delta": 2.5,
+      "proposal_count": 5,
+      "is_converging": false
+    },
+    "mece_score": {
+      "mece_score": 0.9,
+      "overlap_pairs": 1,
+      "gap_l1s": 0,
+      "total_l1": 5,
+      "total_l2": 10
+    },
+    "granularity_fitness": {
+      "granularity_fitness": 1.0,
+      "in_range": 22,
+      "total_l3": 22,
+      "too_small": 0,
+      "too_large": 0,
+      "avg_l3_days": 2.86
+    },
+    "workload_gini": {
+      "gini": 0.2603,
+      "workloads": {
+        "MBR-9BEA": 8.5,
+        "MBR-1AF6": 6.0,
+        "MBR-5DE4": 15.0,
+        "MBR-B392": 13.5,
+        "MBR-278C": 23.0,
+        "MBR-8581": 7.0
+      },
+      "num_members": 6,
+      "max_load": 23.0,
+      "min_load": 6.0,
+      "std_dev": 5.85
+    },
+    "schedule_feasibility": {
+      "feasibility": 1.0,
+      "conflicts": 0,
+      "total_pairs": 35,
+      "conflict_details": []
+    },
+    "communication_efficiency": {
+      "efficiency": 0.8462,
+      "effective_messages": 33,
+      "ineffective_messages": 6,
+      "total_messages": 39
+    },
+    "token_cost": {
+      "est_total_tokens": 9629,
+      "est_debate_tokens": 7665,
+      "est_wbs_tokens": 1964,
+      "est_cost_usd": 0.000722,
+      "debate_messages": 39,
+      "total_chars": 8025
+    },
+    "autoscore": {
+      "autoscore": 0.8384,
+      "quality": 0.95,
+      "allocation": 0.7052,
+      "orchestration": 0.8462,
+      "weights_used": {
+        "quality": 0.4,
+        "allocation": 0.35,
+        "orchestration": 0.25
+      },
+      "na_categories": []
+    },
+    "experiment_config": {
+      "rag_strategy": "none",
+      "condition": "R0",
+      "min_rounds": 1,
+      "max_rounds": 2,
+      "team_size": 6,
+      "note": "rag=R0;iter=3;backend=gemini;edisc=diverse"
+    }
+  },
+  "judge": {
+    "structure": {
+      "score": 0.6,
+      "reason": "{\"score\": 0.6, \"reason\": \"A=0."
+    },
+    "assignment": {
+      "score": 0.93,
+      "reason": "{\"score\": 0.93, \"reason\": \"A"
+    },
+    "debate": {
+      "score": 0.75,
+      "reason": "{\"score\": 0.75, \"reason\": \"A=0."
+    },
+    "overall": 0.753,
+    "overall_detail": null,
+    "eval_dims": [
+      "structure",
+      "assignment",
+      "debate"
+    ],
+    "judge_model": "gemini-3.1-pro-preview"
+  },
+  "judge_error": null,
+  "debate_log_len": 39,
+  "final_wbs_task_count": 37,
+  "elapsed_sec": 105.99
+}

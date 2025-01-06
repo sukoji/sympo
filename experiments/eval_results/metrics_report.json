@@ -1,0 +1,208 @@
+{
+  "timestamp": "2026-04-30 13:16:06",
+  "project_name": "AI 기반 고객 서비스 플랫폼 구축 프로젝트",
+  "model_backend": "mock",
+  "total_tasks": 1,
+  "debate_rounds": 0,
+  "ragas_faithfulness": {
+    "faithfulness": -1,
+    "supported_claims": 0,
+    "total_claims": 0,
+    "method": "na_no_rag_context",
+    "detail": "RAG 컨텍스트 없음 → N/A 처리(종합점수 제외)"
+  },
+  "interaction_turns": {
+    "total_messages": 1,
+    "unique_agents": 1,
+    "messages_by_agent": {
+      "슈퍼바이저(PM)": 1
+    }
+  },
+  "supervisor_intervention": {
+    "intervention_ratio": 1.0,
+    "supervisor_messages": 1,
+    "mediation_decisions": 0,
+    "total_messages": 1
+  },
+  "success_rate": {
+    "success_rate": 0.5,
+    "covered": 3,
+    "total_features": 6,
+    "uncovered_features": [
+      "AI 챗봇 대화 인터페이스 (OpenAI API 기반)",
+      "실시간 상담 분석 대시보드",
+      "기존 CRM 시스템 REST API 연동"
+    ],
+    "method": "embedding",
+    "threshold": 0.45,
+    "details": [
+      {
+        "feature": "AI 챗봇 대화 인터페이스 (OpenAI API 기반)",
+        "best_match_task": "L3-01-01-05",
+        "similarity": 0.194,
+        "covered": false
+      },
+      {
+        "feature": "실시간 상담 분석 대시보드",
+        "best_match_task": "L3-01-01-05",
+        "similarity": 0.4175,
+        "covered": false
+      },
+      {
+        "feature": "기존 CRM 시스템 REST API 연동",
+        "best_match_task": "L3-01-01-05",
+        "similarity": 0.1537,
+        "covered": false
+      },
+      {
+        "feature": "주간/월간 리포트 자동 생성 및 이메일 발송",
+        "best_match_task": "L3-01-01-05",
+        "similarity": 0.5457,
+        "covered": true
+      },
+      {
+        "feature": "상담 로그 검색 및 필터링",
+        "best_match_task": "L3-01-01-05",
+        "similarity": 0.531,
+        "covered": true
+      },
+      {
+        "feature": "어드민 권한 관리",
+        "best_match_task": "L3-01-01-05",
+        "similarity": 0.5417,
+        "covered": true
+      }
+    ]
+  },
+  "planning_score": {
+    "planning_score": 0.0,
+    "num_assignments_evaluated": 0,
+    "top_5_lowest": []
+  },
+  "buffer_ratio": {
+    "buffer_ratio_pct": 0.0,
+    "total_estimated_days": 0,
+    "total_buffer_days": 0,
+    "l1_task_count": 0
+  },
+  "convergence": {
+    "convergence_trend": 0.0,
+    "proposal_count": 0,
+    "is_converging": false,
+    "note": "데이터 부족"
+  },
+  "mece_score": {
+    "mece_score": 0.0,
+    "overlap_pairs": 0,
+    "gap_l1s": 0,
+    "total_l1": 0
+  },
+  "granularity_fitness": {
+    "granularity_fitness": 1.0,
+    "in_range": 1,
+    "total_l3": 1,
+    "too_small": 0,
+    "too_large": 0,
+    "avg_l3_days": 2.0
+  },
+  "workload_gini": {
+    "gini": 0.0,
+    "workloads": {
+      "MBR-9BAA": 0.0,
+      "MBR-CF09": 0.0,
+      "MBR-CE62": 0.0,
+      "MBR-523F": 0.0,
+      "MBR-03EC": 0.0,
+      "MBR-3FB8": 0.0
+    },
+    "num_members": 6,
+    "max_load": 0.0,
+    "min_load": 0.0,
+    "std_dev": 0.0
+  },
+  "schedule_feasibility": {
+    "feasibility": 1.0,
+    "conflicts": 0,
+    "total_pairs": 0,
+    "conflict_details": []
+  },
+  "communication_efficiency": {
+    "efficiency": 1.0,
+    "effective_messages": 1,
+    "ineffective_messages": 0,
+    "total_messages": 1
+  },
+  "token_cost": {
+    "est_total_tokens": 102,
+    "est_debate_tokens": 66,
+    "est_wbs_tokens": 36,
+    "est_cost_usd": 8e-06,
+    "debate_messages": 1,
+    "total_chars": 85
+  },
+  "cumulative_reassignments": 0,
+  "cumulative_buffers_applied": 0,
+  "cumulative_new_tasks": 0,
+  "harness_observability": {
+    "harness_enabled": false,
+    "harness_caught_exceptions": 0,
+    "role_drift_detected_count": 0
+  },
+  "experiment_config": {
+    "condition": "C0_llm_only",
+    "condition_label": "C0: LLM 단독",
+    "backend": "mock",
+    "run_id": 1,
+    "min_rounds": 0,
+    "max_rounds": 0,
+    "use_disc": false,
+    "use_task_match": false,
+    "rag_strategy": "vanilla",
+    "use_meeting": false,
+    "harness_enabled": true,
+    "elapsed_sec": 6.72,
+    "note": "wbs_gen_node만 호출 — 단일 LLM 구조 생성 능력 참고용",
+    "model_config": {}
+  },
+  "autoscore": {
+    "version": "v2_backfill_safe",
+    "autoscore": 0.2137,
+    "autoscore_applicable": 0.475,
+    "quality": 0.475,
+    "allocation": 0.0,
+    "orchestration": 0.0,
+    "weights_used": {
+      "quality": 0.45,
+      "allocation": 0.35,
+      "orchestration": 0.2
+    },
+    "applicable_weights_used": {
+      "quality": 1.0
+    },
+    "na_categories": [
+      "allocation",
+      "orchestration"
+    ],
+    "faithfulness_gate": null,
+    "components": {
+      "quality": {
+        "success_rate": 0.5,
+        "mece_score": 0.0,
+        "granularity_fitness": 1.0,
+        "faithfulness": null,
+        "quality_raw": 0.475,
+        "weights_used": {
+          "success_rate": 0.35,
+          "mece_score": 0.35,
+          "granularity_fitness": 0.3
+        }
+      },
+      "allocation": {
+        "weights_used": {}
+      },
+      "orchestration": {
+        "weights_used": {}
+      }
+    }
+  }
+}

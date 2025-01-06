@@ -1,0 +1,14 @@
+{
+  "n": 3,
+  "failures": 0,
+  "mean_wer": 0.18229665071770337,
+  "mean_cer": 0.14286739380022961,
+  "mean_mer": 0.1803203661327231,
+  "mean_wil": 0.20667082726579292,
+  "mean_numeric_accuracy": null,
+  "mean_entity_recall": null,
+  "mean_rtf": 0.04325410165986677,
+  "mean_wall_clock_sec": 0.22125741765679172,
+  "mean_peak_gpu_vram_gb": 0.08641624450683594,
+  "mean_peak_ram_gb": 2.0078303019205728
+}

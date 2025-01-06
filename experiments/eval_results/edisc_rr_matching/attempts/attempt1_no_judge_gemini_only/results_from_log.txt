@@ -1,0 +1,12 @@
+[1/12] <<< gemini|same_edisc|iter1 완료 (80.0s) planning=0.4013 gini=0.2076 feasibility=1.0000 SR=1.0000 autoscore=0.8530
+[2/12] <<< gemini|same_edisc|iter2 완료 (72.5s) planning=0.3619 gini=0.1799 feasibility=1.0000 SR=1.0000 autoscore=0.7591
+[3/12] <<< gemini|same_edisc|iter3 완료 (81.6s) planning=0.3627 gini=0.1816 feasibility=1.0000 SR=1.0000 autoscore=0.8494
+[4/12] <<< gemini|diverse_edisc|iter1 완료 (64.6s) planning=0.4179 gini=0.1462 feasibility=1.0000 SR=1.0000 autoscore=0.7967
+[5/12] <<< gemini|diverse_edisc|iter2 완료 (86.7s) planning=0.3700 gini=0.2051 feasibility=1.0000 SR=1.0000 autoscore=0.8277
+[6/12] <<< gemini|diverse_edisc|iter3 완료 (74.7s) planning=0.3773 gini=0.1242 feasibility=1.0000 SR=1.0000 autoscore=0.8288
+[7/12] <<< gemma4-api|same_edisc|iter1 완료 (30.5s) planning=0.0000 gini=0.0000 feasibility=1.0000 SR=0.0000 autoscore=0.3000
+[8/12] <<< gemma4-api|same_edisc|iter2 완료 (19.2s) planning=0.0000 gini=0.0000 feasibility=1.0000 SR=0.0000 autoscore=0.3000
+[9/12] <<< gemma4-api|same_edisc|iter3 완료 (17.0s) planning=0.0000 gini=0.0000 feasibility=1.0000 SR=0.0000 autoscore=0.3000
+[10/12] <<< gemma4-api|diverse_edisc|iter1 완료 (22.6s) planning=0.0000 gini=0.0000 feasibility=1.0000 SR=0.0000 autoscore=0.3000
+[11/12] <<< gemma4-api|diverse_edisc|iter2 완료 (20.8s) planning=0.0000 gini=0.0000 feasibility=1.0000 SR=0.0000 autoscore=0.3000
+[12/12] <<< gemma4-api|diverse_edisc|iter3 완료 (17.2s) planning=0.0000 gini=0.0000 feasibility=1.0000 SR=0.0000 autoscore=0.3000

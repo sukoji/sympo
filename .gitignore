@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+.venv/
+venv/
+
+# Secrets
+.env
+
+# Runtime / debug
+generated/
+generated/debug/
+
+# IDE / local workspace
+docs/llm_workspace/
+skills-lock.json
+
+# Archived snapshots & duplicate legacy tree
+ref/
+docs/archive/
+experiments/eval_results/_legacy/
+
+# Large binaries & model artifacts
+presentation_source.pptx
+*.safetensors
+*.pt
+*.pth
+experiments/qwen_donk/
+
+# Raw experiment dumps (summaries & figures kept)
+experiments/eval_results/**/wbs_snapshot_*.json
+experiments/eval_results/**/SYNTHETIC_wbs_snapshot_*.json
+experiments/eval_results/**/experiment_*.json
+experiments/eval_results/**/*.log
+experiments/eval_results/**/*.bak_rejudge
+
+# Survey raw responses (aggregated markdown kept)
+experiments/eval_results/설문지.csv
+
+# Reference paper PDFs (copyright)
+experiments/eval_results/references/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp

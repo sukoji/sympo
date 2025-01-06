@@ -1,0 +1,223 @@
+{
+  "backend": "gemma4-api",
+  "condition": "diverse_edisc",
+  "iter": 2,
+  "metrics": {
+    "timestamp": "2026-04-21 23:15:20",
+    "project_name": "AI 기반 고객 서비스 플랫폼 구축 프로젝트",
+    "model_backend": "gemma4-api",
+    "total_tasks": 77,
+    "debate_rounds": 1,
+    "ragas_faithfulness": {
+      "faithfulness": 0.9827,
+      "supported_claims": 227,
+      "total_claims": 231,
+      "method": "nli",
+      "model": "cross-encoder/nli-MiniLM2-L6-H768",
+      "threshold": 0.5,
+      "context_chunks": 6,
+      "top_unsupported": [
+        {
+          "task_id": "L3-03-01-02",
+          "claim": "OpenAI API 호출 및 스트리밍 처리 로직 구현",
+          "source": "title",
+          "entailment_score": 0.2416,
+          "supported": false
+        },
+        {
+          "task_id": "L3-02-03-01",
+          "claim": "Salesforce 인증 및 연결 모듈 구현",
+          "source": "title",
+          "entailment_score": 0.3749,
+          "supported": false
+        },
+        {
+          "task_id": "L2-04-03",
+          "claim": "보안 및 규정 준수 검토 (GDPR)",
+          "source": "title",
+          "entailment_score": 0.4351,
+          "supported": false
+        },
+        {
+          "task_id": "L2-03-01",
+          "claim": "OpenAI API를 호출하고, 사용자 입력에 따라 응답을 받아 표시하는 챗봇 UI 및 로직을 구현합니다.",
+          "source": "description",
+          "entailment_score": 0.4838,
+          "supported": false
+        }
+      ]
+    },
+    "interaction_turns": {
+      "total_messages": 5,
+      "unique_agents": 2,
+      "messages_by_agent": {
+        "슈퍼바이저(PM)": 3,
+        "시스템": 2
+      }
+    },
+    "supervisor_intervention": {
+      "intervention_ratio": 0.6,
+      "supervisor_messages": 3,
+      "mediation_decisions": 2,
+      "total_messages": 5
+    },
+    "success_rate": {
+      "success_rate": 1.0,
+      "covered": 6,
+      "total_features": 6,
+      "uncovered_features": [],
+      "method": "embedding",
+      "threshold": 0.45,
+      "details": [
+        {
+          "feature": "AI 챗봇 대화 인터페이스 (OpenAI API 기반)",
+          "best_match_task": "L3-03-01-02",
+          "similarity": 0.8816,
+          "covered": true
+        },
+        {
+          "feature": "실시간 상담 분석 대시보드",
+          "best_match_task": "L3-01-03-01",
+          "similarity": 0.7224,
+          "covered": true
+        },
+        {
+          "feature": "기존 CRM 시스템 REST API 연동",
+          "best_match_task": "L2-02-03",
+          "similarity": 0.9256,
+          "covered": true
+        },
+        {
+          "feature": "주간/월간 리포트 자동 생성 및 이메일 발송",
+          "best_match_task": "L1-06",
+          "similarity": 0.7929,
+          "covered": true
+        },
+        {
+          "feature": "상담 로그 검색 및 필터링",
+          "best_match_task": "L3-04-01-01",
+          "similarity": 0.7645,
+          "covered": true
+        },
+        {
+          "feature": "어드민 권한 관리",
+          "best_match_task": "L1-04",
+          "similarity": 0.7453,
+          "covered": true
+        }
+      ]
+    },
+    "planning_score": {
+      "planning_score": 0.0,
+      "num_assignments_evaluated": 0,
+      "top_5_lowest": []
+    },
+    "buffer_ratio": {
+      "buffer_ratio_pct": 9.78,
+      "total_estimated_days": 184.0,
+      "total_buffer_days": 18.0,
+      "l1_task_count": 6
+    },
+    "convergence": {
+      "convergence_trend": 0.0,
+      "proposal_count": 0,
+      "is_converging": false,
+      "note": "데이터 부족"
+    },
+    "mece_score": {
+      "mece_score": 0.9167,
+      "overlap_pairs": 3,
+      "gap_l1s": 0,
+      "total_l1": 6,
+      "total_l2": 18
+    },
+    "granularity_fitness": {
+      "granularity_fitness": 1.0,
+      "in_range": 53,
+      "total_l3": 53,
+      "too_small": 0,
+      "too_large": 0,
+      "avg_l3_days": 3.47
+    },
+    "workload_gini": {
+      "gini": 0.0,
+      "workloads": {
+        "MBR-D394": 0.0,
+        "MBR-87DE": 0.0,
+        "MBR-F2FD": 0.0,
+        "MBR-E18B": 0.0,
+        "MBR-99EA": 0.0,
+        "MBR-B856": 0.0
+      },
+      "num_members": 6,
+      "max_load": 0.0,
+      "min_load": 0.0,
+      "std_dev": 0.0
+    },
+    "schedule_feasibility": {
+      "feasibility": 1.0,
+      "conflicts": 0,
+      "total_pairs": 0,
+      "conflict_details": []
+    },
+    "communication_efficiency": {
+      "efficiency": 0.6,
+      "effective_messages": 3,
+      "ineffective_messages": 2,
+      "total_messages": 5
+    },
+    "token_cost": {
+      "est_total_tokens": 7501,
+      "est_debate_tokens": 346,
+      "est_wbs_tokens": 7155,
+      "est_cost_usd": 0.000563,
+      "debate_messages": 5,
+      "total_chars": 6252
+    },
+    "autoscore": {
+      "autoscore": 0.7667,
+      "quality": 0.9584,
+      "allocation": 0.6667,
+      "orchestration": 0.6,
+      "weights_used": {
+        "quality": 0.4,
+        "allocation": 0.35,
+        "orchestration": 0.25
+      },
+      "na_categories": []
+    },
+    "experiment_config": {
+      "rag_strategy": "vanilla",
+      "min_rounds": 1,
+      "max_rounds": 1,
+      "team_size": 6,
+      "note": "edisc_condition=diverse_edisc;iter=2;backend=gemma4-api"
+    }
+  },
+  "judge": {
+    "structure": {
+      "score": 0.47,
+      "reason": "{\"score\": 0.47, \"reason\": \"A=0"
+    },
+    "assignment": {
+      "score": 0.0,
+      "reason": "{\"score\": 0.0, \"reason\": \"A=0.0"
+    },
+    "debate": {
+      "score": 0.3,
+      "reason": "{\"score\": 0.3, \"reason\": \"A=0"
+    },
+    "overall": 0.263,
+    "overall_detail": null,
+    "eval_dims": [
+      "structure",
+      "assignment",
+      "debate"
+    ],
+    "judge_model": "gemini-3.1-pro-preview"
+  },
+  "judge_error": null,
+  "debate_log_len": 5,
+  "final_wbs_task_count": 77,
+  "elapsed_sec": 433.69
+}

@@ -1,0 +1,241 @@
+{
+  "backend": "gemma4-api",
+  "condition": "R2",
+  "rag_strategy": "hybrid",
+  "iter": 2,
+  "metrics": {
+    "timestamp": "2026-04-22 05:51:23",
+    "project_name": "AI 기반 고객 서비스 플랫폼 구축 프로젝트",
+    "model_backend": "gemma4-api",
+    "total_tasks": 32,
+    "debate_rounds": 2,
+    "ragas_faithfulness": {
+      "faithfulness": 0.9792,
+      "supported_claims": 94,
+      "total_claims": 96,
+      "method": "nli",
+      "model": "cross-encoder/nli-MiniLM2-L6-H768",
+      "threshold": 0.5,
+      "context_chunks": 6,
+      "top_unsupported": [
+        {
+          "task_id": "L3-01-01-03",
+          "claim": "기존 Salesforce CRM의 데이터 구조, 필요한 API 엔드포인트, 인증 방식을 상세히 분석합니다.",
+          "source": "description",
+          "entailment_score": 0.1582,
+          "supported": false
+        },
+        {
+          "task_id": "L2-02-02",
+          "claim": "Salesforce CRM의 REST API를 호출하여 고객 정보 조회, 상담 이력 동기화 기능을 구현합니다",
+          "source": "description",
+          "entailment_score": 0.2664,
+          "supported": false
+        }
+      ]
+    },
+    "interaction_turns": {
+      "total_messages": 74,
+      "unique_agents": 7,
+      "messages_by_agent": {
+        "슈퍼바이저(PM)": 28,
+        "플래너": 7,
+        "백엔드 개발자": 12,
+        "프론트엔드 개발자": 11,
+        "디자이너": 12,
+        "시스템": 2,
+        "QA 엔지니어": 2
+      }
+    },
+    "supervisor_intervention": {
+      "intervention_ratio": 0.3784,
+      "supervisor_messages": 28,
+      "mediation_decisions": 26,
+      "total_messages": 74
+    },
+    "success_rate": {
+      "success_rate": 1.0,
+      "covered": 6,
+      "total_features": 6,
+      "uncovered_features": [],
+      "method": "embedding",
+      "threshold": 0.45,
+      "details": [
+        {
+          "feature": "AI 챗봇 대화 인터페이스 (OpenAI API 기반)",
+          "best_match_task": "L2-02-01",
+          "similarity": 0.9452,
+          "covered": true
+        },
+        {
+          "feature": "실시간 상담 분석 대시보드",
+          "best_match_task": "L3-03-02-01",
+          "similarity": 0.737,
+          "covered": true
+        },
+        {
+          "feature": "기존 CRM 시스템 REST API 연동",
+          "best_match_task": "L2-02-02",
+          "similarity": 0.9192,
+          "covered": true
+        },
+        {
+          "feature": "주간/월간 리포트 자동 생성 및 이메일 발송",
+          "best_match_task": "L2-01-02",
+          "similarity": 0.7779,
+          "covered": true
+        },
+        {
+          "feature": "상담 로그 검색 및 필터링",
+          "best_match_task": "L2-01-02",
+          "similarity": 0.7835,
+          "covered": true
+        },
+        {
+          "feature": "어드민 권한 관리",
+          "best_match_task": "L3-03-02-02",
+          "similarity": 0.7227,
+          "covered": true
+        }
+      ]
+    },
+    "planning_score": {
+      "planning_score": 0.3076,
+      "num_assignments_evaluated": 22,
+      "top_5_lowest": [
+        {
+          "task_id": "L3-02-02-01",
+          "member_id": "MBR-B392",
+          "similarity": 0.1625
+        },
+        {
+          "task_id": "L3-01-01-01",
+          "member_id": "MBR-9BEA",
+          "similarity": 0.1711
+        },
+        {
+          "task_id": "L3-03-02-03",
+          "member_id": "MBR-278C",
+          "similarity": 0.1733
+        },
+        {
+          "task_id": "L3-02-02-02",
+          "member_id": "MBR-5DE4",
+          "similarity": 0.1971
+        },
+        {
+          "task_id": "L3-02-01-02",
+          "member_id": "MBR-5DE4",
+          "similarity": 0.2026
+        }
+      ]
+    },
+    "buffer_ratio": {
+      "buffer_ratio_pct": 12.64,
+      "total_estimated_days": 87.0,
+      "total_buffer_days": 11.0,
+      "l1_task_count": 3
+    },
+    "convergence": {
+      "convergence_trend": 0.0,
+      "proposal_count": 1,
+      "is_converging": true
+    },
+    "mece_score": {
+      "mece_score": 1.0,
+      "overlap_pairs": 0,
+      "gap_l1s": 0,
+      "total_l1": 3,
+      "total_l2": 7
+    },
+    "granularity_fitness": {
+      "granularity_fitness": 1.0,
+      "in_range": 22,
+      "total_l3": 22,
+      "too_small": 0,
+      "too_large": 0,
+      "avg_l3_days": 3.95
+    },
+    "workload_gini": {
+      "gini": 0.3299,
+      "workloads": {
+        "MBR-9BEA": 14.0,
+        "MBR-1AF6": 4.0,
+        "MBR-5DE4": 22.0,
+        "MBR-B392": 20.0,
+        "MBR-278C": 32.0,
+        "MBR-8581": 6.0
+      },
+      "num_members": 6,
+      "max_load": 32.0,
+      "min_load": 4.0,
+      "std_dev": 9.62
+    },
+    "schedule_feasibility": {
+      "feasibility": 1.0,
+      "conflicts": 0,
+      "total_pairs": 43,
+      "conflict_details": []
+    },
+    "communication_efficiency": {
+      "efficiency": 0.7568,
+      "effective_messages": 56,
+      "ineffective_messages": 18,
+      "total_messages": 74
+    },
+    "token_cost": {
+      "est_total_tokens": 15259,
+      "est_debate_tokens": 12498,
+      "est_wbs_tokens": 2761,
+      "est_cost_usd": 0.001144,
+      "debate_messages": 74,
+      "total_chars": 12716
+    },
+    "autoscore": {
+      "autoscore": 0.8199,
+      "quality": 1.0,
+      "allocation": 0.6592,
+      "orchestration": 0.7568,
+      "weights_used": {
+        "quality": 0.4,
+        "allocation": 0.35,
+        "orchestration": 0.25
+      },
+      "na_categories": []
+    },
+    "experiment_config": {
+      "rag_strategy": "hybrid",
+      "condition": "R2",
+      "min_rounds": 1,
+      "max_rounds": 2,
+      "team_size": 6,
+      "note": "rag=R2;iter=2;backend=gemma4-api;edisc=diverse"
+    }
+  },
+  "judge": {
+    "structure": {
+      "score": 0.47,
+      "reason": "{\"score\": 0.47, \"reason\": \"A=0."
+    },
+    "assignment": {
+      "score": 0.87,
+      "reason": "{\"score\": 0.87, \"reason\":"
+    },
+    "debate": {
+      "score": 0.75,
+      "reason": "{\"score\": 0.75, \"reason\": \"A=0"
+    },
+    "overall": 0.68,
+    "overall_detail": null,
+    "eval_dims": [
+      "structure",
+      "assignment",
+      "debate"
+    ],
+    "judge_model": "gemini-3.1-pro-preview"
+  },
+  "judge_error": null,
+  "debate_log_len": 74,
+  "final_wbs_task_count": 32,
+  "elapsed_sec": 476.94
+}

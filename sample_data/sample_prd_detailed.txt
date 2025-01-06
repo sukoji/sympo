@@ -1,0 +1,40 @@
+AI 기반 고객 서비스 플랫폼 구축 프로젝트
+
+목표
+OpenAI GPT-4 기반 AI 챗봇과 실시간 분석 대시보드를 통해 B2B 고객사의 CS 상담 응답 속도를 50% 단축하고 고객 만족도(CSAT)를 기존 65점에서 85점(+30% 향상)으로 끌어올린다. 자동 리포트와 KPI 트래킹으로 상담 품질을 정량적으로 관리할 수 있는 통합 CS 플랫폼을 구축한다.
+
+타깃 사용자
+B2B 중소기업 고객사(연매출 50억~500억 원 규모)의 CS 상담팀(10~50명 규모). 주요 페르소나: (1) 상담사 — 챗봇이 분류한 티켓을 받아 고객 응대, (2) CS 매니저 — 대시보드로 상담 품질·대기시간·CSAT 모니터링, (3) 어드민 — 권한·챗봇 프롬프트·SLA 정책 설정.
+
+범위
+포함: AI 챗봇 대화 인터페이스, 관리자 대시보드, CRM(특히 Salesforce) REST API 연동, 주간·월간 리포트 자동 생성 및 이메일 발송, 상담 로그 검색·필터링, 어드민 권한 관리, 챗봇 답변 품질 피드백 루프, 다중 테넌트(고객사별 데이터 격리).
+제외: 네이티브 모바일 앱(웹 반응형으로 대응), 다국어 지원(한국어 우선, 영문은 Phase 2), 음성 인식·음성 합성 기능, 오프라인 모드.
+
+핵심 기능
+- AI 챗봇 대화 인터페이스: OpenAI GPT-4 API 기반. 고객 문의를 카테고리(결제/배송/기술/기타)로 자동 분류하고, 자주 묻는 질문은 챗봇이 직접 응답. 복잡한 문의는 상담사에게 에스컬레이션.
+- 실시간 상담 분석 대시보드: 상담 건수·평균 응답 시간·CSAT·SLA 위반율을 실시간으로 집계. Recharts로 시각화.
+- 기존 CRM 시스템 REST API 연동: Salesforce Contact/Account/Case 객체와 양방향 동기화. 웹훅 기반 이벤트 브로드캐스트.
+- 주간/월간 리포트 자동 생성 및 이메일 발송: Cron 스케줄러로 PDF 리포트 생성 후 고객사 어드민에게 자동 발송.
+- 상담 로그 검색 및 필터링: Elasticsearch 인덱싱, 풀텍스트 검색과 태그·기간·상담사 필터 지원.
+- 어드민 권한 관리: RBAC(Role-Based Access Control) — super_admin, tenant_admin, supervisor, agent 4단계 권한. 감사 로그 전수 저장.
+- 챗봇 답변 품질 피드백 루프: 상담사가 챗봇 응답을 평가(👍/👎)하여 프롬프트 튜닝 데이터로 누적.
+
+기술 스택
+- Frontend: React 18, TypeScript, Recharts(차트), TailwindCSS, React Query(서버 상태), Vite(번들러).
+- Backend: Python 3.11 FastAPI, PostgreSQL 15(주 DB), Redis 7(캐시·세션), Celery(비동기 작업), Elasticsearch 8(로그 검색).
+- AI: OpenAI GPT-4 API(챗봇·분류), text-embedding-3-small(RAG).
+- 인프라: Docker, AWS EC2(t3.large × 3), RDS(PostgreSQL), ElastiCache(Redis), S3(리포트 저장), CloudWatch(모니터링), GitHub Actions(CI/CD).
+- 통합: Salesforce REST API, SendGrid(이메일), Sentry(에러 트래킹).
+
+마감일
+2025-09-30 (프로덕션 배포 완료 기준)
+- Phase 1 (MVP): 2025-07-15 — 챗봇 + 기본 대시보드 + Salesforce 연동
+- Phase 2 (고도화): 2025-09-30 — 리포트 자동화 + 권한 관리 + 피드백 루프
+
+제약사항
+- 기존 Salesforce CRM과 REST API 연동 필수 — 고객사가 이미 사용 중인 데이터 구조를 유지해야 하며, Salesforce 스키마 변경은 불가.
+- GDPR 데이터 보호 규정 준수 필요 — 상담 로그에 포함된 개인정보(이메일·전화번호)는 암호화 저장, 30일 이후 자동 익명화.
+- 99.9% SLA 요구사항 — 월간 다운타임 43분 이내. 카나리 배포·자동 롤백 필수.
+- 팀 예산: 총 16주 이내 — 6인 팀(Planner 1, FE 1, BE 2, Designer 1, QA 1). 주당 평균 40시간 기준, 총 3,840시간 예산.
+- 초기 POC는 파일럿 고객사 3곳(제조·유통·서비스업)에서 병렬 진행. 각 고객사별로 상담 데이터 규모·응대 패턴이 상이하여 카테고리 분류 모델을 고객사별로 튜닝해야 함.
+- 보안 인증: ISO 27001 기준 연간 감사 통과 의무. 내부 취약점 점검(OWASP Top 10) 분기 1회.

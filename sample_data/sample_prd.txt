@@ -1,0 +1,34 @@
+AI 기반 고객 서비스 플랫폼 구축 프로젝트
+
+목표
+AI 챗봇과 실시간 분석 대시보드를 통해 B2B 고객사의 고객 만족도를 30% 향상시키는 통합 CS 플랫폼 구축
+
+타깃 사용자
+B2B 중소기업 고객사의 CS 상담팀 (10~50명 규모)
+
+범위
+포함: AI 챗봇 인터페이스, 관리자 대시보드, CRM 연동, 주간 리포트 자동화
+제외: 모바일 앱, 다국어 지원, 음성인식 기능
+
+핵심 기능
+- AI 챗봇 대화 인터페이스 (OpenAI API 기반)
+- 실시간 상담 분석 대시보드
+- 기존 CRM 시스템 REST API 연동
+- 주간/월간 리포트 자동 생성 및 이메일 발송
+- 상담 로그 검색 및 필터링
+- 어드민 권한 관리
+
+기술 스택
+- Frontend: React, TypeScript, Recharts
+- Backend: Python FastAPI, PostgreSQL, Redis
+- AI: OpenAI GPT-4 API
+- 인프라: Docker, AWS EC2
+
+마감일
+2025-09-30
+
+제약사항
+- 기존 Salesforce CRM과 REST API 연동 필수
+- GDPR 데이터 보호 규정 준수 필요
+- 99.9% SLA 요구사항
+- 팀 예산: 총 16주 이내

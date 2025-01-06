@@ -1,0 +1,489 @@
+# PO-Sync WBS 평가 프레임워크 (Evaluation Framework)
+
+최종 정리일: 2026-04-27 (current code alignment)
+
+현재 코드의 상세 SoT는 `eval_results/EVALUATION_FRAMEWORK.md`, 최신 실험 해석은 `eval_results/EXPERIMENTS_SUMMARY.md`, 타당성 가이드는 `eval_results/validity_analysis.md`를 우선한다. 본 문서는 학술 평가 설계 초안 성격을 유지하되, 아래 산식과 구현 상태는 현재 코드 기준으로 갱신했다.
+
+---
+
+## 1. 평가 목적
+
+시스템이 생성한 WBS(Work Breakdown Structure)의 품질을 **정답(Ground Truth)이 없는 상태에서** 객관적으로 측정한다.
+
+접근법: "이것이 좋다"를 증명하는 대신, **"이것이 나쁘지 않다"의 필요조건들을 체계적으로 검증**한다 (Intrinsic Evaluation).
+
+---
+
+## 2. 평가 패러다임 (Multi-Paradigm Composition)
+
+AlphaEval (Lu et al., 2026, arXiv:2604.12162)의 **multi-paradigm composition 원칙** — "Individual domains compose multiple paradigms, reflecting the multi-dimensional nature of production quality" — 을 적용하여, 단일 방법론이 아닌 3가지 패러다임을 조합한다. 보조적으로 Liu et al.(2023) G-Eval, Chiang & Lee(2023) LLM-as-a-Judge의 루브릭 설계 원칙도 참조.
+
+| 패러다임 | 적용 지표 | 설명 |
+|---------|---------|------|
+| Rule-based Verification (Agent system 성능·효율 지표) | Granularity, Buffer, Feasibility, Gini, CommEff, SupervisorRatio, TokenCost, InteractionTurns | 수학 수식으로 자동 계산. 도메인 표준(PMBOK 7판, Minto Pyramid Principle) 기반 |
+| Semantic Verification (자료의 신뢰성 지표) | Faithfulness(NLI), Success Rate, MECE, Planning Score | 임베딩/NLI 모델로 의미적 유사도 판정 |
+| LLM-as-a-Judge (결과물 품질 지표) | Structure Score, Assignment Score, Debate Score | Gemini 3.1 Pro Preview 기본, Claude 교차 Judge 선택 지원. G-Eval 방식은 Gemini 계열 우선, Claude는 scalar fallback |
+
+---
+
+## 3. 자동 지표 13개 (Automated Metrics)
+
+### A. 생성 품질 (Generation Quality)
+
+#### A1. RAGAS Faithfulness (NLI 기반)
+- **측정 대상**: WBS 태스크의 주장이 RAG 컨텍스트(회의록, 참고 WBS)에 근거하는 비율
+- **수식**: Faithfulness = |Supported Claims| / |Total Claims|
+- **방법**: cross-encoder/nli-MiniLM2-L6-H768 모델로 각 claim-context 쌍의 entailment score 계산. score >= 0.5이면 "근거 있음"
+- **학술 근거**: RAGAS (Es et al., 2023, arXiv:2309.15217)
+- **기준**: >= 0.5 통과, >= 0.3 경고, < 0.3 미달
+- **RAG 미사용 조건에서**: N/A 처리 (score=-1), 종합점수 계산에서 제외 — 근거 컨텍스트 자체가 없으므로 0점 부과는 부당
+- **Fallback**: NLI 모델 불가 시 키워드 매칭 방식으로 전환 (method='keyword_fallback'로 명시)
+- **민감도 분석**: 임계값 0.4 / 0.5 / 0.6에서의 Faithfulness 변동 함께 보고
+
+#### A2. Success Rate (임베딩 기반)
+- **측정 대상**: PRD의 key_features가 WBS 태스크에 의미적으로 커버되는 비율
+- **수식**: SR = |Covered Features| / |Total Features|
+- **방법**: sentence-transformers(all-MiniLM-L6-v2)로 각 feature와 모든 태스크 간 cosine similarity 계산. max similarity >= τ이면 "커버됨"
+- **학술 근거**: Gotel & Finkelstein(1994) Requirements Traceability; IEEE 29148-2018 (원안의 "IEEE 830"은 명세 표준이지 traceability 표준이 아니므로 정정)
+- **기준**: = 1.0 통과, >= 0.8 경고, < 0.8 미달
+- **임계값 τ**: 0.45(관대)/0.55(기본)/0.65(엄격) **3단 민감도 분석 필수 보고**. 단일 τ에 의존하지 않음
+- **편향 통제**: 태스크 수와 r=0.69 상관 (Coverage Inflation)
+  - 완화책: `SR_norm = SR - β × log(n_tasks)` 형태의 회귀 잔차, 혹은 `SR / log(n_tasks+1)` 병기
+  - MECE와 병용 필수 (태스크 증식으로 SR을 올리는 전략은 MECE 하락으로 드러남)
+
+#### A3. MECE Score (임베딩 기반)
+- **측정 대상**: L2 기능그룹 간 중복(Overlap)과 누락(Gap)
+- **수식**: MECE = 1 - (overlap_ratio + gap_ratio) / 2
+  - overlap_ratio = 같은 L1 내 L2 쌍 중 cosine similarity >= θ인 쌍 수 / 전체 같은 L1 내 L2 쌍 수
+  - gap_ratio = L2가 2개 미만인 L1 수 / 전체 L1 수
+- **방법**: sentence-transformers로 L2 title+description 임베딩 후 쌍별 유사도 비교. 같은 L1 하위의 L2끼리만 비교 (다른 Phase 간 중복은 의미 없음)
+- **학술 근거**: Minto, B.(1987). *The Pyramid Principle* — MECE 원리의 원출처. 원안의 "McKinsey WBS 원칙"은 사용처이지 출처가 아니므로 정정
+- **임계값 θ**: all-MiniLM-L6-v2의 한국어 평균 유사도 분포(0.3~0.5)를 고려하여 **경험적 캘리브레이션 필수**. 샘플 WBS 50쌍에 대해 전문가 "중복 여부"와 κ(Cohen) >= 0.6이 되는 θ를 선정. 기본값 0.75는 상한으로만 사용
+- **범위**: 0.0 ~ 1.0 (1.0이 완벽)
+
+#### A4. Granularity Fitness (8-80 Rule)
+- **측정 대상**: L3 작업 패키지의 크기 적정성
+- **수식**: Fitness = |L3 tasks with 1d <= estimated_days <= 10d| / |Total L3 tasks|
+- **학술 근거**: PMBOK Guide 7판(2021) — Work Package는 "짧은 리포팅 주기 내 추적 가능한 크기" 권장. "8-80시간"은 6판 관행으로 엄격 규칙이 아니며 본 지표는 **이를 운영 가이드라인으로만 사용**
+- **세부 수치**: too_small(< 1일), too_large(> 10일), avg_l3_days 함께 보고
+
+### B. 배분 품질 (Assignment Quality)
+
+#### B1. Planning Score (코사인 유사도)
+- **측정 대상**: 태스크 요구 역량과 배정된 팀원 역량의 텍스트 유사도 (**"적합도의 대리지표(proxy)"**로만 해석; 실제 배정 정확성 측정이 아님을 명시)
+- **수식**: PlanScore = mean(cosine_sim(task_embedding, member_embedding))
+  - task_embedding = encode(title + description)
+  - member_embedding = encode(strengths + tech_stack + primary_skills)
+- **방법**: 멤버 임베딩 사전 계산(O(m)) → 태스크별 매칭(O(n)). sentence-transformers 사용
+- **기준**: >= 0.5 통과, >= 0.35 경고, < 0.35 미달
+- **배정 없는 조건(C0)에서**: N/A (score=-1), 종합점수 계산에서 제외
+- **구성 타당성 보강(선행 연구 부재 대응)**:
+  1. **Skill Coverage(이진)** 병기: `|task.required_skills ∩ member.tech_stack| / |task.required_skills|` — 텍스트 길이 편향 없음
+  2. **Length-normalized** cosine: 멤버 텍스트 길이로 정규화하여 length bias 제거
+  3. 두 지표와 Planning Score의 Spearman ρ를 보고하여 대리지표 타당성을 간접 검증
+
+#### B2. Workload Gini (지니 계수)
+- **측정 대상**: 팀원별 업무 균등 배분
+- **수식**: G = Σ(2(i+1) - n - 1) × x_i / (n × Σx_i)  (정렬된 workload 배열)
+- **특징**: **미배정 팀원도 workload=0으로 포함**하여 정확한 불균등도 측정. 6명 중 2명에게만 배정되면 Gini ≈ 0.67 (이전 버그: 미배정 제외 시 0으로 잘못 계산)
+- **기준**: <= 0.3 균등, 0.3~0.5 약간 불균등, > 0.5 심하게 불균등
+- **방향**: 낮을수록 좋음
+
+#### B3. Schedule Feasibility (일정 충돌)
+- **측정 대상**: 같은 사람에게 시간적으로 겹치는 태스크가 배정되었는지
+- **수식**: Feasibility = 1 - |Conflicting Pairs| / |Total Pairs|
+  - 충돌 조건: `a.end_week > b.start_week` (엄격 부등호). 주 경계 핸드오프(`a.end_week == b.start_week`)는 **충돌 아님**으로 간주 — 원안의 "같은 주 = 겹침"은 과도한 페널티이므로 정정
+  - **단, 의존성 관계(dependencies)에 있는 연속 태스크는 충돌에서 제외**
+- **기준**: = 1.0 (충돌 0건) 통과
+
+#### B4. Buffer Ratio (리스크 버퍼)
+- **측정 대상**: 예상 작업일 대비 리스크 완충 비율
+- **수식**: Buffer% = (Σ buffer_days / Σ estimated_days) × 100  (L1 기준)
+- **학술 근거**: PMBOK Guide 7판 — Schedule Reserve / Management Reserve 개념. 구체 비율은 표준 고정값이 아니므로 **도메인별 캘리브레이션**이 필요함을 명시
+- **기준**: 15~30% 적정(소프트웨어 개발 관행), 10~40% 경고, 범위 밖 미달. 경계값은 본 실험(소프트웨어 신규 개발, 팀 6인, 예산 12주) **컨텍스트 한정**임을 보고
+
+### C. 오케스트레이션 효율 (Orchestration Efficiency)
+
+#### C1. Convergence (수렴도)
+- **측정 대상**: 에이전트 토론이 합의로 수렴하는지
+- **수식 (다축 수렴)**: 단일 buffer 축 의존을 제거하기 위해 **3축 통합**으로 측정
+  1. **Buffer 축**: 토론 메시지에서 "버퍼 N일" 패턴 추출 → 연속 제안 |delta|의 전반부/후반부 평균 비교
+  2. **Role/Assignment 축**: 라운드별 `assigned_tasks` 맵의 Jaccard 거리 변화
+  3. **Utterance 축**: 라운드별 메시지의 의미 임베딩 Centroid 간 코사인 거리 변화
+  - 최종: `convergence_score = 1 - mean(normalized_delta_축1,2,3의 후반부/전반부 비)`
+- **Fallback**: 3축 모두 데이터 부족 시 `method="insufficient_data"`로 명시, 종합점수에서 제외
+- **학술 근거**: Dalkey & Helmer(1963) Delphi Method — 원형은 **IQR(사분위범위) 축소**를 봄. 본 프레임워크는 다축 평균으로 확장
+- **방향**: 후반부 변동이 전반부보다 작으면 수렴(is_converging=True)
+
+#### C2. Communication Efficiency (유효 메시지 비율)
+- **측정 대상**: 토론에서 실질적 기여 메시지의 비율
+- **수식**: Efficiency = (Total - PASS - 순수동의 - 시스템메시지) / Total
+  - 순수동의: "동의/맞습니다/적절합니다" 포함 + 새 리스크/버퍼 제안 없음
+- **방향**: 높을수록 좋음 (>= 0.7 권장)
+
+#### C3. Supervisor Intervention Ratio
+- **측정 대상**: PM/Supervisor의 메시지 비율
+- **수식**: Ratio = |Supervisor Messages| / |Total Messages|
+- **방향**: 낮을수록 좋음 (<= 0.40 권장). 에이전트 자율성이 높을수록 낮아짐
+- **해석 주의**: 개입율 낮음 ≠ 품질 좋음. Debate Score와 함께 해석해야 함 (자율성↑ & 수렴↑이 이상적)
+
+#### C4. Interaction Turns
+- **측정 대상**: 총 토론 메시지 수
+- **유형**: 정보성 지표 (점수 아님, 가중 종합점수 제외)
+- **기준**: 5~60회 적정
+
+#### C5. Token Cost (추정)
+- **측정 대상**: API 토큰 비용 근사치
+- **수식**: est_tokens = total_chars × 1.2 (한국어 혼합 근사)
+- **유형**: 정보성 지표 (점수 아님, 가중 종합점수 제외)
+
+---
+
+## 4. LLM-as-a-Judge (3차원 루브릭 평가)
+
+**평가 모델 (교차 Judge 지원)**:
+- Primary: Gemini 3.1 Pro Preview, temperature=0
+- Secondary: Claude Sonnet 4.6 계열(`JUDGE_MODEL_CLAUDE`), temperature=0
+- **근거**: 원안은 Gemini(생성) → Gemini(평가) 구조로 self-preference bias 위험이 크므로(Panickssery et al., 2024), **상이한 모델 패밀리 교차 평가**로 통제
+- **신뢰성 보고**: 교차 Judge를 수행한 subset에서는 Cohen's κ (범주) 및 Spearman ρ (점수)를 보고한다. κ < 0.4이거나 ρ < 0.5이면 해당 차원은 **판정 불가**로 표시한다.
+
+### 4.1 Structure Score (구조 품질)
+**루브릭**:
+- 1.0: 5+ L1 Phases, 각 3+ L2, 각 3+ L3, L3 days 1-10, buffer 15-30%, 논리적 dependencies
+- 0.3 cap: 1-2 L1만 (truncated output)
+- -0.2: buffer 전무
+- -0.05/건: L3 days 0 또는 >15, 중복 title
+
+### 4.2 Assignment Score (배분 품질)
+**루브릭**:
+- 1.0: 태스크-역량 일치, workload 균등, idle 멤버 없음
+- -0.3: 모든 role이 "Backend Developer"
+- -0.2: 1인이 50%+ 업무 독점
+- -0.1/건: idle 멤버, skill mismatch
+
+### 4.3 Debate Score (토론 품질)
+**루브릭**:
+- 1.0: 3+ 에이전트, 역할 일관성, 구체적 피드백(task ID+일수), 이견 해소, 수렴
+- -0.15/건: 역할 탈선 (Role Hallucination)
+- -0.05/건: 순수 동의 (새 정보 없음)
+- -0.2: 버퍼/리스크 논의 전무
+
+### 4.4 조건별 평가 차원 (공정 비교)
+
+| 조건 | 평가 차원 | Overall 계산 |
+|------|---------|------------|
+| C0 (LLM 단독) | Structure만 | S ÷ 1.0 |
+| C1 (Baseline: +배정) | Structure + Assignment | (0.53×S + 0.47×A) |
+| C2/C3/C4, R0~R4 | Structure + Assignment + Debate | (0.40×S + 0.35×A + 0.25×D) |
+
+- N/A 차원은 score=-1로 표시하며 overall 계산에서 제외
+- 활성 차원의 가중치 합이 1.0이 되도록 재정규화
+- **근거**: 시스템이 포함하지 않는 구성 요소를 0으로 채점하면 부당하게 overall을 낮추므로, 해당 차원을 제외하여 공정 비교 보장
+
+---
+
+## 5. 가중 루브릭 종합 점수 (Weighted Rubric Score)
+
+AlphaEval (Lu et al., 2026) 부록 B, 식 (1)의 `s_task = Σ(w_k × e_k), Σw_k = 1` 선형 결합 방식을 적용. 원 논문은 도메인 전문가 공동 설계로 w_k를 지정하는데, 본 연구는 도메인 전문가가 아닌 연구진이 사전 지정하므로 **민감도 분석(±0.1 범위 격자 탐색)**으로 주관성 한계를 보완.
+
+### 자동 지표 종합 (현재 canonical AutoScore v2)
+```
+AutoScore = 0.45 × Quality + 0.35 × Allocation + 0.20 × Orchestration
+
+Quality       = 0.35×SR + 0.35×MECE + 0.30×Granularity, with optional Faithfulness gate
+Allocation    = 0.45×PlanScore + 0.25×Feasibility + 0.15×BufferAdequacy + 0.15×WorkloadBalance
+Orchestration = 0.25×CommEff + 0.30×Convergence + 0.25×RevisionYield + 0.20×FailureResilience
+
+BufferAdequacy와 WorkloadBalance는 `eval_results/autoscore_recompute.py`의 piecewise scoring을 따른다.
+```
+- **N/A 처리**: 조건상 측정 불가한 지표(예: C0의 PlanScore/Gini/Feasibility, R0의 Faithfulness)는 해당 카테고리 내 가중치를 재정규화하여 제외
+- **민감도 분석**: 최상위 가중치(0.45/0.35/0.20)를 ±0.1 범위에서 격자 탐색 후 ranking 뒤집힘 여부 보고
+
+### LLM Judge 종합
+```
+JudgeScore = Σ(w_d × score_d) / Σ(w_d)    (활성 차원만)
+
+w_structure = 0.40
+w_assignment = 0.35
+w_debate = 0.25
+
+JudgeScore_final = mean(JudgeScore_gemini, JudgeScore_claude)   # 교차 Judge 평균
+```
+
+---
+
+## 6. 실험 설계
+
+### RQ1: 멀티에이전트 토론이 WBS 품질에 미치는 영향 (Ablation Study)
+
+| 조건 | 구성 | 목적 |
+|------|------|------|
+| C0 | WBS Gen만 | 단일 LLM 구조 생성 능력 참고 |
+| C1 (Baseline) | WBS Gen + Task Manager | 배정 기준선 |
+| C2 | + 1라운드 토론 | 토론 1회 효과 |
+| C3 | + 3라운드 토론 | 토론 반복 효과 |
+| C4 | + eDISC 성향 | 행동유형 프로파일 효과 |
+
+**비교 구조**:
+- C0 vs C1: 분리된 배정 단계의 기여
+- C1 vs C2: 토론 도입 효과 (baseline 대비)
+- C2 vs C3: 토론 라운드 수 효과
+- C3 vs C4: eDISC 성향 반영 효과
+
+### RQ1-H: 하네스(AgentHarness) 적용 여부가 품질·안정성에 미치는 영향 (Orthogonal Ablation)
+
+| 조건 | 하네스 | 구성 | 목적 |
+|------|:---:|------|------|
+| H0 | OFF | C3(3라운드 토론) 베이스 | 하네스 미적용 baseline — 서브에이전트 예외·역할 탈선 노출 |
+| H1 | ON  | C3(3라운드 토론) 베이스 | 하네스 적용 — 예외 격리·역할 앵커 주입·역할 탈선 관찰(`role_drift_detected`) |
+
+**토글 방법**: 환경변수 `HARNESS_ENABLED=true|false` 또는 `state["harness_enabled"]` 필드.
+기본값은 env 기준(설정 없으면 ON). 실험 러너는 조건별로 명시 지정하여 혼선 차단.
+
+**측정 포인트**:
+- 실패율: 서브에이전트 예외로 debate_log에 기록된 `⚠️ 하네스 포착 예외` 건수
+- 역할 탈선: `role_drift_detected=True` 반환 건수 (H1에서만 집계 가능 — H0는 관찰 장치 없음)
+- 품질 지표: 동일 AutoScore + Judge 차원으로 H0 vs H1 비교
+- **비교 구조**: H0 vs H1은 동일 조건(C3, 동일 RAG, 동일 모델, 동일 시드·반복 N회) 하에서만 비교
+
+**해석 주의**: 하네스는 사후 관찰·격리이지 생성 품질 개선이 목적이 아님.
+따라서 "H1의 AutoScore가 H0와 통계적으로 다르지 않음"이 **기본 가설**이며,
+차이가 관측되면 하네스가 의도치 않게 에이전트 행동을 변경(role anchor 주입 효과)했다는 신호로 해석.
+
+---
+
+### RQ2: RAG 전략이 근거 충실도에 미치는 영향
+
+| 조건 | RAG 전략 | 회의록 |
+|------|---------|:---:|
+| R0 | 없음 | X |
+| R1 | Vanilla (Dense) | O |
+| R2 | Hybrid (BM25+Dense) | O |
+| R3 | Graph (엔티티 관계) | O |
+| R4 | Agentic (멀티홉) | O |
+
+모든 RAG 조건: 2라운드 토론 + Task Manager 배정 (동일 baseline)
+
+### 반복 실행 및 통계 검정 (원안의 통계 논리 오류 정정)
+
+- **반복 실행 필수**: 각 조건당 **최소 5회(권장 10회)** 독립 실행. LLM 비결정성은 Cohen's d로 "보완"할 수 없으며(효과크기 지표지 재현성 지표가 아님), **반복 측정으로만** 통제 가능
+- **재현성 보고**:
+  - 조건 내 분산: mean ± std, 95% bootstrap CI
+  - Intraclass Correlation Coefficient (ICC(2,k))로 반복 간 일관성 정량화
+- **그룹 간 검정**:
+  - n < 30 조건: Mann-Whitney U test (비모수) + **효과크기 병기** (Cliff's δ 또는 rank-biserial r)
+  - Cohen's d는 "LLM 재현성 보정"이 아닌 **그룹 간 평균 차이의 실질적 크기**로만 사용
+- **유의 수준**: α = 0.05
+- **다중 비교**: Holm-Bonferroni(덜 보수적, 검정력 개선) 또는 Benjamini-Hochberg FDR 보정. 원안의 단순 Bonferroni는 n<30에서 검정력이 과도하게 낮아 대부분의 차이를 놓침
+
+---
+
+## 7. Failure Mode 분류
+
+| 코드 | 실패 유형 | 탐지 방법 |
+|------|---------|---------|
+| F1 | 구조 붕괴 (L1 < 3) | L1 count < 3 |
+| F2 | 역할 탈선 (Role Hallucination) | Supervisor 개입 패턴 + Judge Debate 차감 항목 감지 |
+| F3 | 마이크로 태스크 증식 | Granularity too_small > 0 |
+| F4 | Zero-Sum 핑퐁 | 동일 태스크 3회+ 차감 감지 |
+| F5 | 제약조건 무시 | 총 일수 > 예산 주수 × 5 |
+
+---
+
+## 8. 결과의 타당성 한계
+
+### Internal Validity (내적 타당성)
+- **LLM 생성의 비결정성**: 동일 입력에도 출력 변동 → **조건당 반복 실행 + 95% CI + ICC 보고**로 통제 (원안의 "Cohen's d로 보완"은 통계 논리 오류이므로 정정)
+- **SR-태스크 수 편향**: r=0.69 → MECE 병용 + `SR_norm` 잔차 보고로 Coverage Inflation 명시
+- **임계값 민감도**: Faithfulness(0.5)·SR(0.45·0.55·0.65)·MECE 임계(θ) 모두 민감도 분석 첨부
+- **Gemini Flash Lite 출력 한계**: L1 1개만 생성되는 경우 → 자동 재시도 로직 (3회 retry, 실패 시 F1으로 마킹)
+
+### External Validity (외적 타당성)
+- 단일 PRD (P마켓): 다른 도메인 일반화 불가. 향후 **최소 3개 도메인** (B2C 커머스 / 내부 플랫폼 / 데이터 파이프라인)으로 확장 필요
+- 단일 LLM 패밀리(Gemini Flash Lite): 다른 모델에서 다른 결과 가능. **최소 교차 검증 2개 모델** 권장 (Gemini + Claude Haiku / Llama 4)
+- 팀 규모 고정 (6인): 대규모 팀(12인+) 확장성 미검증
+- **오케스트레이션 인프라 활성화**: rev.2부터 실제로 LangGraph DAG가 실행 경로에 위치(단일 래핑 노드 구조). 이전 rev의 pure-sequential 실행 결과와 직접 비교 시 state schema 검증·trace 구조 차이 존재 가능 — 동일 rev 내에서만 비교 권장
+- **하네스 적용 여부는 독립변수(RQ1-H)**: AutoScore 비교 시 반드시 `harness_enabled` 층화(stratification) 후 그룹 내 비교. 층화 없이 병합 분석은 금지
+
+### Construct Validity (구성 타당성)
+- **전문가 평가(Human Evaluation) 미수행**: 자동 지표만으로 "실무 품질"을 단정하지 않음. 본 평가는 **"품질의 필요조건 검증"**으로 범위 한정. 향후 시니어 PM 3인 대상 Best-Worst Scaling으로 상관성 검증 계획
+- **Planning Score의 대리지표 한계**: 코사인 유사도가 "배분 적합도"를 직접 측정한다는 선행 연구 없음. **Skill Coverage(이진) + Length-normalized cosine** 2개 보조 지표를 병기하고 세 지표 간 Spearman ρ를 보고하여 수렴 타당성(convergent validity)을 간접 증명
+- **LLM-as-a-Judge의 self-preference bias**: Panickssery et al.(2024) 보고된 동일 모델 자기 생성물 선호 편향을 통제하기 위해 중요 subset에는 **Gemini 3.1 Pro × Claude Sonnet 4.6 계열 교차 Judge**를 적용하고 κ/ρ를 보고
+- **Convergence의 단일 축 환원 위험**: Buffer만 보던 원안을 **Buffer + Role Assignment Jaccard + Utterance Centroid 거리** 3축 통합으로 확장하여 구성 타당성 보강
+
+---
+
+## 9. 산출물 목록
+
+### 코드
+| 파일 | 역할 |
+|------|------|
+| `metrics.py` | 13개 자동 지표 + 가중 종합 점수(AutoScore) 계산 |
+| `eval/experiment_runner.py` | Ablation + RAG 자동 실험 러너 (조건당 N회 반복) |
+| `eval/llm_judge.py` | 3차원 루브릭 LLM Judge (Gemini + Claude 교차) |
+| `eval/reliability.py` | ICC·κ·ρ 계산, 반복 간 신뢰도 리포트 |
+| `eval/sensitivity.py` | 임계값·가중치 민감도 분석 |
+| `eval/analyze_results.py` | 통계 분석 + 마크다운 리포트 (Mann-Whitney U + Cliff's δ + Holm-Bonferroni) |
+| `eval/generate_figures.py` | 논문용 Figure 5종 생성 |
+| `eval/langsmith_evaluator.py` | LangSmith Dataset 기반 오프라인 평가 |
+
+### 데이터
+| 파일 | 내용 |
+|------|------|
+| `eval_results/summary_gemini_combined.csv` | 전체 실험 원시 데이터 (조건당 N회 반복 포함) |
+| `eval_results/wbs_snapshot_*.json` | 조건별 WBS + 토론 로그 + Judge 점수 |
+| `eval_results/reliability_report.json` | ICC / κ / ρ 수치 |
+| `eval_results/sensitivity_report.md` | 임계값·가중치 민감도 분석 결과 |
+| `eval_results/figures/fig1~5.png` | 논문용 차트 |
+| `eval_results/analysis_report_*.md` | 분석 리포트 |
+
+### 평가 결과 CSV 컬럼
+```
+condition, label, run_id, backend, elapsed_sec, total_tasks, debate_rounds,
+harness_enabled, max_free_turns, min_rounds, max_rounds,
+role_drift_detected_count, harness_caught_exceptions,
+faithfulness, faithfulness_method, success_rate, success_rate_tau045, success_rate_tau055, success_rate_tau065,
+planning_score, planning_skill_coverage, planning_length_norm,
+buffer_ratio_pct, interaction_turns, supervisor_ratio,
+convergence_buffer, convergence_assignment, convergence_utterance, convergence_score,
+mece_score, granularity_fitness, workload_gini, schedule_feasibility,
+comm_efficiency, est_tokens, est_cost_usd,
+judge_structure_gemini, judge_assignment_gemini, judge_debate_gemini,
+judge_structure_claude, judge_assignment_claude, judge_debate_claude,
+judge_overall, judge_kappa, judge_rho,
+autoscore, gen_quality, assign_quality, orch_efficiency
+```
+- `harness_enabled`: H0(false) / H1(true)
+- `role_drift_detected_count`: 하네스가 관찰한 역할 탈선 건수 (H1에서만 유효, H0=NA)
+- `harness_caught_exceptions`: 하네스가 격리한 서브에이전트 예외 건수 (H1에서만 유효)
+
+---
+
+## 10. 원안 대비 수정 사항 요약
+
+### 10.1 방법론 개정 (eval1 → eval2)
+
+| 구분 | 원안 | 수정 |
+|------|------|------|
+| AlphaEval 인용 | 인용만 제시 | arXiv:2604.12162 명시, 원 논문 부록 B 식(1) 출처 확인 (인용 자체는 유효) |
+| 패러다임 근거 보강 | AlphaEval 단독 | AlphaEval + G-Eval(Liu 2023) + LLM-as-a-Judge(Chiang & Lee 2023) |
+| 전문가 공동 설계 가중치 | 명시 없음 | AlphaEval 원안은 도메인 전문가 공동 지정 → 본 연구는 연구진 지정이므로 민감도 분석으로 보완 명시 |
+| SR 학술 근거 | IEEE 830 Requirements Traceability | Gotel & Finkelstein(1994); IEEE 29148-2018 |
+| MECE 학술 근거 | McKinsey WBS 원칙 | Minto(1987) *Pyramid Principle* |
+| Granularity 근거 | PMBOK 8-80 Rule (엄격 규칙) | PMBOK 7판 (운영 가이드라인으로 완화) |
+| LLM Judge | Gemini 단일 (self-preference 미통제) | Gemini × Claude 교차 + κ/ρ 보고 |
+| LLM 비결정성 통제 | Cohen's d로 보완 (오류) | 반복 실행 + ICC + 95% CI |
+| 다중 비교 보정 | 단순 Bonferroni | Holm-Bonferroni 또는 BH-FDR |
+| 효과크기 | Cohen's d만 | Cliff's δ / rank-biserial r 병기 |
+| Planning Score | 단일 코사인 (구성 타당성 부족) | + Skill Coverage + Length-norm cosine, ρ 보고 |
+| Convergence | Buffer 단일 축 | Buffer + Assignment Jaccard + Utterance Centroid 3축 |
+| Schedule Feasibility | `>=` (같은 주 = 충돌) | `>` (주 경계 핸드오프 허용) |
+| 임계값 τ(SR), θ(MECE) | 단일값 | 민감도 분석 3단 보고 |
+| N/A 처리 | 0 부과 | -1 플래그 후 종합점수에서 제외·재정규화 |
+| 정보성 지표(Turns, Cost) | AutoScore 문구 불명확 | 명시적으로 종합점수 제외 |
+
+### 10.2 구현 반영 패치 로그 (current code)
+
+| 영역 | 이전 상태 | 적용 패치 | 파일·위치 |
+|------|---------|---------|---------|
+| LangGraph 활성화 | sequential-only 실행 | phase 단위 DAG(`wbs_generation → task_match → l2_debate → free_discussion → critic_review → supervisor_mediate → finalize`) + `graph.stream(stream_mode="custom")`으로 중간 state 포워딩 | `orchestration/graph_builder.py`, `debate_loop.py::execute_sympo_flow` |
+| 중복 yield 방지 | graph fallback 재호출 시 누적 중복 위험 | graph node는 해당 phase에서 새로 추가된 `debate_log`, `mcp_tool_trace`만 반환 | `graph_builder.py`, `debate_loop.py::_merge_state` |
+| MCP-style tool trace | phase 호출 경계 추적 없음 | `call_state_tool()`이 기존 Python handler를 감싸고 `mcp_tool_trace`에 tool name/input/output/latency 기록 | `orchestration/mcp_tool_layer.py`, `api.py`, `frontend/index.html` |
+| WBSState 스키마 | `error_message`·`max_wbs_revisions`·`_current_agent_acting`·`_l2_debate_cutoff` 사용되지만 TypedDict 미선언 | 누락 필드 추가 + 실험 독립변수 `harness_enabled`, `max_free_turns` 도입 | `agents/state.py` |
+| Schedule Feasibility 수식 | `a.end_week >= b.start_week` (주 경계 핸드오프도 충돌) | `>` (엄격 부등호). overlap_weeks 계산도 +1 제거 | `metrics.py::calc_schedule_feasibility` |
+| MECE 근거 주석 | "McKinsey WBS 원칙" | "Minto, 1987 Pyramid Principle"로 정정 | `metrics.py` §8 헤더 |
+| Granularity 근거 주석 | "PMBOK 8-80 Rule" | "PMBOK 7판(2021) 운영 가이드라인. 8-80은 6판 관행, 엄격 규칙 아님" | `metrics.py` §9 헤더 |
+| RAG 미사용 Faithfulness | 0.0 반환 (부당 감점) | `rag_contexts`가 비었으면 `faithfulness=-1, method="na_no_rag_context"` — AutoScore에서 재정규화로 제외 | `metrics.py::compute_all_metrics` |
+| 하네스(AgentHarness) | `wrap_sub_agent`가 `return agent_func(state)`만 하는 no-op | **토글 가능한 실 구현**: 예외 격리 + `_harness_role_anchor` state 주입 + 출력 debate_log의 agent_role 탈선 관찰(`role_drift_detected`) | `agents/harness.py` 재작성, `debate_loop.py::_run_agent`에서 `AgentHarness.wrap_sub_agent`로 감싸 실행 |
+| 조기 수렴 가드 | `_check_pure_agreement(last_n=3)`이 `min_rounds` 미충족 시에도 토론 종료 가능 → RQ1(C2/C3 비교) 오염 | `current_round >= min_rounds` 충족 후에만 조기 수렴 허용 | `debate_loop.py::run_sequential_debate` free discussion 루프 |
+| `MAX_FREE_TURNS` | 하드코딩 3 | `state["max_free_turns"]`로 외부화 (기본 3, 민감도 분석 가능) | `debate_loop.py` + `state.py::create_initial_state` |
+
+**검증**: 위 패치 후 `graph.compile()` 통과, `execute_sympo_flow`는 여전히 generator로 동작하며 yield 단위가 sequential과 동일함을 import-smoke 테스트로 확인.
+
+**하네스 실험 설계**: RQ1-H(§6)로 분리. H0(off)일 때 완전 pass-through이므로 이전 동작 보존. H1(on)에서만 신규 로직 활성.
+
+---
+
+## 11. 참고문헌 (References)
+
+APA 7판 스타일을 기준으로 작성. 본 프레임워크 문서의 각 지표·통계·논증이 참조한 1차 문헌 목록이다.
+
+### 평가 방법론 (Evaluation Methodology)
+
+[1] Lu, P., Xu, B., Zhang, W., Hua, S., Gao, X., Ge, R., ... & Liu, P. (2026). *AlphaEval: Evaluating Agents in Production* (arXiv:2604.12162v1) [Preprint]. arXiv. https://arxiv.org/abs/2604.12162
+
+[2] Liu, Y., Iter, D., Xu, Y., Wang, S., Xu, R., & Zhu, C. (2023). G-Eval: NLG evaluation using GPT-4 with better human alignment. In *Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP)* (pp. 2511–2522). Association for Computational Linguistics. https://doi.org/10.18653/v1/2023.emnlp-main.153
+
+[3] Chiang, C.-H., & Lee, H.-y. (2023). Can large language models be an alternative to human evaluations? In *Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (ACL)* (Vol. 1, pp. 15607–15631). https://doi.org/10.18653/v1/2023.acl-long.870
+
+[4] Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., ... & Stoica, I. (2023). Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. In *Advances in Neural Information Processing Systems (NeurIPS)* (Vol. 36, pp. 46595–46623).
+
+[5] Panickssery, A., Bowman, S. R., & Feng, S. (2024). *LLM evaluators recognize and favor their own generations* (arXiv:2404.13076) [Preprint]. arXiv. https://arxiv.org/abs/2404.13076
+
+### RAG 및 생성 충실도 (RAG & Faithfulness)
+
+[6] Es, S., James, J., Espinosa-Anke, L., & Schockaert, S. (2023). *RAGAS: Automated evaluation of retrieval augmented generation* (arXiv:2309.15217) [Preprint]. arXiv. https://arxiv.org/abs/2309.15217
+
+[7] Reimers, N., & Gurevych, I. (2019). Sentence-BERT: Sentence embeddings using Siamese BERT-networks. In *Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing (EMNLP-IJCNLP)* (pp. 3982–3992). https://doi.org/10.18653/v1/D19-1410
+
+### 요구사항 추적성 및 WBS 설계 (Requirements Traceability & WBS)
+
+[8] Gotel, O. C. Z., & Finkelstein, A. C. W. (1994). An analysis of the requirements traceability problem. In *Proceedings of the First International Conference on Requirements Engineering* (pp. 94–101). IEEE. https://doi.org/10.1109/ICRE.1994.292398
+
+[9] Institute of Electrical and Electronics Engineers. (2018). *ISO/IEC/IEEE 29148:2018 — Systems and software engineering — Life cycle processes — Requirements engineering*. IEEE. https://doi.org/10.1109/IEEESTD.2018.8559686
+
+[10] Minto, B. (1987). *The pyramid principle: Logic in writing and thinking*. Pitman.
+
+[11] Project Management Institute. (2021). *A guide to the Project Management Body of Knowledge (PMBOK® Guide)* (7th ed.). Project Management Institute.
+
+### 통계 방법 (Statistical Methods)
+
+[12] Mann, H. B., & Whitney, D. R. (1947). On a test of whether one of two random variables is stochastically larger than the other. *The Annals of Mathematical Statistics, 18*(1), 50–60. https://doi.org/10.1214/aoms/1177730491
+
+[13] Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal questions. *Psychological Bulletin, 114*(3), 494–509. https://doi.org/10.1037/0033-2909.114.3.494
+
+[14] Cohen, J. (1988). *Statistical power analysis for the behavioral sciences* (2nd ed.). Lawrence Erlbaum Associates.
+
+[15] Holm, S. (1979). A simple sequentially rejective multiple test procedure. *Scandinavian Journal of Statistics, 6*(2), 65–70.
+
+[16] Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. *Journal of the Royal Statistical Society: Series B (Methodological), 57*(1), 289–300. https://doi.org/10.1111/j.2517-6161.1995.tb02031.x
+
+[17] Shrout, P. E., & Fleiss, J. L. (1979). Intraclass correlations: Uses in assessing rater reliability. *Psychological Bulletin, 86*(2), 420–428. https://doi.org/10.1037/0033-2909.86.2.420
+
+[18] Cohen, J. (1960). A coefficient of agreement for nominal scales. *Educational and Psychological Measurement, 20*(1), 37–46. https://doi.org/10.1177/001316446002000104
+
+[19] Spearman, C. (1904). The proof and measurement of association between two things. *The American Journal of Psychology, 15*(1), 72–101. https://doi.org/10.2307/1412159
+
+[20] Efron, B., & Tibshirani, R. J. (1993). *An introduction to the bootstrap*. Chapman & Hall/CRC.
+
+### 합의·의사결정 방법론 (Consensus & Decision-Making)
+
+[21] Dalkey, N., & Helmer, O. (1963). An experimental application of the Delphi method to the use of experts. *Management Science, 9*(3), 458–467. https://doi.org/10.1287/mnsc.9.3.458
+
+### 불평등 측정 (Inequality Measurement)
+
+[22] Gini, C. (1912). *Variabilità e mutabilità: Contributo allo studio delle distribuzioni e delle relazioni statistiche*. Tipografia di Paolo Cuppini.
+
+### 구성 타당성 (Construct Validity)
+
+[23] Cronbach, L. J., & Meehl, P. E. (1955). Construct validity in psychological tests. *Psychological Bulletin, 52*(4), 281–302. https://doi.org/10.1037/h0040957
+
+[24] Campbell, D. T., & Fiske, D. W. (1959). Convergent and discriminant validation by the multitrait-multimethod matrix. *Psychological Bulletin, 56*(2), 81–105. https://doi.org/10.1037/h0046016
+
+### 멀티에이전트 시스템 및 LLM 토론 (Multi-Agent Systems)
+
+[25] Du, Y., Li, S., Torralba, A., Tenenbaum, J. B., & Mordatch, I. (2024). Improving factuality and reasoning in language models through multiagent debate. In *Proceedings of the 41st International Conference on Machine Learning (ICML)* (pp. 11733–11763).
+
+[26] Liang, T., He, Z., Jiao, W., Wang, X., Wang, Y., Wang, R., Yang, Y., Tu, Z., & Shi, S. (2024). Encouraging divergent thinking in large language models through multi-agent debate. In *Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing (EMNLP)* (pp. 17889–17904).
+
+[27] Wu, Q., Bansal, G., Zhang, J., Wu, Y., Li, B., Zhu, E., Jiang, L., Zhang, X., Zhang, S., Liu, J., Awadallah, A. H., White, R. W., Burger, D., & Wang, C. (2024). *AutoGen: Enabling next-generation LLM applications via multi-agent conversation* (arXiv:2308.08155) [Preprint]. arXiv. https://arxiv.org/abs/2308.08155
+
+---
+
+### 각주 표기 예시 (In-text Citation)
+
+- 괄호형: "Multi-paradigm 조합은 production evaluation의 핵심 원칙이다 (Lu et al., 2026)."
+- 서술형: "Liu 외(2023)의 G-Eval은 가중 선형 결합을 제안했다."
+- 복수 인용: "(Es et al., 2023; Lu et al., 2026)"
+- 페이지 명시: "(Lu et al., 2026, Appendix B, Eq. 1)"
+- 직접 인용: "\"Individual domains compose multiple paradigms\" (Lu et al., 2026, p. 1)."
