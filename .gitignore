@@ -25,6 +25,7 @@ experiments/eval_results/_legacy/
 
 # Large binaries & model artifacts
 presentation_source.pptx
+docs/assets/pptx_extract/
 *.safetensors
 *.pt
 *.pth

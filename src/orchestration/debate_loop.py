@@ -16,7 +16,6 @@ from agents.supervisor_agent import (
     supervisor_task_match,
 )
 from agents.wbs_gen_agent import wbs_gen_node
-from orchestration.graph_builder import get_compiled_graph
 from orchestration.mcp_tool_layer import STATE_TRACE_KEY, call_state_tool
 from schemas.wbs_schema import AgentRole, WBSLevel
 
@@ -327,6 +326,8 @@ def run_sequential_debate(state: WBSState, max_rounds: int) -> Generator[WBSStat
 
 
 def execute_sympo_flow(state: WBSState, max_rounds: int) -> Generator[WBSState, None, None]:
+    from orchestration.graph_builder import get_compiled_graph
+
     graph = get_compiled_graph()
     base = ensure_runtime_state(state)
     base["max_rounds"] = max_rounds
