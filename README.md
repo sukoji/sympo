@@ -1,6 +1,8 @@
 <div align="center">
 
-# symPO
+<img src="docs/assets/figures/en/hero.png" alt="symPO — multi-agent WBS orchestration" width="920"/>
+
+<br/>
 
 ### Multi-agent orchestration for intelligent work breakdown & assignment
 
@@ -44,7 +46,7 @@ The repo ships the **full stack**: orchestration code, UI & API surfaces, MCP to
 ## Pipeline
 
 <p align="center">
-  <img src="docs/assets/slides/pipeline_overview.png" alt="symPO five-stage pipeline: Input → Drafting → Routing → Discussion → Assignment" width="920"/>
+  <img src="docs/assets/figures/en/pipeline.png" alt="symPO five-stage pipeline: Input → Drafting → Routing → Discussion → Assignment" width="920"/>
 </p>
 
 | Stage | What happens |
@@ -62,7 +64,7 @@ Same engine powers the **web UI**, **live-streaming API**, and **MCP tool server
 ## Outputs
 
 <p align="center">
-  <img src="docs/assets/slides/project_output.png" alt="Example WBS cards and Gantt-style schedule produced by symPO" width="920"/>
+  <img src="docs/assets/figures/en/outputs.png" alt="Example WBS cards and Gantt-style schedule produced by symPO" width="920"/>
 </p>
 
 - **Structured WBS** — L1 / L2 / L3 hierarchy with estimates and risk buffers  
@@ -77,7 +79,7 @@ Same engine powers the **web UI**, **live-streaming API**, and **MCP tool server
 We did not stop at demo quality. The project includes backbone comparisons, RAG ablations, context-metadata studies, and a blind human survey by practitioners.
 
 <p align="center">
-  <img src="docs/assets/slides/human_evaluation.png" alt="Human evaluation survey results: 4.48 out of 5 average, 89.2% positive on feasibility" width="780"/>
+  <img src="docs/assets/figures/en/validation.png" alt="Human evaluation survey results: 4.48 out of 5 average, 89.2% positive on feasibility" width="920"/>
 </p>
 
 | Signal | Takeaway |

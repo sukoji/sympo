@@ -1,6 +1,8 @@
 <div align="center">
 
-# symPO
+<img src="docs/assets/figures/ko/hero.png" alt="symPO — 멀티에이전트 WBS 오케스트레이션" width="920"/>
+
+<br/>
 
 ### 멀티에이전트 기반 지능형 업무 분장 · WBS 생성 시스템
 
@@ -44,7 +46,7 @@
 ## 파이프라인
 
 <p align="center">
-  <img src="docs/assets/slides/pipeline_overview.png" alt="symPO 5단계: Input → Drafting → Routing → Discussion → Assignment" width="920"/>
+  <img src="docs/assets/figures/ko/pipeline.png" alt="symPO 5단계: Input → Drafting → Routing → Discussion → Assignment" width="920"/>
 </p>
 
 | 단계 | 내용 |
@@ -62,7 +64,7 @@
 ## 산출물
 
 <p align="center">
-  <img src="docs/assets/slides/project_output.png" alt="symPO가 생성한 WBS 카드와 일정표 예시" width="920"/>
+  <img src="docs/assets/figures/ko/outputs.png" alt="symPO가 생성한 WBS 카드와 일정표 예시" width="920"/>
 </p>
 
 - **구조화된 WBS** — L1 / L2 / L3, 공수·리스크 버퍼 포함  
@@ -77,7 +79,7 @@
 데모에서 멈추지 않았습니다. 백본 비교, RAG ablation, 컨텍스트 메타데이터 실험, 현업 실무자 대상 설문을 포함합니다.
 
 <p align="center">
-  <img src="docs/assets/slides/human_evaluation.png" alt="인간 평가: 평균 4.48/5, 실현 가능성 긍정률 89.2%" width="780"/>
+  <img src="docs/assets/figures/ko/validation.png" alt="인간 평가: 평균 4.48/5, 실현 가능성 긍정률 89.2%" width="920"/>
 </p>
 
 | 신호 | 요약 |
