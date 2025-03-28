@@ -12,15 +12,13 @@ from pathlib import Path
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+from matplotlib.patches import FancyBboxPatch
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_EN = ROOT / "docs" / "assets" / "figures" / "en"
 OUT_KO = ROOT / "docs" / "assets" / "figures" / "ko"
 
-# Brand palette — light, GitHub-friendly
 C_BG = "#ffffff"
 C_SURFACE = "#f8fafc"
 C_BORDER = "#e2e8f0"
@@ -33,7 +31,8 @@ C_VIOLET = "#7c3aed"
 C_TEAL = "#0d9488"
 STAGE_COLORS = ["#2563eb", "#3b82f6", "#6366f1", "#8b5cf6", "#1d4ed8"]
 
-DPI = 240
+DPI = 260
+PAD = 0.55
 
 
 def _available_fonts() -> set[str]:
@@ -81,37 +80,42 @@ def _font_context(lang: str, en_font: str, ko_font: str):
 
 def _save(fig, path: Path):
     path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(path, bbox_inches="tight", pad_inches=0.35, transparent=False)
+    fig.savefig(path, bbox_inches="tight", pad_inches=PAD, transparent=False)
     plt.close(fig)
     print("wrote", path.relative_to(ROOT))
 
 
-def _rounded_card(ax, xy, w, h, color=C_SURFACE, edge=C_BORDER, radius=0.08):
+def _rounded_card(ax, xy, w, h, *, color=C_SURFACE, edge=C_BORDER, radius=0.10, lw=1.0, zorder=2):
     box = FancyBboxPatch(
         xy, w, h,
         boxstyle=f"round,pad=0.012,rounding_size={radius}",
-        linewidth=1.2,
+        linewidth=lw,
         edgecolor=edge,
         facecolor=color,
         transform=ax.transAxes,
-        zorder=2,
+        zorder=zorder,
     )
     ax.add_patch(box)
     return box
 
 
+def _header(ax, title: str, subtitle: str, *, y_title=0.90, y_sub=0.82):
+    ax.text(0.06, y_title, title, fontsize=20, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
+    ax.text(0.06, y_sub, subtitle, fontsize=11, color=C_MUTED, transform=ax.transAxes)
+
+
 def build_pipeline(lang: str, out: Path):
     stages_en = [
         ("01", "Input", "PRD · team · meetings"),
-        ("02", "Draft", "3-level WBS draft"),
-        ("03", "Route", "Skill-based agent call"),
+        ("02", "Draft", "3-level WBS"),
+        ("03", "Route", "Skill-based routing"),
         ("04", "Debate", "Buffers · risks · R&R"),
         ("05", "Assign", "Final plan lock-in"),
     ]
     stages_ko = [
-        ("01", "입력", "PRD · 팀원 · 회의록"),
-        ("02", "초안", "3단계 WBS 생성"),
-        ("03", "라우팅", "스킬 기반 에이전트 호출"),
+        ("01", "입력", "PRD · 팀 · 회의록"),
+        ("02", "초안", "3단계 WBS"),
+        ("03", "라우팅", "스킬 기반 라우팅"),
         ("04", "토론", "버퍼 · 리스크 · R&R"),
         ("05", "배정", "최종 계획 확정"),
     ]
@@ -124,40 +128,54 @@ def build_pipeline(lang: str, out: Path):
     title = title_ko if lang == "ko" else title_en
     subtitle = subtitle_ko if lang == "ko" else subtitle_en
 
-    fig, ax = plt.subplots(figsize=(12.5, 4.2))
+    fig_h = 5.8 if lang == "ko" else 5.4
+    fig, ax = plt.subplots(figsize=(14.0, fig_h))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    _rounded_card(ax, (0.02, 0.08), 0.96, 0.84, color=C_SURFACE)
-    ax.text(0.05, 0.82, title, fontsize=18, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
-    ax.text(0.05, 0.72, subtitle, fontsize=10.5, color=C_MUTED, transform=ax.transAxes)
+    _rounded_card(ax, (0.03, 0.06), 0.94, 0.88, color=C_SURFACE, radius=0.12)
+    _header(ax, title, subtitle, y_title=0.86, y_sub=0.78)
 
     n = len(stages)
-    gap = 0.018
-    card_w = (0.88 - gap * (n - 1)) / n
-    x0 = 0.06
-    y = 0.22
-    h = 0.42
+    gap = 0.032
+    card_w = (0.86 - gap * (n - 1)) / n
+    x0 = 0.07
+    y = 0.18
+    h = 0.50
 
     for i, (num, name, desc) in enumerate(stages):
         x = x0 + i * (card_w + gap)
         color = STAGE_COLORS[i]
-        _rounded_card(ax, (x, y), card_w, h, color="#ffffff", edge=color)
-        ax.add_patch(plt.Circle((x + 0.04, y + h - 0.08), 0.028, color=color, transform=ax.transAxes, zorder=3))
-        ax.text(x + 0.04, y + h - 0.08, num, ha="center", va="center", fontsize=9,
-                fontweight="bold", color="white", transform=ax.transAxes, zorder=4)
-        ax.text(x + card_w / 2, y + h * 0.52, name, ha="center", va="center",
-                fontsize=12, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
-        ax.text(x + card_w / 2, y + h * 0.22, desc, ha="center", va="center",
-                fontsize=8.2, color=C_MUTED, transform=ax.transAxes)
+        _rounded_card(ax, (x, y), card_w, h, color="#ffffff", edge=color, radius=0.08, lw=1.6)
+
+        badge_y = y + h - 0.10
+        ax.add_patch(plt.Circle(
+            (x + card_w / 2, badge_y), 0.022, color=color,
+            transform=ax.transAxes, zorder=4,
+        ))
+        ax.text(
+            x + card_w / 2, badge_y, num,
+            ha="center", va="center", fontsize=9, fontweight="bold",
+            color="white", transform=ax.transAxes, zorder=5,
+        )
+        ax.text(
+            x + card_w / 2, y + h * 0.58, name,
+            ha="center", va="center", fontsize=13, fontweight="bold",
+            color=C_TEXT, transform=ax.transAxes,
+        )
+        ax.text(
+            x + card_w / 2, y + h * 0.28, desc,
+            ha="center", va="center", fontsize=9, color=C_MUTED,
+            transform=ax.transAxes, linespacing=1.35,
+        )
 
         if i < n - 1:
             ax.annotate(
                 "",
-                xy=(x + card_w + gap * 0.35, y + h * 0.5),
-                xytext=(x + card_w + gap * 0.05, y + h * 0.5),
-                arrowprops=dict(arrowstyle="-|>", color=C_MUTED, lw=1.4),
+                xy=(x + card_w + gap * 0.72, y + h * 0.48),
+                xytext=(x + card_w + gap * 0.28, y + h * 0.48),
+                arrowprops=dict(arrowstyle="-|>", color="#94a3b8", lw=1.6, shrinkA=0, shrinkB=0),
                 xycoords=ax.transAxes,
             )
 
@@ -171,15 +189,16 @@ def build_outputs(lang: str, out: Path):
     left_ko, right_ko = "팀원별 태스크 카드", "일정 타임라인"
 
     members_en = [
-        ("Alex", "4 tasks · 18d", ["API design", "Auth module", "Deploy"]),
-        ("Jordan", "3 tasks · 14d", ["Dashboard UI", "E2E tests"]),
-        ("Sam", "5 tasks · 22d", ["Data pipeline", "Model eval", "Monitoring"]),
+        ("Alex", "4 tasks · 18 days", ["API design", "Auth", "Deploy"]),
+        ("Jordan", "3 tasks · 14 days", ["Dashboard", "E2E tests"]),
+        ("Sam", "5 tasks · 22 days", ["Data pipe", "Model eval", "Monitoring"]),
     ]
     members_ko = [
-        ("이동헌", "4 tasks · 18d", ["API 설계", "인증 모듈", "배포"]),
-        ("장선열", "3 tasks · 14d", ["대시보드 UI", "E2E 테스트"]),
-        ("윤수빈", "5 tasks · 22d", ["데이터 파이프", "모델 평가", "모니터링"]),
+        ("이동헌", "4 tasks · 18일", ["API 설계", "인증", "배포"]),
+        ("장선열", "3 tasks · 14일", ["대시보드", "E2E 테스트"]),
+        ("윤수빈", "5 tasks · 22일", ["데이터 파이프", "모델 평가", "모니터링"]),
     ]
+    gantt = [(1, 5), (2, 4), (1, 7)]  # (start_week, duration_weeks)
     colors = ["#2563eb", "#7c3aed", "#0d9488"]
 
     title = title_ko if lang == "ko" else title_en
@@ -187,46 +206,58 @@ def build_outputs(lang: str, out: Path):
     right_title = right_ko if lang == "ko" else right_en
     members = members_ko if lang == "ko" else members_en
 
-    fig, ax = plt.subplots(figsize=(12.5, 5.0))
+    fig, ax = plt.subplots(figsize=(14.0, 7.0))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    _rounded_card(ax, (0.02, 0.06), 0.96, 0.88, color=C_SURFACE)
-    ax.text(0.05, 0.86, title, fontsize=18, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
+    _rounded_card(ax, (0.03, 0.05), 0.94, 0.90, color=C_SURFACE, radius=0.12)
+    ax.text(0.06, 0.88, title, fontsize=20, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
 
-    # Left panel — cards
-    _rounded_card(ax, (0.05, 0.12), 0.42, 0.68, color="#ffffff")
-    ax.text(0.07, 0.74, left_title, fontsize=11, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
+    # Left panel
+    _rounded_card(ax, (0.06, 0.12), 0.41, 0.68, color="#ffffff", radius=0.10)
+    ax.text(0.09, 0.74, left_title, fontsize=12, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
+
+    row_h = 0.155
+    row_gap = 0.035
+    row_top = 0.58
     for i, (name, meta, tasks) in enumerate(members):
-        y = 0.62 - i * 0.2
-        _rounded_card(ax, (0.07, y), 0.38, 0.16, color=C_PRIMARY_SOFT, edge=colors[i])
-        ax.text(0.09, y + 0.11, name, fontsize=11, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
-        ax.text(0.09, y + 0.04, meta, fontsize=8.5, color=C_MUTED, transform=ax.transAxes)
-        pill_x = 0.22
-        for j, t in enumerate(tasks):
-            ax.text(pill_x, y + 0.11 - j * 0.035, f"• {t}", fontsize=7.8, color=C_MUTED, transform=ax.transAxes)
+        y = row_top - i * (row_h + row_gap)
+        _rounded_card(ax, (0.09, y), 0.35, row_h, color=C_PRIMARY_SOFT, edge=colors[i], radius=0.06, lw=1.4)
+        ax.text(0.115, y + row_h * 0.72, name, fontsize=12, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
+        ax.text(0.115, y + row_h * 0.30, meta, fontsize=9, color=C_MUTED, transform=ax.transAxes)
+        task_line = "  ·  ".join(tasks)
+        ax.text(0.26, y + row_h * 0.50, task_line, fontsize=8.8, color=C_MUTED, transform=ax.transAxes, va="center")
 
-    # Right panel — gantt
-    _rounded_card(ax, (0.52, 0.12), 0.43, 0.68, color="#ffffff")
-    ax.text(0.54, 0.74, right_title, fontsize=11, fontweight="bold", color=C_TEXT, transform=ax.transAxes)
-    weeks = np.arange(1, 9)
-    for i, (name, _, _) in enumerate(members):
-        y = 0.58 - i * 0.16
-        start = 0.55 + 0.06 * i
-        width = 0.12 + 0.08 * (2 - i)
-        bar = FancyBboxPatch(
-            (start, y), width, 0.07,
-            boxstyle="round,pad=0.004,rounding_size=0.02",
-            facecolor=colors[i], edgecolor="none", alpha=0.85,
-            transform=ax.transAxes,
+    # Right panel — real mini-gantt axes
+    _rounded_card(ax, (0.52, 0.12), 0.42, 0.68, color="#ffffff", radius=0.10)
+    panel = fig.add_axes([0.545, 0.20, 0.385, 0.54])
+    panel.set_facecolor("#ffffff")
+    for spine in panel.spines.values():
+        spine.set_visible(True)
+        spine.set_color(C_BORDER)
+        spine.set_linewidth(1.0)
+    panel.spines["top"].set_visible(False)
+    panel.spines["right"].set_visible(False)
+
+    panel.set_title(right_title, loc="left", fontsize=12, fontweight="bold", color=C_TEXT, pad=14)
+    panel.set_xlim(0.5, 8.5)
+    panel.set_ylim(-0.5, len(members) - 0.5)
+    panel.set_yticks(range(len(members)))
+    panel.set_yticklabels([m[0] for m in members], fontsize=10)
+    panel.invert_yaxis()
+    panel.set_xticks([1, 2, 3, 4, 5, 6, 7, 8])
+    panel.set_xticklabels([f"W{w}" for w in range(1, 9)], fontsize=8.5, color=C_MUTED)
+    panel.set_xlabel("Week", fontsize=9, color=C_MUTED, labelpad=8)
+    panel.grid(axis="x", color=C_BORDER, linestyle="-", linewidth=0.8, alpha=0.7)
+    panel.tick_params(axis="y", length=0, pad=8)
+    panel.tick_params(axis="x", colors=C_MUTED, pad=4)
+
+    for i, ((name, _, _), (start, dur), color) in enumerate(zip(members, gantt, colors)):
+        panel.barh(
+            i, dur, left=start, height=0.42, color=color, alpha=0.88,
+            edgecolor="none", zorder=3,
         )
-        ax.add_patch(bar)
-        ax.text(0.54, y + 0.035, name, fontsize=9, color=C_TEXT, transform=ax.transAxes, va="center")
-    ax.text(0.54, 0.16, "W1", fontsize=7.5, color=C_MUTED, transform=ax.transAxes)
-    ax.text(0.72, 0.16, "W4", fontsize=7.5, color=C_MUTED, transform=ax.transAxes)
-    ax.text(0.88, 0.16, "W8", fontsize=7.5, color=C_MUTED, transform=ax.transAxes)
-    ax.plot([0.54, 0.92], [0.18, 0.18], color=C_BORDER, lw=1, transform=ax.transAxes)
 
     _save(fig, out / "outputs.png")
 
@@ -244,53 +275,62 @@ def build_validation(lang: str, out: Path):
 
     debate_en = ["Assign only", "+1 round", "+3 rounds"]
     debate_ko = ["배정만", "+1 라운드", "+3 라운드"]
-    debate_scores = [0.58, 0.70, 0.73]  # Gemma26 representative
+    debate_scores = [0.58, 0.70, 0.73]
 
     title = title_ko if lang == "ko" else title_en
     subtitle = subtitle_ko if lang == "ko" else subtitle_en
     cats = cats_ko if lang == "ko" else cats_en
     debate_labels = debate_ko if lang == "ko" else debate_en
-    debate_note_en = "Debate rounds lift judge score (Gemma-26B MoE, representative run)"
-    debate_note_ko = "토론 라운드 증가 시 Judge 점수 상승 (Gemma-26B MoE 대표값)"
+    debate_note_en = "Debate rounds lift judge score\n(Gemma-26B MoE, representative run)"
+    debate_note_ko = "토론 라운드 증가 시 Judge 점수 상승\n(Gemma-26B MoE 대표값)"
+    debate_note = debate_note_ko if lang == "ko" else debate_note_en
 
-    fig = plt.figure(figsize=(12.5, 4.8))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.15, 1], wspace=0.22)
-    ax1 = fig.add_subplot(gs[0])
-    ax2 = fig.add_subplot(gs[1])
+    fig = plt.figure(figsize=(14.0, 6.2))
+    fig.subplots_adjust(left=0.07, right=0.97, top=0.78, bottom=0.14, wspace=0.42)
 
+    fig.text(0.07, 0.92, title, fontsize=20, fontweight="bold", color=C_TEXT, ha="left")
+    fig.text(0.07, 0.845, subtitle, fontsize=11, color=C_MUTED, ha="left")
+
+    ax1 = fig.add_subplot(1, 2, 1)
+    ax2 = fig.add_subplot(1, 2, 2)
     for ax in (ax1, ax2):
         ax.set_facecolor(C_BG)
 
-    fig.suptitle(title, fontsize=18, fontweight="bold", color=C_TEXT, x=0.06, ha="left", y=0.98)
-    fig.text(0.06, 0.90, subtitle, fontsize=10, color=C_MUTED)
-
     y = np.arange(len(cats))
-    bars = ax1.barh(y, scores, color=[C_PRIMARY, C_INDIGO, C_TEAL, C_VIOLET], height=0.55, alpha=0.9)
-    ax1.set_xlim(0, 5)
+    bar_colors = [C_PRIMARY, C_INDIGO, C_TEAL, C_VIOLET]
+    bars = ax1.barh(y, scores, color=bar_colors, height=0.48, alpha=0.92)
+    ax1.set_xlim(0, 5.6)
     ax1.set_yticks(y)
-    ax1.set_yticklabels(cats, fontsize=10)
-    ax1.set_xlabel("Mean score ( / 5.00 )", fontsize=9, color=C_MUTED)
-    ax1.axvline(4.0, color=C_BORDER, ls="--", lw=1)
+    ax1.set_yticklabels(cats, fontsize=11)
+    ax1.set_xlabel("Mean score ( / 5.00 )", fontsize=10, color=C_MUTED, labelpad=10)
+    ax1.axvline(4.0, color="#cbd5e1", ls="--", lw=1.2)
     ax1.spines[["top", "right"]].set_visible(False)
+    ax1.tick_params(axis="x", colors=C_MUTED, pad=6)
+    ax1.tick_params(axis="y", pad=10)
     for i, (bar, pr) in enumerate(zip(bars, pos_rates)):
-        ax1.text(bar.get_width() + 0.06, bar.get_y() + bar.get_height() / 2,
-                 f"{scores[i]:.2f}  ·  {pr:.0f}% positive",
-                 va="center", fontsize=9, color=C_TEXT)
+        ax1.text(
+            bar.get_width() + 0.08, bar.get_y() + bar.get_height() / 2,
+            f"{scores[i]:.2f}   ·   {pr:.0f}% positive",
+            va="center", fontsize=10, color=C_TEXT,
+        )
 
-    ax2.bar(debate_labels, debate_scores, color=[C_BORDER, C_INDIGO, C_PRIMARY], width=0.55)
-    ax2.set_ylim(0, 0.85)
-    ax2.set_ylabel("LLM judge overall", fontsize=9, color=C_MUTED)
+    x = np.arange(len(debate_labels))
+    ax2.bar(x, debate_scores, color=[C_BORDER, C_INDIGO, C_PRIMARY], width=0.52, zorder=3)
+    ax2.set_xticks(x)
+    ax2.set_xticklabels(debate_labels, fontsize=10)
+    ax2.set_ylim(0, 0.92)
+    ax2.set_ylabel("LLM judge overall", fontsize=10, color=C_MUTED, labelpad=10)
     ax2.spines[["top", "right"]].set_visible(False)
-    ax2.text(0.5, 0.78, debate_note_ko if lang == "ko" else debate_note_en,
-             ha="center", transform=ax2.transAxes, fontsize=8.5, color=C_MUTED)
+    ax2.tick_params(axis="x", pad=8)
+    ax2.text(0.5, 0.97, debate_note, ha="center", va="top", transform=ax2.transAxes,
+             fontsize=9, color=C_MUTED, linespacing=1.4)
     for i, v in enumerate(debate_scores):
-        ax2.text(i, v + 0.02, f"{v:.2f}", ha="center", fontsize=10, fontweight="bold", color=C_TEXT)
+        ax2.text(i, v + 0.025, f"{v:.2f}", ha="center", fontsize=11, fontweight="bold", color=C_TEXT)
 
     _save(fig, out / "validation.png")
 
 
 def build_hero(lang: str, out: Path):
-    """Compact hero strip for README top."""
     tag_en = "Multi-agent WBS orchestration"
     tag_ko = "멀티에이전트 WBS 오케스트레이션"
     badges_en = ["5-stage pipeline", "N=65 survey", "LangGraph · MCP"]
@@ -298,22 +338,23 @@ def build_hero(lang: str, out: Path):
     tag = tag_ko if lang == "ko" else tag_en
     badges = badges_ko if lang == "ko" else badges_en
 
-    fig, ax = plt.subplots(figsize=(12.5, 2.0))
+    fig, ax = plt.subplots(figsize=(14.0, 2.6))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    _rounded_card(ax, (0.02, 0.10), 0.96, 0.80, color=C_PRIMARY_SOFT, edge=C_BORDER, radius=0.14)
-    ax.text(0.06, 0.58, "sym", fontsize=32, fontweight="bold", color=C_PRIMARY, va="center", transform=ax.transAxes)
-    ax.text(0.16, 0.58, "PO", fontsize=32, fontweight="bold", color=C_TEXT, va="center", transform=ax.transAxes)
-    ax.text(0.06, 0.30, tag, fontsize=11.5, color=C_MUTED, va="center", transform=ax.transAxes)
+    _rounded_card(ax, (0.03, 0.12), 0.94, 0.76, color=C_PRIMARY_SOFT, edge=C_BORDER, radius=0.16)
+    ax.text(0.07, 0.62, "sym", fontsize=36, fontweight="bold", color=C_PRIMARY, va="center", transform=ax.transAxes)
+    ax.text(0.19, 0.62, "PO", fontsize=36, fontweight="bold", color=C_TEXT, va="center", transform=ax.transAxes)
+    ax.text(0.07, 0.32, tag, fontsize=12, color=C_MUTED, va="center", transform=ax.transAxes)
 
-    bx = 0.46
-    bw = 0.165 if lang == "en" else 0.155
+    bx = 0.48
+    bw = 0.155
+    gap = 0.018
     for i, label in enumerate(badges):
-        x = bx + i * (bw + 0.012)
-        _rounded_card(ax, (x, 0.30), bw, 0.40, color="#ffffff", edge=C_BORDER, radius=0.06)
-        ax.text(x + bw / 2, 0.50, label, ha="center", va="center", fontsize=8.5, color=C_TEXT, transform=ax.transAxes)
+        x = bx + i * (bw + gap)
+        _rounded_card(ax, (x, 0.28), bw, 0.44, color="#ffffff", edge=C_BORDER, radius=0.08)
+        ax.text(x + bw / 2, 0.50, label, ha="center", va="center", fontsize=9.5, color=C_TEXT, transform=ax.transAxes)
 
     _save(fig, out / "hero.png")
 
