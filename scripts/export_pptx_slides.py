@@ -1,6 +1,11 @@
-"""Export selected presentation slides to PNG via PowerPoint COM (Windows)."""
+"""Export selected presentation slides to PNG via PowerPoint COM (Windows).
+
+Requires Microsoft PowerPoint + fonts used in the deck (run check_pptx_fonts.py first).
+Manual "Save as Picture" in PowerPoint produces the same result when fonts are installed.
+"""
 from __future__ import annotations
 
+import subprocess
 import sys
 from pathlib import Path
 
@@ -8,18 +13,40 @@ ROOT = Path(__file__).resolve().parents[1]
 PPTX = ROOT / "presentation_source.pptx"
 OUT = ROOT / "docs" / "assets" / "slides"
 
-# Slides to export (1-based): title, pipeline overview, phase cards, results
-SLIDES = {
+# Slides used in README (1-based)
+README_SLIDES = {
     1: "hero_title.png",
     10: "pipeline_overview.png",
     36: "project_output.png",
     37: "human_evaluation.png",
+}
+
+# Extra slides (optional)
+EXTRA_SLIDES = {
     27: "key_result.png",
     40: "conclusion.png",
 }
 
+# 16:9 slide at ~2x HD; increase to (3840, 2160) for retina README assets
+EXPORT_W = 2560
+EXPORT_H = 1440
+
+
+def _preflight() -> None:
+    checker = ROOT / "scripts" / "check_pptx_fonts.py"
+    if checker.exists():
+        rc = subprocess.call([sys.executable, str(checker)])
+        if rc != 0:
+            print("Aborting export — fix missing fonts first.", file=sys.stderr)
+            sys.exit(rc)
+
 
 def main():
+    if not PPTX.exists():
+        print(f"missing: {PPTX}", file=sys.stderr)
+        sys.exit(1)
+
+    _preflight()
     OUT.mkdir(parents=True, exist_ok=True)
     try:
         import win32com.client  # type: ignore
@@ -30,13 +57,17 @@ def main():
     app = win32com.client.Dispatch("PowerPoint.Application")
     pres = app.Presentations.Open(str(PPTX.resolve()), WithWindow=False)
     try:
-        for num, name in SLIDES.items():
+        for num, name in {**README_SLIDES, **EXTRA_SLIDES}.items():
             out_path = str((OUT / name).resolve())
-            pres.Slides(num).Export(out_path, "PNG", 1920, 1080)
-            print("exported", name)
+            pres.Slides(num).Export(out_path, "PNG", EXPORT_W, EXPORT_H)
+            print("exported", name, f"({EXPORT_W}x{EXPORT_H})")
     finally:
         pres.Close()
         app.Quit()
+
+    crop_script = ROOT / "scripts" / "crop_slide_export.py"
+    if crop_script.exists():
+        subprocess.call([sys.executable, str(crop_script)])
 
 
 if __name__ == "__main__":
