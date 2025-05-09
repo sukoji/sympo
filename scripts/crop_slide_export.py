@@ -66,18 +66,18 @@ def crop_bottom(arr: np.ndarray) -> int:
     return min(h, y + 24)
 
 
-def crop_to_content(img: Image.Image, *, pad: int = 32) -> Image.Image:
+def crop_to_content(img: Image.Image, *, pad: int = 32, vertical_only: bool = False) -> Image.Image:
     arr = np.array(img)
     mask = (arr < 242).any(axis=2)
     ys, xs = np.where(mask)
     if len(ys) == 0:
         return img
     top, bottom = int(ys.min()), int(ys.max())
-    left, right = int(xs.min()), int(xs.max())
+    left, right = (0, arr.shape[1] - 1) if vertical_only else (int(xs.min()), int(xs.max()))
     top = max(0, top - pad)
-    left = max(0, left - pad)
+    left = max(0, left - pad) if not vertical_only else 0
     bottom = min(arr.shape[0] - 1, bottom + pad)
-    right = min(arr.shape[1] - 1, right + pad)
+    right = min(arr.shape[1] - 1, right + pad) if not vertical_only else arr.shape[1] - 1
     return img.crop((left, top, right + 1, bottom + 1))
 
 
@@ -92,8 +92,8 @@ def crop_image(path: Path, *, trim_footer: bool = False) -> Image.Image:
     if trim_footer:
         # Title slide: drop footer + empty lower half before tight bbox
         arr2 = np.array(cropped)
-        cropped = cropped.crop((0, 0, arr2.shape[1], int(arr2.shape[0] * 0.58)))
-        cropped = crop_to_content(cropped, pad=56)
+        cropped = cropped.crop((0, 0, arr2.shape[1], int(arr2.shape[0] * 0.50)))
+        cropped = crop_to_content(cropped, pad=48, vertical_only=True)
     return cropped
 
 

@@ -41,6 +41,16 @@ def _preflight() -> None:
             sys.exit(rc)
 
 
+def _load_patch_fn():
+    import importlib.util
+
+    patch_script = ROOT / "scripts" / "patch_pptx_for_readme.py"
+    spec = importlib.util.spec_from_file_location("patch_pptx_for_readme", str(patch_script))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.patch_presentation
+
+
 def main():
     if not PPTX.exists():
         print(f"missing: {PPTX}", file=sys.stderr)
@@ -48,6 +58,13 @@ def main():
 
     _preflight()
     OUT.mkdir(parents=True, exist_ok=True)
+
+    export_pptx = PPTX
+    patch_script = ROOT / "scripts" / "patch_pptx_for_readme.py"
+    if patch_script.exists():
+        export_pptx = _load_patch_fn()(PPTX)
+        print("using patched deck", export_pptx)
+
     try:
         import win32com.client  # type: ignore
     except ImportError:
@@ -55,7 +72,7 @@ def main():
         sys.exit(1)
 
     app = win32com.client.Dispatch("PowerPoint.Application")
-    pres = app.Presentations.Open(str(PPTX.resolve()), WithWindow=False)
+    pres = app.Presentations.Open(str(export_pptx.resolve()), WithWindow=False)
     try:
         for num, name in {**README_SLIDES, **EXTRA_SLIDES}.items():
             out_path = str((OUT / name).resolve())
