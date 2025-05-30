@@ -7,11 +7,15 @@ from pathlib import Path
 
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
+from pptx.enum.text import MSO_AUTO_SIZE
 from pptx.oxml.ns import qn
 from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "presentation_source.pptx"
+
+DEFAULT_FONT = "Pretendard Medium"
+DEFAULT_BOLD = "Pretendard Bold"
 
 
 def _clear_bullets(paragraph) -> None:
@@ -29,15 +33,59 @@ def _clear_bullets(paragraph) -> None:
             p_pr.remove(child)
 
 
+def _read_font(paragraph) -> tuple[str, object | None]:
+    if paragraph.runs:
+        run = paragraph.runs[0]
+        return run.font.name or DEFAULT_FONT, run.font.size
+    return DEFAULT_FONT, Pt(12)
+
+
+def _apply_font(tf, name: str, size) -> None:
+    for para in tf.paragraphs:
+        _clear_bullets(para)
+        para.level = 0
+        for run in para.runs:
+            run.font.name = name
+            if size is not None:
+                run.font.size = size
+
+
+def _write_single_line(shape, text: str, *, font_name: str | None = None, font_size=None) -> None:
+    tf = shape.text_frame
+    name, size = _read_font(tf.paragraphs[0])
+    if font_name:
+        name = font_name
+    if font_size is not None:
+        size = font_size
+
+    tf.word_wrap = False
+    tf.auto_size = MSO_AUTO_SIZE.NONE
+    tf.text = text
+    _apply_font(tf, name, size)
+
+
+def _write_multiline(shape, lines: list[str]) -> None:
+    tf = shape.text_frame
+    name, size = _read_font(tf.paragraphs[0])
+    tf.word_wrap = True
+    tf.auto_size = MSO_AUTO_SIZE.NONE
+    tf.text = "\n".join(lines)
+    _apply_font(tf, name, size)
+
+
+def _no_wrap(shape, min_width_in: float) -> None:
+    shape.text_frame.word_wrap = False
+    shape.text_frame.auto_size = MSO_AUTO_SIZE.NONE
+    if shape.width < int(Inches(min_width_in)):
+        shape.width = int(Inches(min_width_in))
+
+
 def _plain_bullet(shape, text: str) -> None:
     tf = shape.text_frame
-    tf.margin_left = Pt(20)
-    tf.margin_right = Pt(8)
-    tf.word_wrap = True
-    para = tf.paragraphs[0]
-    _clear_bullets(para)
-    para.level = 0
-    para.text = f"• {text.lstrip('• ').strip()}"
+    tf.margin_left = Pt(18)
+    tf.margin_right = Pt(10)
+    clean = text.lstrip("• ").strip()
+    _write_single_line(shape, f"• {clean}")
 
 
 def _patch_hero(slide) -> None:
@@ -64,25 +112,27 @@ def _patch_hero(slide) -> None:
 
     if sympo_shape is not None:
         sympo_shape.width = int(Inches(11.2))
+        sympo_shape.text_frame.word_wrap = False
 
     if title_shape is not None:
         title_shape.left = int(Inches(12.8))
         title_shape.width = int(Inches(13.8))
+        title_shape.text_frame.word_wrap = False
 
 
 def _patch_pipeline(slide) -> None:
     single_line = {
-        "WBS 생성\n에이전트": ("WBS 생성 에이전트", 2.55),
-        "태스크 관리\n에이전트": ("태스크 관리 에이전트", 2.55),
-        "프로젝트\n명세서": ("프로젝트 명세서", 2.35),
+        "WBS 생성\n에이전트": ("WBS 생성 에이전트", 2.5),
+        "태스크 관리\n에이전트": ("태스크 관리 에이전트", 2.5),
+        "프로젝트\n명세서": ("프로젝트 명세서", 2.3),
         "팀원\n에이전트": ("팀원 에이전트", 2.2),
     }
-    widen_only = {
-        "태스크별 성향\u00a0기반\n팀원\u00a0에이전트 호출": 5.2,
-        "계층형 프로젝트\u00a0\nWBS 초안 생성": 5.2,
-        "회의 음성 및\u00a0\n프로젝트 명세서 입력": 4.8,
-        "팀원 에이전트 간\n토의 후 피드백 요청": 4.8,
-        "피드백 반영 후 업무\u00a0\n분배된 최종 WBS 도출": 5.0,
+    caption_lines = {
+        "태스크별 성향\u00a0기반\n팀원\u00a0에이전트 호출": ["태스크별 성향 기반", "팀원 에이전트 호출"],
+        "계층형 프로젝트\u00a0\nWBS 초안 생성": ["계층형 프로젝트", "WBS 초안 생성"],
+        "회의 음성 및\u00a0\n프로젝트 명세서 입력": ["회의 음성 및", "프로젝트 명세서 입력"],
+        "팀원 에이전트 간\n토의 후 피드백 요청": ["팀원 에이전트 간", "토의 후 피드백 요청"],
+        "피드백 반영 후 업무\u00a0\n분배된 최종 WBS 도출": ["피드백 반영 후", "최종 WBS 도출"],
     }
 
     for sh in slide.shapes:
@@ -91,13 +141,17 @@ def _patch_pipeline(slide) -> None:
         text = sh.text_frame.text
         if text in single_line:
             new_text, w = single_line[text]
-            sh.text_frame.text = new_text
+            _write_single_line(sh, new_text)
             sh.width = int(Inches(w))
-        elif text in widen_only:
-            sh.width = int(Inches(widen_only[text]))
-            tf = sh.text_frame
-            tf.margin_left = Pt(4)
-            tf.margin_right = Pt(4)
+        elif text in caption_lines:
+            _write_multiline(sh, caption_lines[text])
+            sh.width = int(Inches(4.65))
+            sh.text_frame.margin_left = Pt(6)
+            sh.text_frame.margin_right = Pt(6)
+
+    for sh in slide.shapes:
+        if sh.has_text_frame and "팀원 메타 데이터" in sh.text_frame.text:
+            _no_wrap(sh, 20.0)
 
 
 def _patch_outputs(slide) -> None:
@@ -108,17 +162,26 @@ def _patch_outputs(slide) -> None:
         if not text:
             continue
 
+        if text == "프로젝트 출력물":
+            _write_single_line(sh, text, font_name=DEFAULT_BOLD)
+            _no_wrap(sh, 8.5)
+            continue
+
+        if text in ("WBS 최종본(작업 분할 구조도)", "프로젝트 일정표 (Gantt Chart)"):
+            _no_wrap(sh, 10.0)
+            continue
+
         if text in ("WBS 최종본 산출 구조", "일정 시각화 특징"):
-            sh.width = int(Inches(5.5))
+            _write_single_line(sh, text, font_name=DEFAULT_BOLD)
+            _no_wrap(sh, 6.2)
             sh.height = int(Inches(0.85))
             sh.text_frame.margin_bottom = Pt(10)
-            sh.text_frame.word_wrap = False
             continue
 
         if text.startswith(("3단계", "R&R", "프로젝트 메트릭", "직관적", "태스크 연결성")):
             _plain_bullet(sh, text)
-            sh.width = int(Inches(11.6))
-            sh.top += int(Inches(0.14))
+            sh.width = int(Inches(11.8))
+            sh.top += int(Inches(0.12))
 
 
 def patch_presentation(src: Path = SOURCE) -> Path:
