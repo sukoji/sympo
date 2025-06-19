@@ -121,11 +121,16 @@ def _patch_hero(slide) -> None:
 
 
 def _patch_pipeline(slide) -> None:
-    single_line = {
-        "WBS 생성\n에이전트": ("WBS 생성 에이전트", 2.5),
-        "태스크 관리\n에이전트": ("태스크 관리 에이전트", 2.5),
-        "프로젝트\n명세서": ("프로젝트 명세서", 2.3),
-        "팀원\n에이전트": ("팀원 에이전트", 2.2),
+    # Micro-labels overlaid directly on the illustration icons. Each stage's
+    # bottom caption already names it, so these overlays are redundant clutter
+    # that collides with the graphics ("글자 깨짐"). Drop them for a clean
+    # icon + stage-title + caption layout.
+    drop_labels = {
+        "회의 음성",
+        "프로젝트\n명세서",
+        "WBS 생성\n에이전트",
+        "태스크 관리\n에이전트",
+        "팀원\n에이전트",
     }
     caption_lines = {
         "태스크별 성향\u00a0기반\n팀원\u00a0에이전트 호출": ["태스크별 성향 기반", "팀원 에이전트 호출"],
@@ -135,19 +140,30 @@ def _patch_pipeline(slide) -> None:
         "피드백 반영 후 업무\u00a0\n분배된 최종 WBS 도출": ["피드백 반영 후", "최종 WBS 도출"],
     }
 
+    to_remove = []
     for sh in slide.shapes:
         if not sh.has_text_frame:
             continue
         text = sh.text_frame.text
-        if text in single_line:
-            new_text, w = single_line[text]
-            _write_single_line(sh, new_text)
-            sh.width = int(Inches(w))
+        if text in drop_labels:
+            to_remove.append(sh._element)
         elif text in caption_lines:
             _write_multiline(sh, caption_lines[text])
             sh.width = int(Inches(4.65))
             sh.text_frame.margin_left = Pt(6)
             sh.text_frame.margin_right = Pt(6)
+
+    for el in to_remove:
+        el.getparent().remove(el)
+
+    # Debate speech labels are boxed too narrow and wrap mid-word
+    # ("수정 요\n청!"). Keep them on a single line.
+    debate_labels = {"수정 요청!", "수정 명령!"}
+    for sh in slide.shapes:
+        if sh.has_text_frame and sh.text_frame.text in debate_labels:
+            sh.text_frame.word_wrap = False
+            sh.text_frame.auto_size = MSO_AUTO_SIZE.NONE
+            sh.width = int(Inches(1.7))
 
     for sh in slide.shapes:
         if sh.has_text_frame and "팀원 메타 데이터" in sh.text_frame.text:
