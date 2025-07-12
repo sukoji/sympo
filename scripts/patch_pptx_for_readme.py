@@ -13,6 +13,7 @@ from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "presentation_source.pptx"
+GANTT_IMG = ROOT / "docs" / "assets" / "figures" / "gantt_ko.png"
 
 DEFAULT_FONT = "Pretendard Medium"
 DEFAULT_BOLD = "Pretendard Bold"
@@ -170,6 +171,34 @@ def _patch_pipeline(slide) -> None:
             _no_wrap(sh, 20.0)
 
 
+def _replace_gantt(slide) -> None:
+    """Swap the pasted Gantt bitmap (a diagonal staircase with no parallelism)
+    for a proper phase-grouped project plan rendered by build_gantt_figure.py."""
+    if not GANTT_IMG.exists():
+        return
+
+    # The Gantt lives on the right half as one or more pasted pictures.
+    targets = [
+        sh for sh in slide.shapes
+        if sh.shape_type == MSO_SHAPE_TYPE.PICTURE
+        and sh.left > int(Inches(13))
+        and int(Inches(3.5)) < sh.top < int(Inches(10.5))
+        and sh.width > int(Inches(4))
+    ]
+    if not targets:
+        return
+
+    for sh in targets:
+        sh._element.getparent().remove(sh._element)
+
+    # gantt_ko.png is authored at 12.93 x 6.4 in — drop it into the same box.
+    slide.shapes.add_picture(
+        str(GANTT_IMG),
+        int(Inches(13.32)), int(Inches(3.85)),
+        int(Inches(12.93)), int(Inches(6.4)),
+    )
+
+
 def _patch_outputs(slide) -> None:
     for sh in slide.shapes:
         if not sh.has_text_frame:
@@ -212,6 +241,7 @@ def patch_presentation(src: Path = SOURCE) -> Path:
     _patch_hero(prs.slides[0])
     _patch_pipeline(prs.slides[9])
     _patch_outputs(prs.slides[35])
+    _replace_gantt(prs.slides[35])
     prs.save(str(out))
     return out
 
