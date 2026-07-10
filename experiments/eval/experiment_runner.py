@@ -25,7 +25,10 @@ from typing import Dict, Any, List
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 _SRC = os.path.join(_ROOT, "src")
-for _p in (_SRC, _ROOT):
+_EXPERIMENTS = os.path.join(_ROOT, "experiments")
+# _EXPERIMENTS: src/metrics.py 가 'eval_results.autoscore_recompute' 를 import 하므로
+# experiments/ 를 경로에 넣어 eval_results 패키지를 최상위로 노출한다.
+for _p in (_SRC, _ROOT, _EXPERIMENTS):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 

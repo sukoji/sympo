@@ -515,6 +515,12 @@ class MockLLM:
         """프롬프트 키워드 기반 Mock 응답 생성"""
         prompt_lower = prompt.lower()
 
+        # 0. WBS 초안 생성 프롬프트는 역할 키워드보다 먼저 감지.
+        #    (초안 지침 본문에 '백엔드/프론트/QA' 등 역할 단어가 섞여 있어
+        #     역할 리뷰 브랜치로 오라우팅되면 JSON 대신 리뷰 텍스트가 나가 WBS 파싱이 실패함)
+        if "[wbs gen agent]" in prompt_lower:
+            return self._supervisor_response(prompt)
+
         # 1. 특정 역할 명시적 요청 시 우선 순위
         if "planner" in prompt_lower or "플래너" in prompt_lower:
             return self._planner_response(prompt)
